@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Conda / virtual environments
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Arduino build artifacts
+*.hex
+*.elf
+*.bin
+*.map
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary/scratch files
+scratch/
+tmp/
+
+# Generated archives
+*.zip
+*.tar
+*.tar.gz

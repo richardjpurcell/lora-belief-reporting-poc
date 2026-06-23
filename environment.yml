@@ -1,0 +1,7 @@
+name: dcoss-lora-poc
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+prefix: /opt/anaconda3/envs/dcoss-lora-poc
