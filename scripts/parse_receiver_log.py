@@ -153,6 +153,74 @@ def summarize(valid: pd.DataFrame, malformed: pd.DataFrame) -> None:
     print(interarrival.round(3).to_string())
 
 
+def summarize_seq_windows(valid: pd.DataFrame, seq_window: int) -> None:
+    if seq_window <= 0 or valid.empty:
+        return
+
+    tmp = valid.copy()
+    tmp["seq_window"] = (tmp["seq"].astype(int) // seq_window) * seq_window
+
+    rows = []
+
+    for (tx_id, node_id, seq_window_start), group in tmp.groupby(
+        ["tx_id", "node_id", "seq_window"]
+    ):
+        seqs = sorted(group["seq"].astype(int).unique())
+        expected = set(range(min(seqs), max(seqs) + 1))
+        observed = set(seqs)
+        missing = sorted(expected - observed)
+
+        sorted_group = group.sort_values("recv_ms").copy()
+        interarrival_s = sorted_group["recv_ms"].diff() / 1000.0
+
+        rows.append(
+            {
+                "tx_id": tx_id,
+                "node_id": node_id,
+                "seq_window_start": int(seq_window_start),
+                "seq_window_end": int(seq_window_start + seq_window - 1),
+                "packets": int(group["seq"].count()),
+                "seq_min": int(group["seq"].min()),
+                "seq_max": int(group["seq"].max()),
+                "missing_count": int(len(missing)),
+                "total_usefulness": float(group["usefulness"].sum()),
+                "mean_usefulness": float(group["usefulness"].mean()),
+                "total_priority": float(group["priority"].sum()),
+                "mean_priority": float(group["priority"].mean()),
+                "mean_rssi": float(group["rssi"].mean()),
+                "mean_snr": float(group["snr"].mean()),
+                "mean_interarrival_s": float(interarrival_s.mean()),
+                "min_interarrival_s": float(interarrival_s.min()),
+                "max_interarrival_s": float(interarrival_s.max()),
+            }
+        )
+
+    summary = pd.DataFrame(rows).sort_values(
+        ["tx_id", "node_id", "seq_window_start"]
+    )
+
+    print()
+    print(f"Usefulness by node and sequence window, window={seq_window}:")
+    display_cols = [
+        "tx_id",
+        "node_id",
+        "seq_window_start",
+        "seq_window_end",
+        "packets",
+        "seq_min",
+        "seq_max",
+        "missing_count",
+        "total_usefulness",
+        "mean_usefulness",
+        "total_priority",
+        "mean_priority",
+        "mean_rssi",
+        "mean_snr",
+        "mean_interarrival_s",
+    ]
+    print(summary[display_cols].round(3).to_string(index=False))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Parse ESP32 LoRa receiver CSV logs.")
     parser.add_argument("--infile", required=True, help="Input CSV from receiver_logger.py")
@@ -161,6 +229,12 @@ def main() -> int:
         "--rejects",
         default=None,
         help="Malformed/rejected packet CSV. Default: <out> with _rejects suffix.",
+    )
+    parser.add_argument(
+        "--seq-window",
+        type=int,
+        default=None,
+        help="Optional sequence-window size for usefulness summaries, e.g. 50.",
     )
     args = parser.parse_args()
 
@@ -204,6 +278,9 @@ def main() -> int:
     print(f"Wrote malformed packets to: {rejects}")
 
     summarize(valid, malformed)
+
+    if args.seq_window:
+        summarize_seq_windows(valid, args.seq_window)
 
     return 0
 
