@@ -63,7 +63,7 @@ void loop() {
   }
 
   String payload =
-    "R11,TXB,N16," +
+    "R12,TXB,N16," +
     String(seq) + "," +
     String(millis()) +
     ",B,1," +
