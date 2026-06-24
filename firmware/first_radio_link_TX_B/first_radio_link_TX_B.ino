@@ -63,7 +63,7 @@ void loop() {
   }
 
   String payload =
-    "R12,TXB,N16," +
+    "R13,TXB,N16," +
     String(seq) + "," +
     String(millis()) +
     ",B,1," +
@@ -79,5 +79,5 @@ void loop() {
   LoRa.endPacket();
 
   seq++;
-  delay(1000);
+  delay(750);
 }
