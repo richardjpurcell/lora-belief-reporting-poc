@@ -19,7 +19,7 @@ void setup() {
   delay(1500);
 
   Serial.println();
-  Serial.println("=== TX-A: LilyGO LoRa32 sender ===");
+  Serial.println("=== TX-B: LilyGO LoRa32 sender ===");
 
   SPI.begin(LORA_SCK, LORA_MISO, LORA_MOSI, LORA_SS);
   LoRa.setPins(LORA_SS, LORA_RST, LORA_DIO0);
@@ -41,7 +41,35 @@ void setup() {
 }
 
 void loop() {
-  String payload = "R10,TXB,N16," + String(seq) + "," + String(millis()) + ",B,1,0.90,0.80,30,U";
+  float priority;
+  float usefulness;
+
+  // TX-B is the demand-like stream.
+  // Every 50 sequence numbers, usefulness/priority changes phase.
+  int phase = (seq / 50) % 4;
+
+  if (phase == 0) {
+    priority = 0.30;
+    usefulness = 0.20;
+  } else if (phase == 1) {
+    priority = 0.95;
+    usefulness = 0.85;
+  } else if (phase == 2) {
+    priority = 0.40;
+    usefulness = 0.30;
+  } else {
+    priority = 0.95;
+    usefulness = 0.90;
+  }
+
+  String payload =
+    "R12,TXB,N16," +
+    String(seq) + "," +
+    String(millis()) +
+    ",B,1," +
+    String(priority, 2) + "," +
+    String(usefulness, 2) +
+    ",30,U";
 
   Serial.print("sending: ");
   Serial.println(payload);
@@ -51,5 +79,5 @@ void loop() {
   LoRa.endPacket();
 
   seq++;
-  delay(750);
+  delay(1000);
 }

@@ -40,7 +40,35 @@ void setup() {
 }
 
 void loop() {
-  String payload = "R10,TXA,N01," + String(seq) + "," + String(millis()) + ",A,1,0.30,0.25,30,R";
+  float priority;
+  float usefulness;
+
+  // TX-A is the lower-value baseline stream.
+  // Deterministic mild variation keeps the run reproducible.
+  int phase = seq % 4;
+
+  if (phase == 0) {
+    priority = 0.25;
+    usefulness = 0.20;
+  } else if (phase == 1) {
+    priority = 0.30;
+    usefulness = 0.25;
+  } else if (phase == 2) {
+    priority = 0.35;
+    usefulness = 0.30;
+  } else {
+    priority = 0.40;
+    usefulness = 0.35;
+  }
+
+  String payload =
+    "R12,TXA,N01," +
+    String(seq) + "," +
+    String(millis()) +
+    ",A,1," +
+    String(priority, 2) + "," +
+    String(usefulness, 2) +
+    ",30,R";
 
   Serial.print("sending: ");
   Serial.println(payload);
@@ -50,5 +78,5 @@ void loop() {
   LoRa.endPacket();
 
   seq++;
-  delay(750);
+  delay(1000);
 }

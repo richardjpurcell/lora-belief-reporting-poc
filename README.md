@@ -30,6 +30,29 @@ Completed milestones include:
 * parser support for valid and malformed packets;
 * reporting-rate ladder Runs 005-010.
 
+
+v0.2 dynamic usefulness checkpoint:
+
+Branch `exp011-dynamic-usefulness` extends the initial reporting-rate ladder by
+moving from fixed usefulness metadata to time-varying usefulness metadata
+generated directly in transmitter firmware.
+
+Runs 011 and 012 preserve the same packet schema as the v0.1 runs, but TXB/N16+now emits demand-like usefulness phases while TXA/N01 remains a lower-value
+baseline stream. The parser now supports `--seq-window`, allowing usefulness and
+priority to be summarized by sequence window.
+
+Run 012 is the cleanest v0.2 result. It used freshly reset transmitters at a
+1000 ms reporting interval. TXA/N01 delivered 245 packets and TXB/N16 delivered
+247 packets. Despite nearly equal delivery counts, TXA/N01 delivered total
+usefulness 67.35 while TXB/N16 delivered total usefulness 121.90. The
+sequence-window summary recovered the intended TXB/N16 low/high/low/high
+usefulness pattern.
+
+This supports the proof-of-concept claim that packet delivery count and
+delivered usefulness are not equivalent, and that a physical LoRa testbed can
+carry synthetic epistemic metadata whose usefulness varies over time.
+
+
 The current receiver-row schema is:
 
 RX,recv_ms,run_id,tx_id,node_id,seq,tx_ms,region,event,priority,usefulness,stale_after,policy,rssi,snr
