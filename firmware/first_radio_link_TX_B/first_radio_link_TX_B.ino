@@ -13,11 +13,12 @@
 // North America / Canada ISM band
 #define LORA_BAND 915E6
 
-const char* RUN_ID = "R15";
+const char* RUN_ID = "R17";
 const char* TX_ID = "TXB";
 const char* NODE_ID = "N16";
 
 const unsigned long SEND_INTERVAL_MS = 1000;
+const unsigned long STARTUP_OFFSET_MS = 500;
 uint16_t trace_index = 0;
 uint32_t packet_seq = 0;
 unsigned long last_send_ms = 0;
@@ -45,6 +46,10 @@ void setup() {
   LoRa.setTxPower(10);
 
   Serial.println("LoRa init OK.");
+  Serial.print("Startup offset ms: ");
+  Serial.println(STARTUP_OFFSET_MS);
+  delay(STARTUP_OFFSET_MS);
+
   Serial.println("Sending packets...");
 }
 
