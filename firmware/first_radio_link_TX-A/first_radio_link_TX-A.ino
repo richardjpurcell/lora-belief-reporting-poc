@@ -19,6 +19,7 @@ const char* NODE_ID = "N01";
 
 const unsigned long SEND_INTERVAL_MS = 1000;
 uint16_t trace_index = 0;
+uint32_t packet_seq = 0;
 unsigned long last_send_ms = 0;
 
 void setup() {
@@ -54,11 +55,11 @@ void sendTracePacket() {
   snprintf(
     payload,
     sizeof(payload),
-    "%s,%s,%s,%u,%lu,%c,%u,%.2f,%.2f,%u,%c",
+    "%s,%s,%s,%lu,%lu,%c,%u,%.2f,%.2f,%u,%c",
     RUN_ID,
     TX_ID,
     NODE_ID,
-    row.seq,
+    (unsigned long)packet_seq,
     millis(),
     row.region,
     row.event,
@@ -76,6 +77,7 @@ void sendTracePacket() {
   LoRa.endPacket();
 
   trace_index++;
+  packet_seq++;
 }
 
 void loop() {
