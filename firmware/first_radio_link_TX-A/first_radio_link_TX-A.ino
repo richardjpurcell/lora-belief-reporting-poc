@@ -1,5 +1,6 @@
 #include <SPI.h>
 #include <LoRa.h>
+#include "trace_data_TXA.h"
 
 // LilyGO LoRa32 / T3-style pin mapping
 #define LORA_SCK   5
@@ -12,7 +13,13 @@
 // North America / Canada ISM band
 #define LORA_BAND 915E6
 
-int seq = 0;
+const char* RUN_ID = "R15";
+const char* TX_ID = "TXA";
+const char* NODE_ID = "N01";
+
+const unsigned long SEND_INTERVAL_MS = 1000;
+uint16_t trace_index = 0;
+unsigned long last_send_ms = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -39,36 +46,27 @@ void setup() {
   Serial.println("Sending packets...");
 }
 
-void loop() {
-  float priority;
-  float usefulness;
+void sendTracePacket() {
+  const TraceRow& row = TRACE_ROWS[trace_index % TRACE_ROW_COUNT];
 
-  // TX-A is the lower-value baseline stream.
-  // Deterministic mild variation keeps the run reproducible.
-  int phase = seq % 4;
+  char payload[160];
 
-  if (phase == 0) {
-    priority = 0.25;
-    usefulness = 0.20;
-  } else if (phase == 1) {
-    priority = 0.30;
-    usefulness = 0.25;
-  } else if (phase == 2) {
-    priority = 0.35;
-    usefulness = 0.30;
-  } else {
-    priority = 0.40;
-    usefulness = 0.35;
-  }
-
-  String payload =
-    "R14,TXA,N01," +
-    String(seq) + "," +
-    String(millis()) +
-    ",A,1," +
-    String(priority, 2) + "," +
-    String(usefulness, 2) +
-    ",30,R";
+  snprintf(
+    payload,
+    sizeof(payload),
+    "%s,%s,%s,%u,%lu,%c,%u,%.2f,%.2f,%u,%c",
+    RUN_ID,
+    TX_ID,
+    NODE_ID,
+    row.seq,
+    millis(),
+    row.region,
+    row.event,
+    row.priority,
+    row.usefulness,
+    row.stale_after,
+    row.policy
+  );
 
   Serial.print("sending: ");
   Serial.println(payload);
@@ -77,6 +75,14 @@ void loop() {
   LoRa.print(payload);
   LoRa.endPacket();
 
-  seq++;
-  delay(750);
+  trace_index++;
+}
+
+void loop() {
+  unsigned long now = millis();
+
+  if (now - last_send_ms >= SEND_INTERVAL_MS) {
+    last_send_ms = now;
+    sendTracePacket();
+  }
 }
