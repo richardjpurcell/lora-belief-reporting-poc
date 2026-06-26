@@ -44,7 +44,17 @@
         "end": 319,
         "usefulness": 0.85
       }
-    ]
+    ],
+    "region_codes": {
+      "A": "synthetic region A"
+    },
+    "event_codes": {
+      "0": "belief-demand metadata event"
+    },
+    "policy_codes": {
+      "F": "fixed_all",
+      "U": "usefulness_threshold"
+    }
   },
   "policies": [
     {
@@ -77,6 +87,7 @@
     "recv_ms and tx_ms are not synchronized across boards",
     "observed sequence gaps are not direct collision evidence",
     "v0.5 controls trace content, not yet true LoRa airtime scheduling",
-    "seq is the emitted packet sequence, not the original base-demand row index"
+    "seq is the emitted packet sequence, not the original base-demand row index",
+    "CSV traces use the existing compiled-header input schema"
   ]
 }

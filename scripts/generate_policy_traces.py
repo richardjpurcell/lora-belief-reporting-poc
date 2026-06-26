@@ -8,9 +8,7 @@ v0.5 goal:
     TX-A: fixed_all baseline
     TX-B: usefulness_threshold
 - Preserve the existing packet schema:
-    run_id,tx_id,node_id,seq,tx_ms,region,event,priority,usefulness,stale_after,policy
-
-Important:
+    seq,region,event,priority,usefulness,stale_after,policy
 - seq is the emitted packet sequence, not the original base-demand row index.
 - This avoids treating intentional policy filtering as observed sequence gaps.
 """
@@ -32,11 +30,7 @@ TXB_TRACE = OUT_DIR / "run019_txb_usefulness_threshold.csv"
 MANIFEST = OUT_DIR / "run019_policy_manifest.json"
 
 FIELDNAMES = [
-    "run_id",
-    "tx_id",
-    "node_id",
     "seq",
-    "tx_ms",
     "region",
     "event",
     "priority",
@@ -59,17 +53,17 @@ PHASE_SCHEDULE = [
 
 BASE_ROWS = 320
 TX_INTERVAL_MS = 1000
-STALE_AFTER_MS = 3000
+STALE_AFTER = 30
 THRESHOLD = 0.50
 
 
-def priority_from_usefulness(usefulness: float) -> int:
-    """Map usefulness to a simple priority ladder."""
+def priority_from_usefulness(usefulness: float) -> float:
+    """Map usefulness to the existing trace priority scale."""
     if usefulness >= 0.85:
-        return 3
+        return 0.90
     if usefulness >= 0.50:
-        return 2
-    return 1
+        return 0.60
+    return 0.25
 
 
 def usefulness_for_index(index: int) -> float:
@@ -90,11 +84,11 @@ def build_base_demand_rows() -> list[dict[str, Any]]:
             {
                 "base_index": idx,
                 "tx_ms": idx * TX_INTERVAL_MS,
-                "region": "R1",
-                "event": "belief_demand",
+                "region": "A",
+                "event": "0",
                 "priority": priority_from_usefulness(usefulness),
                 "usefulness": usefulness,
-                "stale_after": STALE_AFTER_MS,
+                "stale_after": STALE_AFTER,
             }
         )
 
@@ -127,19 +121,17 @@ def emit_policy_rows(
         if not should_emit:
             continue
 
+        policy_code = "F" if policy == "fixed_all" else "U"
+
         emitted.append(
             {
-                "run_id": RUN_ID,
-                "tx_id": tx_id,
-                "node_id": node_id,
                 "seq": len(emitted),
-                "tx_ms": len(emitted) * TX_INTERVAL_MS,
                 "region": row["region"],
                 "event": row["event"],
-                "priority": row["priority"],
-                "usefulness": f"{usefulness:.2f}",
+                "priority": f'{float(row["priority"]):.3f}',
+                "usefulness": f"{usefulness:.3f}",
                 "stale_after": row["stale_after"],
-                "policy": policy,
+                "policy": policy_code,
             }
         )
 
@@ -200,6 +192,16 @@ def write_manifest(
             "source": "synthetic",
             "rows": len(base_rows),
             "phase_schedule": PHASE_SCHEDULE,
+            "region_codes": {
+                "A": "synthetic region A",
+            },
+            "event_codes": {
+                "0": "belief-demand metadata event",
+            },
+            "policy_codes": {
+                "F": "fixed_all",
+                "U": "usefulness_threshold",
+            },
         },
         "policies": [
             {
@@ -233,6 +235,7 @@ def write_manifest(
             "observed sequence gaps are not direct collision evidence",
             "v0.5 controls trace content, not yet true LoRa airtime scheduling",
             "seq is the emitted packet sequence, not the original base-demand row index",
+            "CSV traces use the existing compiled-header input schema",
         ],
     }
 
