@@ -1,0 +1,4 @@
+wall_time_utc,serial_port,raw_line,parse_error
+2026-06-26T13:56:36.909+00:00,/dev/cu.usbserial-576B0005451,"RX,3495720,�d�����t�q�?(������݁�\�����0F3p�^","expected 15 fields, got 3"
+2026-06-26T13:56:36.920+00:00,/dev/cu.usbserial-576B0005451,����i�3l9�Ѹq��,"expected 15 fields, got 1"
+2026-06-26T13:56:36.926+00:00,/dev/cu.usbserial-576B0005451,"�H^(��G����$�!�al=��������4�g����z�*�B����kQ6�f/�d��=��b�pCwq����Hl�ii�%�b,-116,-11.75","expected 15 fields, got 3"
