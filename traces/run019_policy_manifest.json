@@ -3,7 +3,7 @@
   "milestone": "v0.5-policy-controlled-synthetic-traces",
   "generator": {
     "name": "generate_policy_traces.py",
-    "version": "0.1"
+    "version": "0.2"
   },
   "base_demand": {
     "source": "synthetic",

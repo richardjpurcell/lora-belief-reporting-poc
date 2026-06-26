@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Generate policy-controlled synthetic belief-demand traces for Run 019.
+Generate policy-controlled synthetic belief-demand traces.
 
-v0.5 goal:
+Default v0.5 / Run 019 behavior:
 - Build one shared synthetic belief-demand substrate.
 - Emit two policy-conditioned traces:
     TX-A: fixed_all baseline
@@ -15,19 +15,18 @@ v0.5 goal:
 
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 from pathlib import Path
 from typing import Any
 
 
-RUN_ID = "R19"
-OUT_DIR = Path("traces")
-
-BASE_TRACE = OUT_DIR / "run019_base_demand.csv"
-TXA_TRACE = OUT_DIR / "run019_txa_fixed_all.csv"
-TXB_TRACE = OUT_DIR / "run019_txb_usefulness_threshold.csv"
-MANIFEST = OUT_DIR / "run019_policy_manifest.json"
+DEFAULT_RUN_ID = "R19"
+DEFAULT_RUN_NUMBER = "019"
+DEFAULT_OUT_DIR = Path("traces")
+DEFAULT_THRESHOLD = 0.50
+GENERATOR_VERSION = "0.2"
 
 FIELDNAMES = [
     "seq",
@@ -54,7 +53,6 @@ PHASE_SCHEDULE = [
 BASE_ROWS = 320
 TX_INTERVAL_MS = 1000
 STALE_AFTER = 30
-THRESHOLD = 0.50
 
 
 def priority_from_usefulness(usefulness: float) -> float:
@@ -177,16 +175,18 @@ def mean_usefulness(rows: list[dict[str, Any]]) -> float:
 def write_manifest(
     path: Path,
     *,
+    run_id: str,
+    threshold: float,
     base_rows: list[dict[str, Any]],
     txa_rows: list[dict[str, Any]],
     txb_rows: list[dict[str, Any]],
 ) -> None:
     manifest = {
-        "run_id": RUN_ID,
+        "run_id": run_id,
         "milestone": "v0.5-policy-controlled-synthetic-traces",
         "generator": {
             "name": "generate_policy_traces.py",
-            "version": "0.1",
+            "version": GENERATOR_VERSION,
         },
         "base_demand": {
             "source": "synthetic",
@@ -219,7 +219,7 @@ def write_manifest(
                 "node_id": "N16",
                 "policy": "usefulness_threshold",
                 "rule": "emit rows with usefulness >= threshold",
-                "threshold": THRESHOLD,
+                "threshold": threshold,
                 "emitted_rows": len(txb_rows),
                 "generated_total_usefulness": round(total_usefulness(txb_rows), 3),
                 "generated_mean_usefulness": round(mean_usefulness(txb_rows), 3),
@@ -244,8 +244,45 @@ def write_manifest(
         f.write("\n")
 
 
+def run_number_from_run_id(run_id: str) -> str:
+    """Return a lowercase numeric run suffix for filenames.
+
+    Examples:
+        R19 -> 019
+        R019 -> 019
+        R20 -> 020
+    """
+    stripped = run_id.strip()
+    if not stripped:
+        raise ValueError("run_id cannot be empty")
+
+    if stripped[0].upper() == "R":
+        stripped = stripped[1:]
+
+    if not stripped.isdigit():
+        raise ValueError(f"run_id must look like R19 or R019, got {run_id!r}")
+
+    return f"{int(stripped):03d}"
+
+
 def main() -> None:
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--run-id", default=DEFAULT_RUN_ID)
+    parser.add_argument("--threshold", default=DEFAULT_THRESHOLD, type=float)
+    parser.add_argument("--out-dir", default=DEFAULT_OUT_DIR, type=Path)
+    args = parser.parse_args()
+
+    if not (0.0 <= args.threshold <= 1.0):
+        raise ValueError("--threshold must be in [0, 1]")
+
+    run_number = run_number_from_run_id(args.run_id)
+    out_dir: Path = args.out_dir
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    base_trace = out_dir / f"run{run_number}_base_demand.csv"
+    txa_trace = out_dir / f"run{run_number}_txa_fixed_all.csv"
+    txb_trace = out_dir / f"run{run_number}_txb_usefulness_threshold.csv"
+    manifest = out_dir / f"run{run_number}_policy_manifest.json"
 
     base_rows = build_base_demand_rows()
 
@@ -261,20 +298,22 @@ def main() -> None:
         tx_id="TXB",
         node_id="N16",
         policy="usefulness_threshold",
-        threshold=THRESHOLD,
+        threshold=args.threshold,
     )
 
-    write_base_trace(BASE_TRACE, base_rows)
-    write_packet_trace(TXA_TRACE, txa_rows)
-    write_packet_trace(TXB_TRACE, txb_rows)
+    write_base_trace(base_trace, base_rows)
+    write_packet_trace(txa_trace, txa_rows)
+    write_packet_trace(txb_trace, txb_rows)
     write_manifest(
-        MANIFEST,
+        manifest,
+        run_id=args.run_id,
+        threshold=args.threshold,
         base_rows=base_rows,
         txa_rows=txa_rows,
         txb_rows=txb_rows,
     )
 
-    print("Generated Run 019 policy-controlled traces")
+    print(f"Generated {args.run_id} policy-controlled traces")
     print()
     print(f"Base demand rows: {len(base_rows)}")
     print()
@@ -287,15 +326,15 @@ def main() -> None:
     print(
         "TXB/N16 usefulness_threshold: "
         f"{len(txb_rows)} rows, "
-        f"threshold={THRESHOLD:.2f}, "
+        f"threshold={args.threshold:.2f}, "
         f"total usefulness={total_usefulness(txb_rows):.2f}, "
         f"mean usefulness={mean_usefulness(txb_rows):.3f}"
     )
     print()
-    print(f"Wrote {BASE_TRACE}")
-    print(f"Wrote {TXA_TRACE}")
-    print(f"Wrote {TXB_TRACE}")
-    print(f"Wrote {MANIFEST}")
+    print(f"Wrote {base_trace}")
+    print(f"Wrote {txa_trace}")
+    print(f"Wrote {txb_trace}")
+    print(f"Wrote {manifest}")
 
 
 if __name__ == "__main__":
