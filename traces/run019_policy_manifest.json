@@ -1,0 +1,82 @@
+{
+  "run_id": "R19",
+  "milestone": "v0.5-policy-controlled-synthetic-traces",
+  "generator": {
+    "name": "generate_policy_traces.py",
+    "version": "0.1"
+  },
+  "base_demand": {
+    "source": "synthetic",
+    "rows": 320,
+    "phase_schedule": [
+      {
+        "start": 0,
+        "end": 49,
+        "usefulness": 0.2
+      },
+      {
+        "start": 50,
+        "end": 99,
+        "usefulness": 0.85
+      },
+      {
+        "start": 100,
+        "end": 149,
+        "usefulness": 0.3
+      },
+      {
+        "start": 150,
+        "end": 199,
+        "usefulness": 0.9
+      },
+      {
+        "start": 200,
+        "end": 249,
+        "usefulness": 0.2
+      },
+      {
+        "start": 250,
+        "end": 299,
+        "usefulness": 0.2
+      },
+      {
+        "start": 300,
+        "end": 319,
+        "usefulness": 0.85
+      }
+    ]
+  },
+  "policies": [
+    {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "policy": "fixed_all",
+      "rule": "emit every base demand row",
+      "threshold": null,
+      "emitted_rows": 320,
+      "generated_total_usefulness": 149.5,
+      "generated_mean_usefulness": 0.467
+    },
+    {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "policy": "usefulness_threshold",
+      "rule": "emit rows with usefulness >= threshold",
+      "threshold": 0.5,
+      "emitted_rows": 120,
+      "generated_total_usefulness": 104.5,
+      "generated_mean_usefulness": 0.871
+    }
+  ],
+  "firmware": {
+    "replay_mode": "compiled_in_trace_header",
+    "send_interval_ms": 1000,
+    "txb_startup_offset_ms": 500
+  },
+  "interpretation_cautions": [
+    "recv_ms and tx_ms are not synchronized across boards",
+    "observed sequence gaps are not direct collision evidence",
+    "v0.5 controls trace content, not yet true LoRa airtime scheduling",
+    "seq is the emitted packet sequence, not the original base-demand row index"
+  ]
+}
