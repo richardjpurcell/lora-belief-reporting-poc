@@ -114,6 +114,83 @@ The current receiver-row schema is:
 
 RX,recv_ms,run_id,tx_id,node_id,seq,tx_ms,region,event,priority,usefulness,stale_after,policy,rssi,snr
 
+v0.6 generic demand-trace adapter checkpoint:
+
+Branch `exp021-v06-trace-adapter-design` adds a generic belief-maintenance
+demand-trace adapter. The adapter introduces an explicit intermediate layer
+between source-side demand records and the compact firmware trace CSVs already
+used by the ESP32/LilyGO LoRa proof-of-concept.
+
+The v0.6 adapter path is:
+
+```text
+source / belief-maintenance demand record
+→ generic demand-trace schema
+→ compact firmware trace CSV
+→ Arduino trace header
+→ physical LoRa replay
+→ parsed receiver-row analysis
+```
+
+Run 020 is an adapter reproduction check, not a physical radio run. It uses a
+small generic adapter input file:
+
+```text
+traces/run020_adapter_example_input.csv
+```
+
+with schema:
+
+```text
+source_id,source_time,demand_index,region_id,event_type,priority,usefulness,stale_after,policy_hint,source_policy,source_note
+```
+
+The adapter converts this generic input into compact firmware trace CSVs using
+the existing compact schema:
+
+```text
+seq,region,event,priority,usefulness,stale_after,policy
+```
+
+The Run 020 adapter example produces two compact traces:
+
+* TXA uses a fixed-all policy, encoded as policy `F`, with 16 compact rows;
+* TXB uses a usefulness-threshold policy, encoded as policy `U`, with 8 compact rows at threshold `0.50`.
+
+The generated files are:
+
+```text
+traces/run020_adapter_txa_fixed_all.csv
+traces/run020_adapter_txb_usefulness_threshold.csv
+traces/run020_adapter_manifest.json
+```
+
+Both compact traces validate through the existing header-generation path:
+
+```bash
+python scripts/make_trace_headers.py \
+  --infile traces/run020_adapter_txa_fixed_all.csv \
+  --outfile /tmp/trace_data_TXA_adapter_test.h
+
+python scripts/make_trace_headers.py \
+  --infile traces/run020_adapter_txb_usefulness_threshold.csv \
+  --outfile /tmp/trace_data_TXB_adapter_test.h
+```
+
+This confirms that the generic adapter layer can produce Arduino-compatible
+trace-header inputs without changing firmware.
+
+The v0.6 checkpoint does not change transmitter firmware, receiver firmware,
+packet schema, SD-card replay, LoRa timing, or physical transmission behaviour.
+It is not an airtime-saving experiment and does not make any claim about
+collisions or physical delivery performance.
+
+The main purpose of v0.6 is to prepare the repository for future
+AWSRT-inspired or AWSRT-derived demand traces without making AWSRT a dependency
+of the LoRa proof-of-concept. The adapter keeps source-side demand semantics
+separate from compact firmware trace rows, making the source-to-packet-metadata
+transformation more explicit and auditable.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
