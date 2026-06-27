@@ -331,6 +331,53 @@ reporting-schedule design artifact. Airtime-saving claims require a later
 physical run in which firmware actually skips or schedules transmissions
 differently.
 
+v0.9 scheduled-SEND physical replay checkpoint:
+
+Branch `exp024-v09-scheduled-send-physical-replay` performs the first physical
+LoRa replay of compact traces produced from the v0.8 reporting-schedule
+workflow.
+
+The replay path is:
+
+```text
+generic belief-maintenance demand trace
+→ SEND/SKIP reporting schedule
+→ SEND-only compact firmware trace CSV
+→ Arduino trace header
+→ physical LoRa replay
+→ parsed receiver-row analysis
+```
+
+Run 023 uses the existing once-per-second transmitter firmware. It is a
+physical replay of scheduled-SEND compact traces, but it is not yet a true
+time-slotted packet-skipping experiment. The firmware does not preserve skipped
+source-demand slots as silent intervals.
+
+For Run 023, TXA/N01 used the fixed-all compact trace derived from the v0.8
+schedule, encoded as policy `F`, with 16 compact trace rows. TXB/N16 used the
+usefulness-threshold compact trace derived from the v0.8 schedule, encoded as
+policy `U`, with 8 compact trace rows. The firmware run ID was updated to
+`R23`.
+
+Run 023 produced 735 valid packets and 0 malformed packets. TXA/N01 delivered
+366 packets with total usefulness 197.83 and mean usefulness 0.541. TXB/N16
+delivered 369 packets with total usefulness 289.55 and mean usefulness 0.785.
+
+Observed sequence gaps were light: TXA/N01 had five missing sequence values
+`[59, 93, 250, 294, 307]`, and TXB/N16 had one missing sequence value `[111]`.
+These are observed sequence gaps only and should not be interpreted as confirmed
+collisions.
+
+This is the first successful physical replay of compact traces produced from
+the reporting-schedule workflow. It extends v0.8 from a design-stage SEND/SKIP
+schedule artifact into the physical LoRa replay workflow.
+
+The main interpretation remains delivery-versus-usefulness separation. TXA/N01
+and TXB/N16 delivered nearly identical packet counts, but TXB/N16 carried
+substantially higher delivered usefulness because its compact replay trace
+contains threshold-selected SEND rows. The result does not yet demonstrate
+airtime reduction, because both transmitters still send once per second.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
