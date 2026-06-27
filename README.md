@@ -191,6 +191,53 @@ of the LoRa proof-of-concept. The adapter keeps source-side demand semantics
 separate from compact firmware trace rows, making the source-to-packet-metadata
 transformation more explicit and auditable.
 
+v0.7 adapter-generated physical replay checkpoint:
+
+Branch `exp022-v07-adapter-physical-replay` performs the first physical LoRa
+replay of adapter-generated compact traces. The traces were produced by the
+v0.6 generic demand-trace adapter and then compiled into the existing
+ESP32/LilyGO transmitter firmware using the current trace-header workflow.
+
+The replay path is:
+
+```text
+generic belief-maintenance demand trace
+→ adapter-generated compact firmware trace CSV
+→ Arduino trace header
+→ physical LoRa replay
+→ parsed receiver-row analysis
+```
+
+Run 021 uses the existing once-per-second transmitter firmware. It is not yet
+an airtime-saving experiment. The policy layer affects the metadata carried in
+packets, not the physical transmission schedule.
+
+For Run 021, TXA/N01 used the adapter-generated fixed-all trace, encoded as
+policy `F`, with 16 compact trace rows. TXB/N16 used the adapter-generated
+usefulness-threshold trace, encoded as policy `U`, with 8 compact trace rows.
+The firmware run ID was updated to `R21`.
+
+Run 021 produced 731 valid packets and 0 malformed packets. TXA/N01 delivered
+367 packets with total usefulness 198.05 and mean usefulness 0.540. TXB/N16
+delivered 364 packets with total usefulness 285.30 and mean usefulness 0.784.
+
+Observed sequence gaps were light: TXA/N01 had one missing sequence value
+`[9]`, and TXB/N16 had three missing sequence values `[30, 57, 228]`. These are
+observed sequence gaps only and should not be interpreted as confirmed
+collisions.
+
+This is the first successful physical replay of adapter-generated traces. It
+extends the v0.6 trace-interface milestone into the physical LoRa workflow:
+adapter-generated metadata can be compiled into the existing firmware, replayed
+over the LilyGO LoRa boards, logged by the receiver, and analyzed with the
+existing parser.
+
+The main interpretation remains delivery-versus-usefulness separation. TXA/N01
+and TXB/N16 delivered nearly identical packet counts, but TXB/N16 carried
+substantially higher delivered usefulness because its metadata trace was
+threshold-selected. The result does not yet demonstrate airtime reduction,
+because both transmitters still send once per second.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
