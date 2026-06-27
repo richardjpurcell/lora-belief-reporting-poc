@@ -1,0 +1,79 @@
+{
+  "run_id": "R22",
+  "milestone": "v0.8-reporting-schedule-design",
+  "description": "Reporting schedule with SEND/SKIP decisions. Compact firmware trace outputs contain SEND rows only. No firmware or physical radio changes are implied by this design-stage output.",
+  "input": {
+    "path": "traces/run020_adapter_example_input.csv",
+    "schema": [
+      "source_id",
+      "source_time",
+      "demand_index",
+      "region_id",
+      "event_type",
+      "priority",
+      "usefulness",
+      "stale_after",
+      "policy_hint",
+      "source_policy",
+      "source_note"
+    ],
+    "rows": 16
+  },
+  "outputs": {
+    "txa": {
+      "policy": "fixed_all",
+      "schedule_path": "traces/run022_reporting_txa_fixed_all_schedule.csv",
+      "compact_trace_path": "traces/run022_reporting_txa_fixed_all_compact.csv",
+      "summary": {
+        "demand_rows": 16,
+        "send_rows": 16,
+        "skip_rows": 0,
+        "send_fraction": 1.0,
+        "scheduled_total_usefulness": 8.62,
+        "scheduled_mean_usefulness": 0.53875
+      }
+    },
+    "txb": {
+      "policy": "usefulness_threshold",
+      "threshold": 0.5,
+      "schedule_path": "traces/run022_reporting_txb_usefulness_threshold_schedule.csv",
+      "compact_trace_path": "traces/run022_reporting_txb_usefulness_threshold_compact.csv",
+      "summary": {
+        "demand_rows": 16,
+        "send_rows": 8,
+        "skip_rows": 8,
+        "send_fraction": 0.5,
+        "scheduled_total_usefulness": 6.27,
+        "scheduled_mean_usefulness": 0.78375
+      }
+    }
+  },
+  "schedule_schema": [
+    "source_id",
+    "source_time",
+    "demand_index",
+    "region_id",
+    "event_type",
+    "priority",
+    "usefulness",
+    "stale_after",
+    "policy_name",
+    "policy_code",
+    "decision",
+    "decision_reason"
+  ],
+  "compact_schema": [
+    "seq",
+    "region",
+    "event",
+    "priority",
+    "usefulness",
+    "stale_after",
+    "policy"
+  ],
+  "cautions": [
+    "This is a reporting-schedule design artifact, not a physical LoRa run.",
+    "Compact trace outputs contain SEND rows only.",
+    "Airtime-saving claims require firmware scheduling/skipping and physical validation."
+  ]
+}
