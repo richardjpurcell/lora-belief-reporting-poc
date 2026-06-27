@@ -238,6 +238,99 @@ substantially higher delivered usefulness because its metadata trace was
 threshold-selected. The result does not yet demonstrate airtime reduction,
 because both transmitters still send once per second.
 
+v0.8 reporting-schedule design checkpoint:
+
+Branch `exp023-v08-reporting-schedule-design` adds an explicit reporting
+schedule layer between generic demand traces and compact firmware trace CSVs.
+
+The v0.8 path is:
+
+```text
+generic belief-maintenance demand trace
+→ SEND/SKIP reporting schedule
+→ SEND-only compact firmware trace CSV
+→ Arduino trace header
+→ future physical LoRa replay
+```
+
+Run 022 is a design-stage reproduction check, not a physical radio run. It uses
+the existing generic adapter example input:
+
+```text
+traces/run020_adapter_example_input.csv
+```
+
+and produces reporting schedules plus compact firmware traces using:
+
+```bash
+python scripts/make_reporting_schedule.py \
+  --infile traces/run020_adapter_example_input.csv \
+  --out-prefix traces/run022_reporting \
+  --run-id R22 \
+  --txa-policy fixed_all \
+  --txb-policy usefulness_threshold \
+  --threshold 0.50
+```
+
+The generated schedule files are:
+
+```text
+traces/run022_reporting_txa_fixed_all_schedule.csv
+traces/run022_reporting_txb_usefulness_threshold_schedule.csv
+```
+
+The generated SEND-only compact trace files are:
+
+```text
+traces/run022_reporting_txa_fixed_all_compact.csv
+traces/run022_reporting_txb_usefulness_threshold_compact.csv
+```
+
+The generated manifest is:
+
+```text
+traces/run022_reporting_reporting_schedule_manifest.json
+```
+
+For Run 022, TXA uses the fixed-all policy, encoded as policy `F`. All 16
+demand rows are marked `SEND`, so the TXA compact trace contains 16 rows.
+
+TXB uses the usefulness-threshold policy, encoded as policy `U`, with threshold
+`0.50`. The TXB schedule contains 16 demand rows: 8 rows marked `SEND` and 8
+rows marked `SKIP`. The TXB compact trace contains only the 8 `SEND` rows.
+
+The manifest reports:
+
+```text
+TXA fixed_all:
+  demand rows: 16
+  send rows: 16
+  skip rows: 0
+  send fraction: 1.0
+  scheduled total usefulness: 8.62
+  scheduled mean usefulness: 0.53875
+
+TXB usefulness_threshold:
+  demand rows: 16
+  send rows: 8
+  skip rows: 8
+  send fraction: 0.5
+  scheduled total usefulness: 6.27
+  scheduled mean usefulness: 0.78375
+```
+
+Both compact trace outputs validate through the existing header-generation path
+using `scripts/make_trace_headers.py`.
+
+This milestone introduces the distinction needed for constrained-airtime
+experiments: demand rows, scheduled reporting decisions, compact transmitted
+metadata rows, and receiver rows are different objects.
+
+The v0.8 result does not demonstrate airtime reduction yet. It is a
+reporting-schedule design artifact. Airtime-saving claims require a later
+physical run in which firmware actually skips or schedules transmissions
+differently.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
