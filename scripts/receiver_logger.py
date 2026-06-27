@@ -47,8 +47,10 @@ def main() -> int:
     )
     parser.add_argument(
         "--out",
+        "--outfile",
+        dest="out",
         required=True,
-        help="Output CSV path, e.g. logs/rx_run_001.csv",
+        help="Output CSV path, e.g. logs/rx_run_001.csv. --outfile is accepted as an alias.",
     )
     args = parser.parse_args()
 
