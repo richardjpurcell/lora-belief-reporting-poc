@@ -1,0 +1,17 @@
+source_id,source_time,demand_index,region_id,event_type,priority,usefulness,stale_after,policy_hint,source_policy,source_note
+adapter_example,t000,0,A,1,0.95,0.92,5,F,fixed_all,high-usefulness event-like demand
+adapter_example,t001,1,B,0,0.20,0.18,5,F,fixed_all,low-usefulness background demand
+adapter_example,t002,2,C,1,0.88,0.84,5,F,fixed_all,high-priority demand
+adapter_example,t003,3,D,0,0.35,0.42,5,F,fixed_all,below threshold but nonzero usefulness
+adapter_example,t004,4,E,1,0.75,0.79,5,F,fixed_all,threshold-passing demand
+adapter_example,t005,5,F,0,0.10,0.08,5,F,fixed_all,low demand
+adapter_example,t006,6,G,1,0.65,0.67,5,F,fixed_all,moderate demand
+adapter_example,t007,7,H,0,0.48,0.49,5,F,fixed_all,just below threshold
+adapter_example,t008,8,A,1,0.90,0.91,5,F,fixed_all,repeated region high demand
+adapter_example,t009,9,B,0,0.22,0.21,5,F,fixed_all,repeated region low demand
+adapter_example,t010,10,C,1,0.82,0.77,5,F,fixed_all,repeated region high usefulness
+adapter_example,t011,11,D,0,0.40,0.36,5,F,fixed_all,below threshold
+adapter_example,t012,12,E,1,0.72,0.74,5,F,fixed_all,above threshold
+adapter_example,t013,13,F,0,0.12,0.15,5,F,fixed_all,low background demand
+adapter_example,t014,14,G,1,0.69,0.63,5,F,fixed_all,moderate above threshold
+adapter_example,t015,15,H,0,0.44,0.46,5,F,fixed_all,moderate below threshold

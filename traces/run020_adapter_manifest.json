@@ -1,0 +1,49 @@
+{
+  "run_id": "R20",
+  "milestone": "v0.6-trace-adapter-design",
+  "description": "Generic belief-maintenance demand-trace adapter output. No firmware, timing, SD-card, or physical radio changes are implied.",
+  "input": {
+    "path": "traces/run020_adapter_example_input.csv",
+    "schema": [
+      "source_id",
+      "source_time",
+      "demand_index",
+      "region_id",
+      "event_type",
+      "priority",
+      "usefulness",
+      "stale_after",
+      "policy_hint",
+      "source_policy",
+      "source_note"
+    ],
+    "rows": 16
+  },
+  "outputs": {
+    "txa": {
+      "path": "traces/run020_adapter_txa_fixed_all.csv",
+      "policy": "fixed_all",
+      "rows": 16
+    },
+    "txb": {
+      "path": "traces/run020_adapter_txb_usefulness_threshold.csv",
+      "policy": "usefulness_threshold",
+      "threshold": 0.5,
+      "rows": 8
+    }
+  },
+  "compact_schema": [
+    "seq",
+    "region",
+    "event",
+    "priority",
+    "usefulness",
+    "stale_after",
+    "policy"
+  ],
+  "cautions": [
+    "Adapter output is not a physical LoRa experiment.",
+    "Adapter output does not demonstrate airtime reduction.",
+    "Compact CSVs remain intended for the existing make_trace_headers.py path."
+  ]
+}
