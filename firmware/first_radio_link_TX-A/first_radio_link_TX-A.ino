@@ -1,6 +1,6 @@
 #include <SPI.h>
 #include <LoRa.h>
-#include "trace_data_TXA.h"
+#include "schedule_data_TXA.h"
 
 // LilyGO LoRa32 / T3-style pin mapping
 #define LORA_SCK   5
@@ -13,14 +13,14 @@
 // North America / Canada ISM band
 #define LORA_BAND 915E6
 
-const char* RUN_ID = "R23";
+const char* RUN_ID = "R24";
 const char* TX_ID = "TXA";
 const char* NODE_ID = "N01";
 
-const unsigned long SEND_INTERVAL_MS = 1000;
-uint16_t trace_index = 0;
+const unsigned long SLOT_INTERVAL_MS = 1000;
+uint16_t schedule_index = 0;
 uint32_t packet_seq = 0;
-unsigned long last_send_ms = 0;
+unsigned long last_slot_ms = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -44,12 +44,16 @@ void setup() {
   LoRa.setTxPower(10);
 
   Serial.println("LoRa init OK.");
-  Serial.println("Sending packets...");
+  Serial.println("Skipped-slot schedule replay.");
+  Serial.print("Schedule rows: ");
+  Serial.println(SCHEDULE_ROW_COUNT);
+  Serial.print("SEND rows: ");
+  Serial.println(SCHEDULE_SEND_COUNT);
+  Serial.print("SKIP rows: ");
+  Serial.println(SCHEDULE_SKIP_COUNT);
 }
 
-void sendTracePacket() {
-  const TraceRow& row = TRACE_ROWS[trace_index % TRACE_ROW_COUNT];
-
+void sendSchedulePacket(const ScheduleRow& row) {
   char payload[160];
 
   snprintf(
@@ -76,15 +80,32 @@ void sendTracePacket() {
   LoRa.print(payload);
   LoRa.endPacket();
 
-  trace_index++;
   packet_seq++;
+}
+
+void processScheduleSlot() {
+  const ScheduleRow& row = SCHEDULE_ROWS[schedule_index % SCHEDULE_ROW_COUNT];
+
+  Serial.print("slot ");
+  Serial.print(schedule_index);
+  Serial.print(" demand_index ");
+  Serial.print(row.demand_index);
+
+  if (row.send) {
+    Serial.print(" SEND ");
+    sendSchedulePacket(row);
+  } else {
+    Serial.println(" SKIP");
+  }
+
+  schedule_index++;
 }
 
 void loop() {
   unsigned long now = millis();
 
-  if (now - last_send_ms >= SEND_INTERVAL_MS) {
-    last_send_ms = now;
-    sendTracePacket();
+  if (now - last_slot_ms >= SLOT_INTERVAL_MS) {
+    last_slot_ms = now;
+    processScheduleSlot();
   }
 }
