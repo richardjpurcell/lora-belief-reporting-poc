@@ -760,6 +760,85 @@ Together, Runs 024, 025, and 026 support a bounded threshold-family interpretati
 
 The analysis remains bounded. It does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, LoRaWAN behavior, or airtime optimization.
 
+### Run 027 loose-threshold scheduled replay
+
+Run 027 extends the threshold-family scheduled replay sequence by testing a looser usefulness-threshold schedule.
+
+Runs 024 and 025 used a medium usefulness-threshold schedule, where TXB/N16 had 8 SEND rows out of 16 schedule rows. Run 026 used a stricter threshold, where TXB/N16 had 4 SEND rows out of 16 schedule rows. Run 027 adds the loose-threshold condition, where TXB/N16 has 12 SEND rows out of 16 schedule rows.
+
+Schedule counts:
+
+```
+TXA/N01: 16/16 SEND rows
+TXB/N16: 12/16 SEND rows
+```
+
+Scheduled send-fraction ratio:
+
+```
+TXB/TXA = 12/16 = 0.7500
+```
+
+Run 027 parser summary:
+
+```
+Valid packets:      699
+Malformed packets:  0
+
+TXA/N01: 400 packets
+TXB/N16: 299 packets
+
+TXA/N01 mean usefulness: 0.539
+TXB/N16 mean usefulness: 0.667
+```
+
+Manifest-bound schedule-aware analysis:
+
+```
+TXA/N01: 16/16 schedule rows SEND; 400 received packets; mean delivered usefulness 0.539
+TXB/N16: 12/16 schedule rows SEND; 299 received packets; mean delivered usefulness 0.667
+Observed received-packet ratio 0.7475; scheduled send-fraction ratio 0.7500.
+```
+
+Run 027 passed bundle validation:
+
+```
+Bundle validation PASSED: reports/run027_schedule_aware_manifest.json
+Checks passed: 70 / 70
+```
+
+The four-run scheduled replay comparison now summarizes Runs 024, 025, 026, and 027:
+
+```
+run024 TXA/N01: 16/16 SEND rows; 361 received packets; mean delivered usefulness 0.540
+run024 TXB/N16: 8/16 SEND rows; 176 received packets; mean delivered usefulness 0.786
+
+run025 TXA/N01: 16/16 SEND rows; 368 received packets; mean delivered usefulness 0.539
+run025 TXB/N16: 8/16 SEND rows; 184 received packets; mean delivered usefulness 0.785
+
+run026 TXA/N01: 16/16 SEND rows; 504 received packets; mean delivered usefulness 0.538
+run026 TXB/N16: 4/16 SEND rows; 127 received packets; mean delivered usefulness 0.866
+
+run027 TXA/N01: 16/16 SEND rows; 400 received packets; mean delivered usefulness 0.539
+run027 TXB/N16: 12/16 SEND rows; 299 received packets; mean delivered usefulness 0.667
+```
+
+Together, Runs 024--027 now form a clearer threshold-family ladder:
+
+```
+12/16 loose threshold  → observed ratio 0.7475; TXB mean usefulness 0.667
+ 8/16 medium threshold → observed ratio 0.4875 and 0.5000; TXB mean usefulness approximately 0.785
+ 4/16 strict threshold → observed ratio 0.2520; TXB mean usefulness 0.866
+```
+
+Careful interpretation:
+
+> Run 027 is consistent with the loose scheduled-skipping condition carrying through to the physical replay. The observed TXB/TXA received-packet ratio was approximately 0.7475, close to the scheduled send-fraction ratio of 0.7500, while TXB retained higher mean delivered usefulness per received packet than TXA.
+
+Together, Runs 024--027 support a bounded threshold-family interpretation: changing the usefulness-threshold schedule changes the observed received-packet proportion in the expected direction, while the threshold-selected stream preserves higher mean delivered usefulness per received packet than the fixed-all stream.
+
+The analysis remains bounded. It does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, LoRaWAN behavior, airtime optimization, or energy savings.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
