@@ -8,7 +8,7 @@
   "per_transmitter": [
     {
       "tx_id": "TXA",
-      "node_id": null,
+      "node_id": "N01",
       "demand_rows": 16,
       "scheduled_send_rows": 16,
       "scheduled_skip_rows": 0,
@@ -38,7 +38,7 @@
     },
     {
       "tx_id": "TXB",
-      "node_id": null,
+      "node_id": "N16",
       "demand_rows": 16,
       "scheduled_send_rows": 8,
       "scheduled_skip_rows": 8,
