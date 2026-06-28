@@ -1,0 +1,17 @@
+source_id,source_time,demand_index,region_id,event_type,priority,usefulness,stale_after,policy_name,policy_code,decision,decision_reason
+adapter_example,t000,0,A,1,0.950,0.920,5,usefulness_threshold,U,SEND,usefulness 0.920 >= threshold 0.360
+adapter_example,t001,1,B,0,0.200,0.180,5,usefulness_threshold,U,SKIP,usefulness 0.180 < threshold 0.360
+adapter_example,t002,2,C,1,0.880,0.840,5,usefulness_threshold,U,SEND,usefulness 0.840 >= threshold 0.360
+adapter_example,t003,3,D,0,0.350,0.420,5,usefulness_threshold,U,SEND,usefulness 0.420 >= threshold 0.360
+adapter_example,t004,4,E,1,0.750,0.790,5,usefulness_threshold,U,SEND,usefulness 0.790 >= threshold 0.360
+adapter_example,t005,5,F,0,0.100,0.080,5,usefulness_threshold,U,SKIP,usefulness 0.080 < threshold 0.360
+adapter_example,t006,6,G,1,0.650,0.670,5,usefulness_threshold,U,SEND,usefulness 0.670 >= threshold 0.360
+adapter_example,t007,7,H,0,0.480,0.490,5,usefulness_threshold,U,SEND,usefulness 0.490 >= threshold 0.360
+adapter_example,t008,8,A,1,0.900,0.910,5,usefulness_threshold,U,SEND,usefulness 0.910 >= threshold 0.360
+adapter_example,t009,9,B,0,0.220,0.210,5,usefulness_threshold,U,SKIP,usefulness 0.210 < threshold 0.360
+adapter_example,t010,10,C,1,0.820,0.770,5,usefulness_threshold,U,SEND,usefulness 0.770 >= threshold 0.360
+adapter_example,t011,11,D,0,0.400,0.360,5,usefulness_threshold,U,SEND,usefulness 0.360 >= threshold 0.360
+adapter_example,t012,12,E,1,0.720,0.740,5,usefulness_threshold,U,SEND,usefulness 0.740 >= threshold 0.360
+adapter_example,t013,13,F,0,0.120,0.150,5,usefulness_threshold,U,SKIP,usefulness 0.150 < threshold 0.360
+adapter_example,t014,14,G,1,0.690,0.630,5,usefulness_threshold,U,SEND,usefulness 0.630 >= threshold 0.360
+adapter_example,t015,15,H,0,0.440,0.460,5,usefulness_threshold,U,SEND,usefulness 0.460 >= threshold 0.360
