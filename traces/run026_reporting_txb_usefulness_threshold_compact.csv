@@ -1,0 +1,5 @@
+seq,region,event,priority,usefulness,stale_after,policy
+0,A,1,0.950,0.920,5,U
+1,C,1,0.880,0.840,5,U
+2,E,1,0.750,0.790,5,U
+3,A,1,0.900,0.910,5,U
