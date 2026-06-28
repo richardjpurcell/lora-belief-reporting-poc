@@ -2,10 +2,11 @@
   "analysis_note": "This comparison aggregates existing manifest-bound scheduled replay summaries. It does not re-parse raw receiver logs or infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, or airtime optimization.",
   "input_manifests": [
     "reports/run024_schedule_aware_manifest.json",
-    "reports/run025_schedule_aware_manifest.json"
+    "reports/run025_schedule_aware_manifest.json",
+    "reports/run026_schedule_aware_manifest.json"
   ],
-  "run_count": 2,
-  "transmitter_row_count": 4,
+  "run_count": 3,
+  "transmitter_row_count": 6,
   "per_transmitter": [
     {
       "run_id": "run024",
@@ -106,6 +107,56 @@
       "delivered_usefulness_per_scheduled_demand_row": 9.024375000000001,
       "delivered_usefulness_per_scheduled_send_row": 18.048750000000002,
       "mean_receiver_interarrival_ms": 2010.896174863388
+    },
+    {
+      "run_id": "run026",
+      "manifest": "reports/run026_schedule_aware_manifest.json",
+      "milestone": "v1.8-run026-threshold-variant-replay",
+      "analysis_type": "schedule-aware strict-threshold physical replay",
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "role": "fixed-all schedule",
+      "schedule_csv": "traces/run026_reporting_txa_fixed_all_schedule.csv",
+      "schedule_header": "firmware/first_radio_link_TX-A/schedule_data_TXA.h",
+      "demand_rows": 16,
+      "scheduled_send_rows": 16,
+      "scheduled_skip_rows": 0,
+      "send_fraction": 1.0,
+      "received_valid_packets": 504,
+      "observed_sequence_min": 0,
+      "observed_sequence_max": 506,
+      "observed_missing_transmitted_sequence_count": 3,
+      "delivered_usefulness_total": 271.33000000000004,
+      "delivered_usefulness_mean_per_received_packet": 0.5383531746031747,
+      "received_packets_per_scheduled_send_row": 31.5,
+      "delivered_usefulness_per_scheduled_demand_row": 16.958125000000003,
+      "delivered_usefulness_per_scheduled_send_row": 16.958125000000003,
+      "mean_receiver_interarrival_ms": 1005.9542743538767
+    },
+    {
+      "run_id": "run026",
+      "manifest": "reports/run026_schedule_aware_manifest.json",
+      "milestone": "v1.8-run026-threshold-variant-replay",
+      "analysis_type": "schedule-aware strict-threshold physical replay",
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "role": "usefulness-threshold schedule",
+      "schedule_csv": "traces/run026_reporting_txb_usefulness_threshold_schedule.csv",
+      "schedule_header": "firmware/first_radio_link_TX_B/schedule_data_TXB.h",
+      "demand_rows": 16,
+      "scheduled_send_rows": 4,
+      "scheduled_skip_rows": 12,
+      "send_fraction": 0.25,
+      "received_valid_packets": 127,
+      "observed_sequence_min": 0,
+      "observed_sequence_max": 127,
+      "observed_missing_transmitted_sequence_count": 1,
+      "delivered_usefulness_total": 109.92999999999999,
+      "delivered_usefulness_mean_per_received_packet": 0.8655905511811023,
+      "received_packets_per_scheduled_send_row": 31.75,
+      "delivered_usefulness_per_scheduled_demand_row": 6.8706249999999995,
+      "delivered_usefulness_per_scheduled_send_row": 27.482499999999998,
+      "mean_receiver_interarrival_ms": 3999.9603174603176
     }
   ],
   "per_run": [
@@ -145,6 +196,30 @@
         "interpretation": "Observed received-packet ratio should be interpreted as a proportion consistent with scheduled skipping, not as a confirmed transmitted-packet or collision count."
       },
       "interpretation": "Run 025 repeats the Run 024 skipped-slot replay pattern under similar lab conditions: the observed TXB/TXA received-packet ratio is consistent with the scheduled send-fraction ratio, while TXB retained higher mean delivered usefulness per received packet.",
+      "cautions": [
+        "This is point-to-point LoRa at 915 MHz, not LoRaWAN.",
+        "The schedule CSVs define one repeated schedule period.",
+        "The analyzer compares schedule proportions and observed packet proportions.",
+        "The analyzer does not infer exact transmitted packet counts.",
+        "Missing sequence numbers are observed sequence gaps, not confirmed collisions.",
+        "recv_ms and tx_ms are not synchronized across boards and should not be interpreted as true latency.",
+        "Usefulness and priority are synthetic metadata in this milestone.",
+        "The run does not yet use a live belief-maintenance controller.",
+        "Use the wording reduced physical transmission attempts under scheduled skipping, not airtime optimization."
+      ]
+    },
+    {
+      "run_id": "run026",
+      "manifest": "reports/run026_schedule_aware_manifest.json",
+      "summary_json": "reports/run026_schedule_aware_summary.json",
+      "comparison": {
+        "baseline_tx_id": "TXA",
+        "comparison_tx_id": "TXB",
+        "scheduled_send_fraction_ratio_comparison_over_baseline": 0.25,
+        "observed_received_packet_ratio_comparison_over_baseline": 0.251984126984127,
+        "interpretation": "Observed received-packet ratio should be interpreted as a proportion consistent with scheduled skipping, not as a confirmed transmitted-packet or collision count."
+      },
+      "interpretation": "Run 026 uses a stricter usefulness-threshold schedule than Runs 024 and 025: TXB schedules 4/16 SEND rows rather than 8/16. The observed TXB/TXA received-packet ratio is consistent with the scheduled send-fraction ratio, while TXB retained higher mean delivered usefulness per received packet.",
       "cautions": [
         "This is point-to-point LoRa at 915 MHz, not LoRaWAN.",
         "The schedule CSVs define one repeated schedule period.",

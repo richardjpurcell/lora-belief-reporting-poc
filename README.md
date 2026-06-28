@@ -688,6 +688,78 @@ Careful interpretation:
 
 The analysis remains bounded. It does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, LoRaWAN behavior, or airtime optimization.
 
+### Run 026 strict-threshold scheduled replay
+
+Run 026 extends the Run 024 / Run 025 skipped-slot replay sequence by testing a stricter usefulness-threshold schedule.
+
+Runs 024 and 025 used the Run 022 schedules, where TXA/N01 used a fixed-all schedule and TXB/N16 used a usefulness-threshold schedule with 8 SEND rows out of 16 schedule rows. Run 026 keeps TXA/N01 fixed-all but raises the TXB/N16 usefulness threshold to `0.79`, producing 4 SEND rows out of 16 schedule rows.
+
+Schedule counts:
+
+```
+TXA/N01: 16/16 SEND rows
+TXB/N16: 4/16 SEND rows
+```
+
+Scheduled send-fraction ratio:
+
+```
+TXB/TXA = 4/16 = 0.2500
+```
+
+Run 026 parser summary:
+
+```
+Valid packets:      631
+Malformed packets:  2
+
+TXA/N01: 504 packets
+TXB/N16: 127 packets
+
+TXA/N01 mean usefulness: 0.538
+TXB/N16 mean usefulness: 0.866
+```
+
+Manifest-bound schedule-aware analysis:
+
+```
+TXA/N01: 16/16 schedule rows SEND; 504 received packets; mean delivered usefulness 0.538
+TXB/N16: 4/16 schedule rows SEND; 127 received packets; mean delivered usefulness 0.866
+Observed received-packet ratio 0.2520; scheduled send-fraction ratio 0.2500.
+```
+
+The observed TXB/TXA received-packet ratio is close to the scheduled send-fraction ratio:
+
+```
+observed received-packet ratio: 0.2520
+scheduled send-fraction ratio: 0.2500
+```
+
+Run 026 therefore adds a stricter-threshold point to the scheduled replay sequence. Compared with Runs 024 and 025, TXB/N16 scheduled fewer SEND rows and produced approximately one quarter as many received packets as TXA/N01, while retaining higher mean delivered usefulness per received packet.
+
+Run 026 also passed through the manifest-bound analysis and bundle-validation workflow after updating the Run 026 manifest’s expected headline values.
+
+The three-run scheduled replay comparison now summarizes Runs 024, 025, and 026:
+
+```
+run024 TXA/N01: 16/16 SEND rows; 361 received packets; mean delivered usefulness 0.540
+run024 TXB/N16: 8/16 SEND rows; 176 received packets; mean delivered usefulness 0.786
+
+run025 TXA/N01: 16/16 SEND rows; 368 received packets; mean delivered usefulness 0.539
+run025 TXB/N16: 8/16 SEND rows; 184 received packets; mean delivered usefulness 0.785
+
+run026 TXA/N01: 16/16 SEND rows; 504 received packets; mean delivered usefulness 0.538
+run026 TXB/N16: 4/16 SEND rows; 127 received packets; mean delivered usefulness 0.866
+```
+
+Careful interpretation:
+
+> Run 026 is consistent with the stricter scheduled-skipping condition carrying through to the physical replay. The observed TXB/TXA received-packet ratio was approximately 0.2520, close to the scheduled send-fraction ratio of 0.2500, while TXB retained higher mean delivered usefulness per received packet.
+
+Together, Runs 024, 025, and 026 support a bounded threshold-family interpretation: changing the usefulness-threshold schedule changes the observed received-packet proportion in the expected direction while preserving the distinction between packet delivery count and delivered usefulness.
+
+The analysis remains bounded. It does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, LoRaWAN behavior, or airtime optimization.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
