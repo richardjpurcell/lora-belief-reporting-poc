@@ -839,6 +839,68 @@ Together, Runs 024--027 support a bounded threshold-family interpretation: chang
 
 The analysis remains bounded. It does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, LoRaWAN behavior, airtime optimization, or energy savings.
 
+### Threshold-family synthesis through Run 027
+
+Runs 024--027 form the first complete threshold-family physical replay sequence in this repository.
+
+The sequence compares a fixed-all TXA stream against usefulness-threshold TXB streams with different scheduled SEND fractions:
+
+```
+TXA fixed-all baseline: 16/16 SEND rows
+TXB loose threshold:   12/16 SEND rows
+TXB medium threshold:   8/16 SEND rows
+TXB strict threshold:   4/16 SEND rows
+```
+
+Summary:
+
+```
+run024 TXA/N01: 16/16 SEND rows; 361 received packets; mean delivered usefulness 0.540
+run024 TXB/N16: 8/16 SEND rows; 176 received packets; mean delivered usefulness 0.786
+
+run025 TXA/N01: 16/16 SEND rows; 368 received packets; mean delivered usefulness 0.539
+run025 TXB/N16: 8/16 SEND rows; 184 received packets; mean delivered usefulness 0.785
+
+run026 TXA/N01: 16/16 SEND rows; 504 received packets; mean delivered usefulness 0.538
+run026 TXB/N16: 4/16 SEND rows; 127 received packets; mean delivered usefulness 0.866
+
+run027 TXA/N01: 16/16 SEND rows; 400 received packets; mean delivered usefulness 0.539
+run027 TXB/N16: 12/16 SEND rows; 299 received packets; mean delivered usefulness 0.667
+```
+
+Threshold-family ladder:
+
+```
+12/16 loose threshold  → observed ratio 0.7475; TXB mean usefulness 0.667
+ 8/16 medium threshold → observed ratio 0.4875 and 0.5000; TXB mean usefulness approximately 0.785
+ 4/16 strict threshold → observed ratio 0.2520; TXB mean usefulness 0.866
+```
+
+Main interpretation:
+
+> Runs 024--027 support a bounded threshold-family interpretation: changing the usefulness-threshold schedule changes the observed received-packet proportion in the expected direction, while the threshold-selected stream preserves higher mean delivered usefulness per received packet than the fixed-all stream.
+
+The schedule-aware relationship is:
+
+```
+scheduled TXB/TXA ratio 0.7500 → observed ratio 0.7475
+scheduled TXB/TXA ratio 0.5000 → observed ratio 0.4875 and 0.5000
+scheduled TXB/TXA ratio 0.2500 → observed ratio 0.2520
+```
+
+The usefulness relationship is:
+
+```
+loose threshold:   TXB mean usefulness 0.667
+medium threshold:  TXB mean usefulness approximately 0.785
+strict threshold:  TXB mean usefulness 0.866
+```
+
+The analysis remains bounded. It does not infer exact transmitted-packet counts, confirmed collision counts, true latency, LoRaWAN behavior, airtime optimization, energy savings, live belief-controller behavior, operational wildfire relevance, or scalability to the planned 12-transmitter platform.
+
+This completes the first threshold-family phase for now. The next recommended direction is microSD-backed replay design, because compiled firmware headers will become cumbersome for longer traces, AWSRT-derived demand schedules, and larger transmitter counts.
+
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
