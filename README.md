@@ -534,6 +534,38 @@ This is a reproducibility improvement rather than a new physical experiment. It 
 
 The careful interpretation remains unchanged: the observed TXB/TXA received-packet ratio is close to the scheduled send-fraction ratio, consistent with scheduled skipping, while TXB retained higher mean delivered usefulness per received packet. The analysis does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, or airtime optimization.
 
+### v1.3 run-bundle validation
+
+The v1.3 layer adds validation for manifest-bound replay-analysis bundles.
+
+The validator checks that a run manifest points to existing artifacts and that the schedule-aware summary outputs agree with the manifest’s expected headline values.
+
+For Run 024:
+
+```
+python scripts/validate_run_bundle.py \
+  --manifest reports/run024_schedule_aware_manifest.json
+```
+
+The Run 024 bundle passes validation:
+
+```
+Bundle validation PASSED: reports/run024_schedule_aware_manifest.json
+Checks passed: 70 / 70
+```
+
+The validator confirms consistency among the manifest, schedule CSVs, firmware schedule headers, raw receiver log, parsed valid receiver log, parsed rejects log, summary JSON, summary CSV, expected headline values, transmitter labels, and node labels.
+
+The validated headline remains:
+
+```
+TXA/N01: 16/16 schedule rows SEND; 361 received packets; mean delivered usefulness 0.540
+TXB/N16: 8/16 schedule rows SEND; 176 received packets; mean delivered usefulness 0.786
+Observed received-packet ratio 0.4875; scheduled send-fraction ratio 0.5000.
+```
+
+This is a validation checkpoint, not a new physical experiment. The careful interpretation remains unchanged: the observed TXB/TXA received-packet ratio is close to the scheduled send-fraction ratio, consistent with scheduled skipping, while TXB retained higher mean delivered usefulness per received packet. The validation does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, or airtime optimization.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
