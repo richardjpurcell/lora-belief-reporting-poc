@@ -566,6 +566,47 @@ Observed received-packet ratio 0.4875; scheduled send-fraction ratio 0.5000.
 
 This is a validation checkpoint, not a new physical experiment. The careful interpretation remains unchanged: the observed TXB/TXA received-packet ratio is close to the scheduled send-fraction ratio, consistent with scheduled skipping, while TXB retained higher mean delivered usefulness per received packet. The validation does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, or airtime optimization.
 
+### v1.4 multi-run comparison scaffold
+
+The v1.4 layer adds a comparison scaffold for one or more manifest-bound scheduled replay bundles.
+
+At this milestone, only Run 024 is included. Therefore, this is not yet a multi-run empirical comparison. It is a scaffold that summarizes the validated Run 024 bundle and prepares the repository to include future scheduled replay runs.
+
+For Run 024:
+
+```
+python scripts/compare_scheduled_runs.py \
+  --manifest reports/run024_schedule_aware_manifest.json \
+  --out-csv reports/scheduled_replay_comparison.csv \
+  --out-json reports/scheduled_replay_comparison.json \
+  --validate
+```
+
+The `--validate` flag runs the v1.3 bundle validator before adding the run to the comparison output.
+
+Generated outputs:
+
+* `reports/scheduled_replay_comparison.csv`
+* `reports/scheduled_replay_comparison.json`
+
+Current comparison output:
+
+```
+Runs summarized: 1
+Transmitter rows: 2
+run024 TXA/N01: 16/16 SEND rows; 361 received packets; mean delivered usefulness 0.540
+run024 TXB/N16: 8/16 SEND rows; 176 received packets; mean delivered usefulness 0.786
+```
+
+The scaffold preserves the Run 024 proportional comparison:
+
+```
+observed TXB/TXA received-packet ratio ≈ 0.4875
+scheduled TXB/TXA send-fraction ratio = 0.5000
+```
+
+This is a comparison scaffold, not yet a replicated multi-run result. The careful interpretation remains that the validated Run 024 bundle is consistent with scheduled skipping while preserving higher mean delivered usefulness in the usefulness-threshold stream. The analysis does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, or airtime optimization.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
