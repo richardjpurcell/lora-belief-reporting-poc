@@ -110,6 +110,15 @@ def check_file_exists(path_str: str, label: str) -> CheckResult:
 def check_csv_readable(path_str: str, label: str) -> CheckResult:
     path = Path(path_str)
     try:
+        if path.exists() and "reject" in label.lower():
+            content = path.read_text(encoding="utf-8", errors="replace")
+            if content.strip() == "":
+                return CheckResult(
+                    f"csv readable: {label}",
+                    True,
+                    f"{path} empty rejects file; interpreted as zero malformed rows",
+                )
+
         df = pd.read_csv(path)
         return CheckResult(
             f"csv readable: {label}",

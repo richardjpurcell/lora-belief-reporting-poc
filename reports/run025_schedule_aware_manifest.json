@@ -1,0 +1,48 @@
+{
+  "run_id": "run025",
+  "milestone": "v1.6-run025-second-scheduled-replay",
+  "description": "Manifest-bound schedule-aware analysis for Run 025 skipped-slot physical replay repeat.",
+  "analysis_type": "schedule-aware skipped-slot physical replay repeat",
+  "transmitters": {
+    "a": {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "role": "fixed-all schedule",
+      "schedule_csv": "traces/run022_reporting_txa_fixed_all_schedule.csv",
+      "schedule_header": "firmware/first_radio_link_TX-A/schedule_data_TXA.h"
+    },
+    "b": {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "role": "usefulness-threshold schedule",
+      "schedule_csv": "traces/run022_reporting_txb_usefulness_threshold_schedule.csv",
+      "schedule_header": "firmware/first_radio_link_TX_B/schedule_data_TXB.h"
+    }
+  },
+  "receiver_logs": {
+    "raw": "logs/rx_run_025_skipped_slot_replay_repeat.csv",
+    "parsed_valid": "logs/parsed_run_025_skipped_slot_replay_repeat.csv",
+    "parsed_rejects": "logs/parsed_run_025_skipped_slot_replay_repeat_rejects.csv"
+  },
+  "outputs": {
+    "summary_json": "reports/run025_schedule_aware_summary.json",
+    "summary_csv": "reports/run025_schedule_aware_summary.csv"
+  },
+  "expected_headline": {
+    "txa": "TXA/N01: 16/16 schedule rows SEND; 368 received packets; mean delivered usefulness 0.539",
+    "txb": "TXB/N16: 8/16 schedule rows SEND; 184 received packets; mean delivered usefulness 0.785",
+    "ratio": "Observed received-packet ratio 0.5000; scheduled send-fraction ratio 0.5000."
+  },
+  "interpretation": "Run 025 repeats the Run 024 skipped-slot replay pattern under similar lab conditions: the observed TXB/TXA received-packet ratio is consistent with the scheduled send-fraction ratio, while TXB retained higher mean delivered usefulness per received packet.",
+  "cautions": [
+    "This is point-to-point LoRa at 915 MHz, not LoRaWAN.",
+    "The schedule CSVs define one repeated schedule period.",
+    "The analyzer compares schedule proportions and observed packet proportions.",
+    "The analyzer does not infer exact transmitted packet counts.",
+    "Missing sequence numbers are observed sequence gaps, not confirmed collisions.",
+    "recv_ms and tx_ms are not synchronized across boards and should not be interpreted as true latency.",
+    "Usefulness and priority are synthetic metadata in this milestone.",
+    "The run does not yet use a live belief-maintenance controller.",
+    "Use the wording reduced physical transmission attempts under scheduled skipping, not airtime optimization."
+  ]
+}
