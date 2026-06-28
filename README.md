@@ -607,6 +607,38 @@ scheduled TXB/TXA send-fraction ratio = 0.5000
 
 This is a comparison scaffold, not yet a replicated multi-run result. The careful interpretation remains that the validated Run 024 bundle is consistent with scheduled skipping while preserving higher mean delivered usefulness in the usefulness-threshold stream. The analysis does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, or airtime optimization.
 
+### Run 025 planned repeat scheduled replay
+
+Run 025 is planned as a second skipped-slot scheduled replay using the same Run 022 schedules as Run 024.
+
+The purpose is replication under similar lab conditions, not a new policy experiment.
+
+Planned Run 025 path:
+
+```
+logs/rx_run_025_skipped_slot_replay_repeat.csv
+  → logs/parsed_run_025_skipped_slot_replay_repeat.csv
+  → reports/run025_schedule_aware_summary.json
+  → reports/run025_schedule_aware_manifest.json
+  → bundle validation
+  → Run 024 / Run 025 comparison
+```
+
+The planned comparison command is:
+
+```
+python scripts/compare_scheduled_runs.py \
+  --manifest reports/run024_schedule_aware_manifest.json \
+  --manifest reports/run025_schedule_aware_manifest.json \
+  --out-csv reports/scheduled_replay_comparison.csv \
+  --out-json reports/scheduled_replay_comparison.json \
+  --validate
+```
+
+The expected careful interpretation is that a second run can test whether the observed packet proportions remain consistent with the scheduled send-fraction difference while the usefulness-threshold stream retains higher mean delivered usefulness per received packet.
+
+This planned run should still avoid claims about exact transmitted-packet counts, confirmed collisions, true latency, LoRaWAN behavior, live belief-controller behavior, or airtime optimization.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
