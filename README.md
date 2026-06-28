@@ -639,6 +639,55 @@ The expected careful interpretation is that a second run can test whether the ob
 
 This planned run should still avoid claims about exact transmitted-packet counts, confirmed collisions, true latency, LoRaWAN behavior, live belief-controller behavior, or airtime optimization.
 
+### Run 025 skipped-slot replay repeat
+
+Run 025 repeats the Run 024 skipped-slot physical replay under similar lab conditions using the same Run 022 reporting schedules.
+
+Run 025 parser summary:
+
+```
+Valid packets:      552
+Malformed packets:  0
+
+TXA/N01: 368 packets
+TXB/N16: 184 packets
+
+TXA/N01 mean usefulness: 0.539
+TXB/N16 mean usefulness: 0.785
+```
+
+Manifest-bound schedule-aware analysis:
+
+```
+TXA/N01: 16/16 schedule rows SEND; 368 received packets; mean delivered usefulness 0.539
+TXB/N16: 8/16 schedule rows SEND; 184 received packets; mean delivered usefulness 0.785
+Observed received-packet ratio 0.5000; scheduled send-fraction ratio 0.5000.
+```
+
+Run 025 passed bundle validation:
+
+```
+Bundle validation PASSED: reports/run025_schedule_aware_manifest.json
+Checks passed: 70 / 70
+```
+
+The Run 024 / Run 025 comparison now summarizes two physical scheduled replay runs:
+
+```
+Runs summarized: 2
+Transmitter rows: 4
+run024 TXA/N01: 16/16 SEND rows; 361 received packets; mean delivered usefulness 0.540
+run024 TXB/N16: 8/16 SEND rows; 176 received packets; mean delivered usefulness 0.786
+run025 TXA/N01: 16/16 SEND rows; 368 received packets; mean delivered usefulness 0.539
+run025 TXB/N16: 8/16 SEND rows; 184 received packets; mean delivered usefulness 0.785
+```
+
+Careful interpretation:
+
+> Run 025 provides a second physical scheduled replay consistent with the Run 024 skipped-slot pattern. In both runs, the observed TXB/TXA received-packet ratio is close to the scheduled send-fraction ratio, while TXB retains higher mean delivered usefulness per received packet.
+
+The analysis remains bounded. It does not infer exact transmitted-packet counts, confirmed collisions, true latency, live belief-controller behavior, LoRaWAN behavior, or airtime optimization.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
