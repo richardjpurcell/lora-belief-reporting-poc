@@ -1,0 +1,80 @@
+{
+  "analysis_note": "Schedule rows define one schedule period that firmware may loop over. Use schedule fractions and observed packet-count ratios for interpretation. Do not infer exact transmitted packet counts without explicit run-duration and schedule-cycle information.",
+  "inputs": {
+    "schedule_a": "traces/run022_reporting_txa_fixed_all_schedule.csv",
+    "schedule_b": "traces/run022_reporting_txb_usefulness_threshold_schedule.csv",
+    "parsed": "logs/parsed_run_024_skipped_slot_replay.csv"
+  },
+  "per_transmitter": [
+    {
+      "tx_id": "TXA",
+      "node_id": null,
+      "demand_rows": 16,
+      "scheduled_send_rows": 16,
+      "scheduled_skip_rows": 0,
+      "send_fraction": 1.0,
+      "scheduled_send_usefulness_total": 8.62,
+      "scheduled_send_usefulness_mean": 0.53875,
+      "schedule_sequence_column": null,
+      "usefulness_column": "usefulness",
+      "received_valid_packets": 361,
+      "observed_sequence_min": 0,
+      "observed_sequence_max": 363,
+      "observed_missing_transmitted_sequences": [
+        22,
+        183,
+        221
+      ],
+      "observed_missing_transmitted_sequence_count": 3,
+      "delivered_usefulness_total": 194.97000000000003,
+      "delivered_usefulness_mean_per_received_packet": 0.5400831024930749,
+      "mean_receiver_interarrival_ms": 1008.3194444444445,
+      "parsed_sequence_column": "seq",
+      "parsed_usefulness_column": "usefulness",
+      "parsed_receiver_time_column": "recv_ms",
+      "received_packets_per_scheduled_send_row": 22.5625,
+      "delivered_usefulness_per_scheduled_demand_row": 12.185625000000002,
+      "delivered_usefulness_per_scheduled_send_row": 12.185625000000002
+    },
+    {
+      "tx_id": "TXB",
+      "node_id": null,
+      "demand_rows": 16,
+      "scheduled_send_rows": 8,
+      "scheduled_skip_rows": 8,
+      "send_fraction": 0.5,
+      "scheduled_send_usefulness_total": 6.27,
+      "scheduled_send_usefulness_mean": 0.78375,
+      "schedule_sequence_column": null,
+      "usefulness_column": "usefulness",
+      "received_valid_packets": 176,
+      "observed_sequence_min": 0,
+      "observed_sequence_max": 181,
+      "observed_missing_transmitted_sequences": [
+        53,
+        62,
+        66,
+        83,
+        104,
+        155
+      ],
+      "observed_missing_transmitted_sequence_count": 6,
+      "delivered_usefulness_total": 138.28,
+      "delivered_usefulness_mean_per_received_packet": 0.7856818181818181,
+      "mean_receiver_interarrival_ms": 2068.542857142857,
+      "parsed_sequence_column": "seq",
+      "parsed_usefulness_column": "usefulness",
+      "parsed_receiver_time_column": "recv_ms",
+      "received_packets_per_scheduled_send_row": 22.0,
+      "delivered_usefulness_per_scheduled_demand_row": 8.6425,
+      "delivered_usefulness_per_scheduled_send_row": 17.285
+    }
+  ],
+  "comparison": {
+    "baseline_tx_id": "TXA",
+    "comparison_tx_id": "TXB",
+    "scheduled_send_fraction_ratio_comparison_over_baseline": 0.5,
+    "observed_received_packet_ratio_comparison_over_baseline": 0.48753462603878117,
+    "interpretation": "Observed received-packet ratio should be interpreted as a proportion consistent with scheduled skipping, not as a confirmed transmitted-packet or collision count."
+  }
+}
