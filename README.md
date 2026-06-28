@@ -468,6 +468,35 @@ The careful v1.0 interpretation is that Run 024 demonstrates reduced physical tr
 
 It does not prove collision reduction, and it does not measure true transmitter-to-receiver latency.
 
+### v1.1 schedule-aware analysis
+
+The v1.1 analysis layer adds schedule-aware interpretation for skipped-slot physical replay runs.
+
+The receiver parser remains packet-centric: it parses valid received packets and writes malformed rows to a rejects file. The new schedule-aware analyzer combines parsed receiver rows with the reporting schedules used by the transmitter firmware.
+
+For Run 024:
+
+```
+python scripts/analyze_scheduled_replay.py \
+  --schedule-a traces/run022_reporting_txa_fixed_all_schedule.csv \
+  --schedule-b traces/run022_reporting_txb_usefulness_threshold_schedule.csv \
+  --parsed logs/parsed_run_024_skipped_slot_replay.csv \
+  --out-json reports/run024_schedule_aware_summary.json \
+  --out-csv reports/run024_schedule_aware_summary.csv
+```
+
+Headline result:
+
+```
+TXA: 16/16 schedule rows SEND; 361 received packets; mean delivered usefulness 0.540
+TXB: 8/16 schedule rows SEND; 176 received packets; mean delivered usefulness 0.786
+Observed received-packet ratio 0.4875; scheduled send-fraction ratio 0.5000.
+```
+
+This supports the careful interpretation that the TXB received-packet ratio is consistent with scheduled skipping while retaining higher mean usefulness per received packet.
+
+The schedule CSVs define one repeated schedule period, so the analysis compares schedule proportions and observed packet proportions. It does not infer exact transmitted packet counts, confirmed collisions, true latency, or airtime optimization.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
