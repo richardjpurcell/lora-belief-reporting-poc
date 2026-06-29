@@ -1270,6 +1270,82 @@ The important SD replay distinction remains: the SEND-only compact CSVs are not 
 
 This milestone prepares the repository artifacts needed for a later Run 029 physical replay. It does not copy files to SD cards, run transmitters, create receiver logs, or make new physical-delivery claims.
 
+### v3.2 Run 029 longer SD physical replay
+
+The `v3.2` milestone completes the receiver-side physical replay for Run 029.
+
+Run 029 extends the microSD-backed replay workflow from a 16-row schedule to a 64-row schedule while keeping the setup two-transmitter.
+
+Run 029 schedule target:
+
+```
+TXA/N01: fixed-all, 64/64 SEND
+TXB/N16: medium usefulness threshold, 32/64 SEND
+```
+
+Expected scheduled TXB/TXA ratio:
+
+```
+32/64 = 0.5000
+```
+
+Parser summary:
+
+```
+Valid packets:      719
+Malformed packets:  0
+
+TXA/N01: 478 packets
+TXB/N16: 241 packets
+
+TXA/N01 mean usefulness: 0.526
+TXB/N16 mean usefulness: 0.810
+```
+
+Manifest-bound schedule-aware analysis:
+
+```
+TXA/N01: 64/64 schedule rows SEND; 478 received packets; mean delivered usefulness 0.526
+TXB/N16: 32/64 schedule rows SEND; 241 received packets; mean delivered usefulness 0.810
+Observed received-packet ratio 0.5042; scheduled send-fraction ratio 0.5000.
+```
+
+Receiver inter-arrival summaries also reflected the schedule structure:
+
+```
+N01 mean receiver inter-arrival: 1.008 s
+N16 mean receiver inter-arrival: 2.000 s
+```
+
+These are receiver-side timing observations only, not true synchronized latency measurements.
+
+The scheduled replay comparison now summarizes Runs 024--029:
+
+```
+run024 TXA/N01: 16/16 SEND rows; 361 received packets; mean delivered usefulness 0.540
+run024 TXB/N16:  8/16 SEND rows; 176 received packets; mean delivered usefulness 0.786
+
+run025 TXA/N01: 16/16 SEND rows; 368 received packets; mean delivered usefulness 0.539
+run025 TXB/N16:  8/16 SEND rows; 184 received packets; mean delivered usefulness 0.785
+
+run026 TXA/N01: 16/16 SEND rows; 504 received packets; mean delivered usefulness 0.538
+run026 TXB/N16:  4/16 SEND rows; 127 received packets; mean delivered usefulness 0.866
+
+run027 TXA/N01: 16/16 SEND rows; 400 received packets; mean delivered usefulness 0.539
+run027 TXB/N16: 12/16 SEND rows; 299 received packets; mean delivered usefulness 0.667
+
+run028 TXA/N01: 16/16 SEND rows; 378 received packets; mean delivered usefulness 0.539
+run028 TXB/N16: 12/16 SEND rows; 284 received packets; mean delivered usefulness 0.668
+
+run029 TXA/N01: 64/64 SEND rows; 478 received packets; mean delivered usefulness 0.526
+run029 TXB/N16: 32/64 SEND rows; 241 received packets; mean delivered usefulness 0.810
+```
+
+Careful interpretation:
+
+> Run 029 supports that the microSD-backed replay path can carry a longer 64-row scheduled-skipping replay while preserving the expected received-packet proportion and delivered-usefulness pattern under similar two-transmitter lab conditions.
+
+The result changes schedule length, not transmitter count. It does not infer exact transmitted-packet counts, confirmed collisions, true latency, LoRaWAN behavior, airtime optimization, energy savings, live belief-controller behavior, or scalability to the planned 12-transmitter platform.
 
 ## Scope caution
 
