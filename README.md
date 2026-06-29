@@ -1465,6 +1465,46 @@ docs/development/run030_three_transmitter_sd_schedule_prep.md
 
 The important tooling finding is that the existing schedule-generation and analysis scripts were originally shaped around TXA/TXB comparisons. Run 030 schedule preparation therefore records the need for careful three-transmitter artifact generation and later analysis generalization before physical replay interpretation.
 
+### v3.6 three-transmitter SD physical preparation
+
+Milestone `v3.6-three-transmitter-sd-physical-prep` prepares the first three-transmitter Run 030 SD-backed replay for later receiver logging.
+
+The milestone adds a TXC firmware configuration:
+
+```
+firmware/first_radio_link_TX_C/
+```
+
+with identity:
+
+```
+TXC/N31
+```
+
+The intended SD-card schedule mapping is:
+
+```
+TXA/N01 -> traces/run030_sd_txa_schedule.csv copied as /schedule.csv
+TXB/N16 -> traces/run030_sd_txb_schedule.csv copied as /schedule.csv
+TXC/N31 -> traces/run030_sd_txc_schedule.csv copied as /schedule.csv
+```
+
+Expected startup checks are:
+
+```
+TXA: schedule_rows=64, send_rows=64
+TXB: schedule_rows=64, send_rows=32
+TXC: schedule_rows=64, send_rows=16
+```
+
+This is a physical-preparation milestone only. It does not collect a receiver log, parse physical packets, report observed packet proportions, or make three-transmitter physical replay claims.
+
+The development note is:
+
+```
+docs/development/run030_three_transmitter_sd_physical_prep.md
+```
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
