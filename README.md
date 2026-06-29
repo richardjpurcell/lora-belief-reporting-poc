@@ -1347,6 +1347,48 @@ Careful interpretation:
 
 The result changes schedule length, not transmitter count. It does not infer exact transmitted-packet counts, confirmed collisions, true latency, LoRaWAN behavior, airtime optimization, energy savings, live belief-controller behavior, or scalability to the planned 12-transmitter platform.
 
+### v3.3 Longer SD replay synthesis
+
+The `v3.3` milestone synthesizes the microSD-backed replay phase through Run 029.
+
+This is not a new physical LoRa run. It summarizes what Runs 028 and 029 establish and identifies the next scaling risk.
+
+Run 028 established the first successful 16-row microSD-backed physical replay:
+
+```
+TXA/N01: 16/16 SEND, 378 received packets, mean usefulness 0.539
+TXB/N16: 12/16 SEND, 284 received packets, mean usefulness 0.668
+
+Scheduled TXB/TXA ratio: 0.7500
+Observed TXB/TXA ratio: 0.7513
+```
+
+Run 029 extended the SD-backed replay path to a 64-row schedule:
+
+```
+TXA/N01: 64/64 SEND, 478 received packets, mean usefulness 0.526
+TXB/N16: 32/64 SEND, 241 received packets, mean usefulness 0.810
+
+Scheduled TXB/TXA ratio: 0.5000
+Observed TXB/TXA ratio: 0.5042
+```
+
+Careful synthesis:
+
+> Under similar two-transmitter lab conditions, microSD-backed all-slot schedule replay preserved the expected scheduled-skipping received-packet proportions for both a 16-row loose-threshold condition and a 64-row medium-threshold condition, while the threshold-selected stream retained higher mean delivered usefulness per received packet than the fixed-all stream.
+
+This is a storage-and-replay result, not a network-scaling result.
+
+The SD replay phase does not yet establish three-or-more-transmitter behavior, 12-transmitter behavior, exact transmitted-packet counts, confirmed collision counts, synchronized latency, LoRaWAN behavior, energy savings, live belief-controller behavior, or operational wildfire behavior.
+
+Recommended next step:
+
+```
+v3.4-three-transmitter-sd-replay-design
+```
+
+The next uncertainty is multi-transmitter physical interaction, not basic SD schedule storage.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
