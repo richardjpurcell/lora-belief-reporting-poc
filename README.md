@@ -1389,6 +1389,45 @@ v3.4-three-transmitter-sd-replay-design
 
 The next uncertainty is multi-transmitter physical interaction, not basic SD schedule storage.
 
+## v3.4 three-transmitter SD replay design
+
+Milestone `v3.4-three-transmitter-sd-replay-design` designs the next cautious step after the two-transmitter microSD-backed replay phase.
+
+The purpose is to move from two transmitters to a small three-transmitter SD-backed replay design without yet generating schedules, copying SD cards, running firmware, or collecting receiver logs.
+
+The design question is:
+
+```
+Can the SD-backed, manifest-bound replay workflow remain readable when we move from two transmitters to three transmitters?
+```
+
+The proposed design keeps the 64-row schedule period from Run 029 and adds one transmitter:
+
+```
+TXA/N01: fixed-all baseline, 64/64 SEND
+TXB/N16: medium threshold, 32/64 SEND
+TXC/N31: strict threshold, 16/64 SEND
+```
+
+`TXC/N31` is provisional and should be replaced if the physical third transmitter already has a different label or node ID.
+
+This remains a point-to-point LoRa replay design, not LoRaWAN and not a network-scaling result. The milestone preserves the existing cautions: schedule CSVs define one repeated schedule period, the analyzer compares scheduled and observed proportions, observed sequence gaps are not confirmed collisions, receiver timestamps are not synchronized latency, usefulness and priority are synthetic metadata, and no energy savings should be claimed without current or power measurements.
+
+The detailed design note is in:
+
+```
+docs/development/three_transmitter_sd_replay_design.md
+```
+
+Likely follow-on milestones are:
+
+```
+v3.5-three-transmitter-sd-schedule-prep
+v3.6-three-transmitter-sd-physical-prep
+v3.7-three-transmitter-sd-physical-replay
+v3.8-three-transmitter-sd-replay-synthesis
+```
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
