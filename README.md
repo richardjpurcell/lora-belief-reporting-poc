@@ -1201,6 +1201,76 @@ v3.0-run029-longer-sd-schedule-prep
 
 That milestone should generate and validate the Run 029 schedule artifacts before any physical replay.
 
+### v3.0 Run 029 longer SD schedule preparation
+
+The `v3.0` milestone prepares the schedule artifacts for a longer two-transmitter SD-backed replay.
+
+This is not a new physical LoRa run. It prepares and validates the schedule bundle for a later Run 029 physical replay.
+
+Run 029 target:
+
+```
+TXA/N01: fixed-all baseline, 64/64 SEND
+TXB/N16: usefulness-threshold stream, 32/64 SEND
+```
+
+Expected scheduled TXB/TXA ratio:
+
+```
+32/64 = 0.5000
+```
+
+A new 64-row generic demand input was created:
+
+```
+traces/run029_longer_adapter_input.csv
+```
+
+The reporting schedule generator produced:
+
+```
+traces/run029_reporting_txa_fixed_all_schedule.csv
+traces/run029_reporting_txb_usefulness_threshold_schedule.csv
+traces/run029_reporting_txa_fixed_all_compact.csv
+traces/run029_reporting_txb_usefulness_threshold_compact.csv
+traces/run029_reporting_reporting_schedule_manifest.json
+```
+
+The full schedules have the intended SEND/SKIP counts:
+
+```
+TXA/N01: 64 rows, 64 SEND, 0 SKIP
+TXB/N16: 64 rows, 32 SEND, 32 SKIP
+```
+
+The full schedules were converted into all-slot SD schedules:
+
+```
+traces/run029_sd_txa_schedule.csv
+traces/run029_sd_txb_schedule.csv
+```
+
+Both SD schedules passed validation:
+
+```
+python scripts/validate_sd_schedule.py \
+  --infile traces/run029_sd_txa_schedule.csv \
+  --expected-rows 64 \
+  --expected-send-rows 64 \
+  --expected-skip-rows 0
+
+python scripts/validate_sd_schedule.py \
+  --infile traces/run029_sd_txb_schedule.csv \
+  --expected-rows 64 \
+  --expected-send-rows 32 \
+  --expected-skip-rows 32
+```
+
+The important SD replay distinction remains: the SEND-only compact CSVs are not `/schedule.csv` files. Physical SD-backed replay should use the validated all-slot SD schedule CSVs.
+
+This milestone prepares the repository artifacts needed for a later Run 029 physical replay. It does not copy files to SD cards, run transmitters, create receiver logs, or make new physical-delivery claims.
+
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
