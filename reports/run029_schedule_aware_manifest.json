@@ -1,0 +1,62 @@
+{
+  "run_id": "run029",
+  "milestone": "v3.2-run029-longer-sd-physical-replay",
+  "description": "Manifest-bound schedule-aware analysis for Run 029 longer two-transmitter microSD-backed physical replay.",
+  "analysis_type": "schedule-aware longer microSD-backed physical replay",
+  "replay_mechanism": "microSD-backed schedule CSV",
+  "transmitters": {
+    "a": {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "role": "fixed-all 64-row schedule replayed from microSD",
+      "schedule_csv": "traces/run029_reporting_txa_fixed_all_schedule.csv",
+      "sd_schedule_csv": "traces/run029_sd_txa_schedule.csv",
+      "sd_volume_name": "LORA_TXA",
+      "sd_path": "/schedule.csv",
+      "expected_rows": 64,
+      "expected_send_rows": 64,
+      "expected_skip_rows": 0
+    },
+    "b": {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "role": "medium usefulness-threshold 64-row schedule replayed from microSD",
+      "schedule_csv": "traces/run029_reporting_txb_usefulness_threshold_schedule.csv",
+      "sd_schedule_csv": "traces/run029_sd_txb_schedule.csv",
+      "sd_volume_name": "LORA_TXB",
+      "sd_path": "/schedule.csv",
+      "expected_rows": 64,
+      "expected_send_rows": 32,
+      "expected_skip_rows": 32
+    }
+  },
+  "receiver_logs": {
+    "raw": "logs/rx_run_029_longer_sd_replay.csv",
+    "parsed_valid": "logs/parsed_run_029_longer_sd_replay.csv",
+    "parsed_rejects": "logs/parsed_run_029_longer_sd_replay_rejects.csv"
+  },
+  "outputs": {
+    "summary_json": "reports/run029_schedule_aware_summary.json",
+    "summary_csv": "reports/run029_schedule_aware_summary.csv"
+  },
+  "expected_headline": {
+    "txa": "TXA/N01: 64/64 schedule rows SEND; 478 received packets; mean delivered usefulness 0.526",
+    "txb": "TXB/N16: 32/64 schedule rows SEND; 241 received packets; mean delivered usefulness 0.810",
+    "ratio": "Observed received-packet ratio 0.5042; scheduled send-fraction ratio 0.5000."
+  },
+  "interpretation": "Run 029 extends microSD-backed scheduled replay from a 16-row schedule to a 64-row two-transmitter schedule. TXA/N01 loaded a fixed-all 64/64 SEND schedule and TXB/N16 loaded a medium usefulness-threshold 32/64 SEND schedule from /schedule.csv. The observed TXB/TXA received-packet ratio was close to the scheduled send-fraction ratio, while TXB retained higher mean delivered usefulness per received packet than TXA. This supports a bounded longer-schedule SD replay interpretation under similar two-transmitter lab conditions.",
+  "cautions": [
+    "This is point-to-point LoRa at 915 MHz, not LoRaWAN.",
+    "The schedule CSVs define one repeated schedule period.",
+    "The analyzer compares schedule proportions and observed packet proportions.",
+    "The analyzer does not infer exact transmitted packet counts.",
+    "Missing sequence numbers are observed sequence gaps, not confirmed collisions.",
+    "recv_ms and tx_ms are not synchronized across boards and should not be interpreted as true latency.",
+    "Receiver inter-arrival summaries are receiver-side observations only.",
+    "Usefulness and priority are synthetic metadata in this milestone.",
+    "The run does not yet use a live belief-maintenance controller.",
+    "Use the wording reduced physical transmission attempts under scheduled skipping, not airtime optimization.",
+    "Do not claim energy savings unless current or power measurements are added.",
+    "Run 029 changes schedule length relative to Run 028, not transmitter count."
+  ]
+}
