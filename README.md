@@ -1427,6 +1427,43 @@ v3.6-three-transmitter-sd-physical-prep
 v3.7-three-transmitter-sd-physical-replay
 v3.8-three-transmitter-sd-replay-synthesis
 ```
+### v3.5 three-transmitter SD schedule preparation
+
+Milestone `v3.5-three-transmitter-sd-schedule-prep` prepares the schedule artifacts for the first three-transmitter microSD-backed replay.
+
+The third transmitter identity is now:
+
+```
+TXC/N31
+```
+
+The planned Run 030 schedule set is:
+
+```
+TXA/N01: fixed-all baseline, 64/64 SEND
+TXB/N16: medium threshold, 32/64 SEND
+TXC/N31: strict threshold, 16/64 SEND
+```
+
+This milestone is schedule-preparation only. It does not copy files to SD cards, flash firmware, run the receiver logger, collect physical logs, or make physical replay claims.
+
+The expected SD-facing files are:
+
+```
+traces/run030_sd_txa_schedule.csv
+traces/run030_sd_txb_schedule.csv
+traces/run030_sd_txc_schedule.csv
+```
+
+Each SD-facing file remains an all-slot CSV intended to be copied to its transmitter SD card as `/schedule.csv` during a later physical-preparation milestone. Compact SEND-only CSVs remain analysis/reference artifacts and should not be copied to SD cards as `/schedule.csv`.
+
+The schedule-preparation note is:
+
+```
+docs/development/run030_three_transmitter_sd_schedule_prep.md
+```
+
+The important tooling finding is that the existing schedule-generation and analysis scripts were originally shaped around TXA/TXB comparisons. Run 030 schedule preparation therefore records the need for careful three-transmitter artifact generation and later analysis generalization before physical replay interpretation.
 
 ## Scope caution
 
