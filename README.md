@@ -1504,6 +1504,41 @@ The development note is:
 ```
 docs/development/run030_three_transmitter_sd_physical_prep.md
 ```
+### v3.8 three-transmitter SD replay synthesis
+
+Milestone `v3.8-three-transmitter-sd-replay-synthesis` synthesizes the first three-transmitter SD-backed replay phase.
+
+Run 030 moved the SD-backed replay workflow from two transmitters to three:
+
+```
+TXA/N01: 64/64 SEND, 393 received packets, mean usefulness 0.524
+TXB/N16: 32/64 SEND, 194 received packets, mean usefulness 0.810
+TXC/N31: 16/64 SEND,  98 received packets, mean usefulness 0.870
+```
+
+Observed receiver-side packet ratios were close to scheduled SEND ratios:
+
+```
+TXB/TXA observed 0.4936 vs scheduled 0.5000
+TXC/TXA observed 0.2494 vs scheduled 0.2500
+TXC/TXB observed 0.5052 vs scheduled 0.5000
+```
+
+Run 030 had 685 valid packets and one malformed packet. The parser recovered all three transmitter identities, including TXC/N31.
+
+The careful synthesis is:
+
+```
+The SD-backed, manifest-bound replay workflow remained readable when moving from two transmitters to three transmitters under this lab condition.
+```
+
+This remains a bounded point-to-point LoRa bench result. It does not establish 12-transmitter behavior, exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, airtime optimization, energy savings, live belief-controller behavior, or operational wildfire behavior.
+
+The development note is:
+
+```
+docs/development/three_transmitter_sd_replay_synthesis.md
+```
 
 ## Scope caution
 
