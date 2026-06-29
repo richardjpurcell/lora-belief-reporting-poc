@@ -1107,6 +1107,100 @@ Both Run 028 SD schedules pass validation. The validator also correctly rejects 
 
 This milestone does not add a new physical replay. It makes the SD-card workflow safer before longer traces, AWSRT-derived schedules, or larger transmitter-count tests.
 
+### v2.9 longer two-transmitter SD replay design
+
+The `v2.9` milestone defines a design-only next step after the successful Run 028 microSD-backed replay and the `v2.8` SD workflow cleanup.
+
+The purpose is to test the practical value of SD-backed replay with a longer schedule before adding transmitter-count complexity.
+
+Run 028 used a short 16-row schedule:
+
+```
+TXA/N01: 16/16 SEND
+TXB/N16: 12/16 SEND
+```
+
+Run 028 confirmed that the Run 027-style loose-threshold schedule semantics could move from compiled firmware headers to microSD-backed `/schedule.csv` replay while preserving the expected received-packet proportion under similar two-transmitter lab conditions.
+
+The recommended next physical direction is a longer two-transmitter SD replay, not yet a three-transmitter run.
+
+Proposed Run 029 target:
+
+```
+TXA/N01: fixed-all baseline, 64/64 SEND
+TXB/N16: usefulness-threshold stream, 32/64 SEND
+```
+
+Expected scheduled TXB/TXA ratio:
+
+```
+32/64 = 0.5000
+```
+
+This would make Run 029 a longer-schedule version of the medium-threshold condition from Runs 024 and 025.
+
+The intended path is:
+
+```
+generic demand trace
+→ full reporting schedule CSV
+→ all-slot SD schedule CSV
+→ validated /schedule.csv on transmitter SD card
+→ physical LoRa replay
+→ parsed receiver log
+→ manifest-bound schedule-aware analysis
+```
+
+The design recommends keeping the next physical replay two-transmitter so that only one main thing changes:
+
+```
+schedule length
+```
+
+It should not simultaneously change transmitter count, packet format, receiver logging, parser behavior, or the manifest-bound analysis pipeline.
+
+Potential Run 029 files:
+
+```
+traces/run029_longer_adapter_input.csv
+traces/run029_reporting_txa_fixed_all_schedule.csv
+traces/run029_reporting_txb_usefulness_threshold_schedule.csv
+traces/run029_sd_txa_schedule.csv
+traces/run029_sd_txb_schedule.csv
+logs/rx_run_029_longer_sd_replay.csv
+logs/parsed_run_029_longer_sd_replay.csv
+logs/parsed_run_029_longer_sd_replay_rejects.csv
+reports/run029_schedule_aware_manifest.json
+reports/run029_schedule_aware_summary.csv
+reports/run029_schedule_aware_summary.json
+```
+
+Before any physical replay, the SD schedules should validate with:
+
+```
+python scripts/validate_sd_schedule.py \
+  --infile traces/run029_sd_txa_schedule.csv \
+  --expected-rows 64 \
+  --expected-send-rows 64 \
+  --expected-skip-rows 0
+
+python scripts/validate_sd_schedule.py \
+  --infile traces/run029_sd_txb_schedule.csv \
+  --expected-rows 64 \
+  --expected-send-rows 32 \
+  --expected-skip-rows 32
+```
+
+The design milestone does not add a new physical run. It defines the next controlled experiment: increase the schedule length from 16 rows to 64 rows while preserving the existing two-transmitter SD replay workflow and bounded interpretation language.
+
+The recommended follow-on milestone is:
+
+```
+v3.0-run029-longer-sd-schedule-prep
+```
+
+That milestone should generate and validate the Run 029 schedule artifacts before any physical replay.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
