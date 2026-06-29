@@ -480,3 +480,135 @@ TXC/N31: 16/64 SEND
 ```
 
 This prepares the project for physical startup checks in v3.6 and the first three-transmitter SD replay in v3.7.
+
+
+## 18. Artifact generation result
+
+The Run 030 schedule artifacts were generated with:
+
+    python scripts/prepare_run030_three_tx_schedules.py
+
+The generator produced:
+
+    Wrote Run 030 three-transmitter schedule artifacts
+    TXA/N01: rows=64, send=64, skip=0
+    TXB/N16: rows=64, send=32, skip=32
+    TXC/N31: rows=64, send=16, skip=48
+    Manifest: traces/run030_reporting_reporting_schedule_manifest.json
+
+Generated schedule artifacts:
+
+    traces/run030_three_tx_base_schedule.csv
+
+    traces/run030_reporting_reporting_schedule_manifest.json
+
+    traces/run030_reporting_txa_fixed_all_schedule.csv
+    traces/run030_reporting_txa_fixed_all_compact.csv
+
+    traces/run030_reporting_txb_medium_threshold_schedule.csv
+    traces/run030_reporting_txb_medium_threshold_compact.csv
+
+    traces/run030_reporting_txc_strict_threshold_schedule.csv
+    traces/run030_reporting_txc_strict_threshold_compact.csv
+
+    traces/run030_sd_txa_schedule.csv
+    traces/run030_sd_txb_schedule.csv
+    traces/run030_sd_txc_schedule.csv
+
+## 19. SD validation result
+
+All three SD-facing all-slot schedule files validated successfully.
+
+TXA validation:
+
+    python scripts/validate_sd_schedule.py \
+        --infile traces/run030_sd_txa_schedule.csv \
+        --expected-rows 64 \
+        --expected-send-rows 64 \
+        --expected-skip-rows 0
+
+Result:
+
+    SD schedule validation PASSED: traces/run030_sd_txa_schedule.csv
+    Rows:      64
+    SEND rows: 64
+    SKIP rows: 0
+
+TXB validation:
+
+    python scripts/validate_sd_schedule.py \
+        --infile traces/run030_sd_txb_schedule.csv \
+        --expected-rows 64 \
+        --expected-send-rows 32 \
+        --expected-skip-rows 32
+
+Result:
+
+    SD schedule validation PASSED: traces/run030_sd_txb_schedule.csv
+    Rows:      64
+    SEND rows: 32
+    SKIP rows: 32
+
+TXC validation:
+
+    python scripts/validate_sd_schedule.py \
+        --infile traces/run030_sd_txc_schedule.csv \
+        --expected-rows 64 \
+        --expected-send-rows 16 \
+        --expected-skip-rows 48
+
+Result:
+
+    SD schedule validation PASSED: traces/run030_sd_txc_schedule.csv
+    Rows:      64
+    SEND rows: 16
+    SKIP rows: 48
+
+Line-count checks confirmed that each SD-facing schedule has one header row plus 64 schedule rows:
+
+    65 traces/run030_sd_txa_schedule.csv
+    65 traces/run030_sd_txb_schedule.csv
+    65 traces/run030_sd_txc_schedule.csv
+
+## 20. Firmware-facing policy-code correction
+
+During validation, the first generated SD-facing schedules failed because the `policy` field used human-readable labels such as `fixed_all` and `usefulness_threshold`.
+
+The SD validator requires the firmware-facing `policy` field to be a single character.
+
+The generator was corrected so that SD-facing schedule rows use:
+
+    F for TXA fixed-all rows
+    U for TXB usefulness-threshold rows
+    U for TXC usefulness-threshold rows
+
+The manifest still records the human-readable policy meaning and threshold family.
+
+The corrected SD-facing headers and first rows are:
+
+    seq,region,event,priority,usefulness,stale_after,policy,send
+    0,A,1,0.750,0.720,5,F,1
+
+    seq,region,event,priority,usefulness,stale_after,policy,send
+    0,A,1,0.750,0.720,5,U,1
+
+    seq,region,event,priority,usefulness,stale_after,policy,send
+    0,A,1,0.750,0.720,5,U,0
+
+This correction preserves the firmware-facing SD replay convention while keeping readable policy metadata in the manifest and development note.
+
+## 21. Completion status
+
+The v3.5 schedule-preparation milestone now has:
+
+    TXC/N31 locked as the third transmitter identity
+    Run 030 three-transmitter schedule artifacts generated
+    TXA, TXB, and TXC SD-facing schedules validated
+    expected SEND/SKIP counts confirmed
+    manifest-bound artifact paths recorded
+    no SD-card copying
+    no firmware flashing
+    no receiver logging
+    no physical replay claims
+
+This completes the schedule-preparation content for v3.5.
