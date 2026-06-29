@@ -900,6 +900,166 @@ The analysis remains bounded. It does not infer exact transmitted-packet counts,
 
 This completes the first threshold-family phase for now. The next recommended direction is microSD-backed replay design, because compiled firmware headers will become cumbersome for longer traces, AWSRT-derived demand schedules, and larger transmitter counts.
 
+### microSD-backed replay through Run 028
+
+The next phase moved the scheduled replay mechanism from compiled firmware schedule headers to microSD-backed schedule loading.
+
+The motivation was practical. Compiled schedule headers worked well for short 16-row, two-transmitter experiments, but they will become cumbersome for longer traces, AWSRT-derived schedules, repeated replay experiments, and future scaling beyond TXA/TXB.
+
+The microSD replay phase spans four milestones:
+
+```
+v2.3-microsd-replay-design
+v2.4-run028-microsd-replay-design
+v2.5-run028-microsd-firmware-prep
+v2.6-run028-microsd-physical-replay
+```
+
+The main replay path is now:
+
+```text
+full analysis-facing SEND/SKIP schedule CSV
+→ all-slot SD schedule CSV
+→ /schedule.csv on transmitter microSD card
+→ firmware loads schedule rows at startup
+→ SEND transmits
+→ SKIP remains silent
+→ receiver log
+→ parser
+→ manifest-bound schedule-aware analysis
+```
+
+A key correction during this phase was the distinction between SEND-only compact CSVs and all-slot SD schedule CSVs. The earlier compact CSVs contain only transmitted rows and therefore omit skipped schedule slots. They are not suitable as direct `/schedule.csv` replay files for SD-backed scheduled skipping. For microSD replay, the firmware needs all schedule slots, including both SEND and SKIP rows.
+
+A new SD schedule converter was added:
+
+```text
+scripts/make_sd_schedule_csv.py
+```
+
+For Run 028, it generated:
+
+```text
+traces/run028_sd_txa_schedule.csv
+traces/run028_sd_txb_schedule.csv
+```
+
+using the SD-facing schema:
+
+```text
+seq,region,event,priority,usefulness,stale_after,policy,send
+```
+
+where `send=1` means transmit and `send=0` means remain silent for that schedule slot.
+
+Two SD cards were prepared using a board-oriented naming convention:
+
+```text
+LORA_TXA → TXA/N01 → /schedule.csv from traces/run028_sd_txa_schedule.csv
+LORA_TXB → TXB/N16 → /schedule.csv from traces/run028_sd_txb_schedule.csv
+```
+
+A small probe sketch was added to confirm that the boards could read `/schedule.csv` from microSD before attempting full LoRa replay:
+
+```text
+firmware/sd_schedule_probe/sd_schedule_probe.ino
+```
+
+Both TXA and TXB successfully initialized the SD card, opened `/schedule.csv`, and printed the expected schedule rows. TXB’s SD probe confirmed the expected SKIP rows at demand indices `1`, `5`, `9`, and `13`.
+
+The transmitter firmware was then updated so that TXA and TXB load `/schedule.csv` at startup while preserving the existing parser-facing packet format.
+
+Updated firmware files:
+
+```text
+firmware/first_radio_link_TX-A/first_radio_link_TX-A.ino
+firmware/first_radio_link_TX_B/first_radio_link_TX_B.ino
+```
+
+Startup checks confirmed:
+
+```text
+TXA/N01:
+  rows_loaded=16
+  send_rows=16
+  skip_rows=0
+
+TXB/N16:
+  rows_loaded=16
+  send_rows=12
+  skip_rows=4
+```
+
+Run 028 was the first physical microSD-backed replay. It reused the Run 027-style loose-threshold schedule semantics:
+
+```text
+TXA/N01: fixed-all, 16/16 SEND
+TXB/N16: loose usefulness threshold, 12/16 SEND
+```
+
+Run 028 parser summary:
+
+```text
+Valid packets:      662
+Malformed packets:  0
+
+TXA/N01: 378 packets
+TXB/N16: 284 packets
+
+TXA/N01 mean usefulness: 0.539
+TXB/N16 mean usefulness: 0.668
+```
+
+Manifest-bound schedule-aware analysis:
+
+```text
+TXA/N01: 16/16 schedule rows SEND; 378 received packets; mean delivered usefulness 0.539
+TXB/N16: 12/16 schedule rows SEND; 284 received packets; mean delivered usefulness 0.668
+Observed received-packet ratio 0.7513; scheduled send-fraction ratio 0.7500.
+```
+
+Run 028 aligns closely with the compiled-header Run 027 loose-threshold replay:
+
+```text
+Run 027:
+  scheduled TXB/TXA ratio: 0.7500
+  observed TXB/TXA ratio:  0.7475
+  TXB mean usefulness:     0.667
+
+Run 028:
+  scheduled TXB/TXA ratio: 0.7500
+  observed TXB/TXA ratio:  0.7513
+  TXB mean usefulness:     0.668
+```
+
+The scheduled replay comparison now summarizes Runs 024--028:
+
+```text
+run024 TXA/N01: 16/16 SEND rows; 361 received packets; mean delivered usefulness 0.540
+run024 TXB/N16:  8/16 SEND rows; 176 received packets; mean delivered usefulness 0.786
+
+run025 TXA/N01: 16/16 SEND rows; 368 received packets; mean delivered usefulness 0.539
+run025 TXB/N16:  8/16 SEND rows; 184 received packets; mean delivered usefulness 0.785
+
+run026 TXA/N01: 16/16 SEND rows; 504 received packets; mean delivered usefulness 0.538
+run026 TXB/N16:  4/16 SEND rows; 127 received packets; mean delivered usefulness 0.866
+
+run027 TXA/N01: 16/16 SEND rows; 400 received packets; mean delivered usefulness 0.539
+run027 TXB/N16: 12/16 SEND rows; 299 received packets; mean delivered usefulness 0.667
+
+run028 TXA/N01: 16/16 SEND rows; 378 received packets; mean delivered usefulness 0.539
+run028 TXB/N16: 12/16 SEND rows; 284 received packets; mean delivered usefulness 0.668
+```
+
+Careful interpretation:
+
+> Run 028 supports a bounded storage-mechanism interpretation: the Run 027-style scheduled-skipping semantics can move from compiled firmware headers to microSD-backed replay while preserving the expected received-packet proportion and delivered-usefulness pattern under similar two-transmitter lab conditions.
+
+The result does not prove exact equivalence between compiled-header and SD-backed replay. Physical LoRa reception varies across runs. The correct interpretation is that the expected scheduled-skipping pattern and usefulness pattern were preserved when the schedule storage mechanism changed.
+
+The microSD phase does not infer exact transmitted-packet counts, confirmed collisions, true latency, LoRaWAN behavior, airtime optimization, energy savings, live belief-controller behavior, or scalability to the planned 12-transmitter platform.
+
+This phase prepares the repository for longer traces, AWSRT-derived schedules, and future 3 → 6 → 12 transmitter scaling by separating firmware flashing from schedule swapping. The repository remains the source of reproducible analysis truth; the SD card is the physical replay medium.
 
 ## Scope caution
 
