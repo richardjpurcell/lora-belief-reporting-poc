@@ -1061,6 +1061,52 @@ The microSD phase does not infer exact transmitted-packet counts, confirmed coll
 
 This phase prepares the repository for longer traces, AWSRT-derived schedules, and future 3 → 6 → 12 transmitter scaling by separating firmware flashing from schedule swapping. The repository remains the source of reproducible analysis truth; the SD card is the physical replay medium.
 
+### v2.8 microSD workflow cleanup
+
+The `v2.8` milestone adds a small validation guardrail for microSD-backed replay schedules.
+
+The key workflow distinction is that SEND-only compact CSVs are not valid SD replay schedules. Compact CSVs omit skipped slots and have schema:
+
+```
+seq,region,event,priority,usefulness,stale_after,policy
+```
+
+The transmitter firmware expects an all-slot SD schedule CSV with explicit SEND/SKIP decisions:
+
+```
+seq,region,event,priority,usefulness,stale_after,policy,send
+```
+
+where `send=1` means transmit and `send=0` means remain silent for that slot.
+
+The new validator is:
+
+```
+scripts/validate_sd_schedule.py
+```
+
+It checks the SD-facing schema, contiguous sequence values, basic field types, and optional expected row counts.
+
+Run 028 SD schedule validation:
+
+```
+python scripts/validate_sd_schedule.py \
+  --infile traces/run028_sd_txa_schedule.csv \
+  --expected-rows 16 \
+  --expected-send-rows 16 \
+  --expected-skip-rows 0
+
+python scripts/validate_sd_schedule.py \
+  --infile traces/run028_sd_txb_schedule.csv \
+  --expected-rows 16 \
+  --expected-send-rows 12 \
+  --expected-skip-rows 4
+```
+
+Both Run 028 SD schedules pass validation. The validator also correctly rejects the Run 027 SEND-only compact CSV because it lacks the required `send` column.
+
+This milestone does not add a new physical replay. It makes the SD-card workflow safer before longer traces, AWSRT-derived schedules, or larger transmitter-count tests.
+
 ## Scope caution
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
