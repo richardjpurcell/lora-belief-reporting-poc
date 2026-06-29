@@ -1,0 +1,153 @@
+{
+  "run_id": "run030_three_transmitter_sd_schedule_prep",
+  "milestone": "v3.5-three-transmitter-sd-schedule-prep",
+  "manifest": "traces/run030_reporting_reporting_schedule_manifest.json",
+  "parsed_receiver_csv": "logs/parsed_run_030_three_transmitter_sd_replay.csv",
+  "per_transmitter": [
+    {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "role": "fixed-all baseline",
+      "policy": "fixed_all",
+      "policy_code": "F",
+      "threshold_family": null,
+      "schedule_csv": "traces/run030_reporting_txa_fixed_all_schedule.csv",
+      "demand_rows": 64,
+      "scheduled_send_rows": 64,
+      "scheduled_skip_rows": 0,
+      "send_fraction": 1.0,
+      "expected_rows_manifest": 64,
+      "expected_send_rows_manifest": 64,
+      "expected_skip_rows_manifest": 0,
+      "scheduled_send_usefulness_total": 33.6,
+      "scheduled_send_usefulness_mean": 0.525,
+      "usefulness_column": "usefulness",
+      "received_valid_packets": 393,
+      "observed_sequence_min": 0,
+      "observed_sequence_max": 393,
+      "observed_missing_transmitted_sequences": [
+        78
+      ],
+      "observed_missing_transmitted_sequence_count": 1,
+      "delivered_usefulness_total": 205.8,
+      "delivered_usefulness_mean_per_received_packet": 0.5236641221374047,
+      "delivered_priority_total": 215.62000000000003,
+      "delivered_priority_mean_per_received_packet": 0.5486513994910942,
+      "mean_receiver_interarrival_ms": 1002.5637755102041,
+      "received_packets_per_scheduled_send_row": 6.140625,
+      "received_packets_per_scheduled_demand_row": 6.140625,
+      "delivered_usefulness_per_scheduled_send_row": 3.215625,
+      "delivered_usefulness_per_scheduled_demand_row": 3.215625
+    },
+    {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "role": "medium threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "policy_code": "U",
+      "threshold_family": "medium",
+      "schedule_csv": "traces/run030_reporting_txb_medium_threshold_schedule.csv",
+      "demand_rows": 64,
+      "scheduled_send_rows": 32,
+      "scheduled_skip_rows": 32,
+      "send_fraction": 0.5,
+      "expected_rows_manifest": 64,
+      "expected_send_rows_manifest": 32,
+      "expected_skip_rows_manifest": 32,
+      "scheduled_send_usefulness_total": 25.92,
+      "scheduled_send_usefulness_mean": 0.81,
+      "usefulness_column": "usefulness",
+      "received_valid_packets": 194,
+      "observed_sequence_min": 0,
+      "observed_sequence_max": 196,
+      "observed_missing_transmitted_sequences": [
+        10,
+        12,
+        89
+      ],
+      "observed_missing_transmitted_sequence_count": 3,
+      "delivered_usefulness_total": 157.14000000000001,
+      "delivered_usefulness_mean_per_received_packet": 0.81,
+      "delivered_priority_total": 162.96,
+      "delivered_priority_mean_per_received_packet": 0.8400000000000001,
+      "mean_receiver_interarrival_ms": 2031.1139896373056,
+      "received_packets_per_scheduled_send_row": 6.0625,
+      "received_packets_per_scheduled_demand_row": 3.03125,
+      "delivered_usefulness_per_scheduled_send_row": 4.9106250000000005,
+      "delivered_usefulness_per_scheduled_demand_row": 2.4553125000000002
+    },
+    {
+      "tx_id": "TXC",
+      "node_id": "N31",
+      "role": "strict threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "policy_code": "U",
+      "threshold_family": "strict",
+      "schedule_csv": "traces/run030_reporting_txc_strict_threshold_schedule.csv",
+      "demand_rows": 64,
+      "scheduled_send_rows": 16,
+      "scheduled_skip_rows": 48,
+      "send_fraction": 0.25,
+      "expected_rows_manifest": 64,
+      "expected_send_rows_manifest": 16,
+      "expected_skip_rows_manifest": 48,
+      "scheduled_send_usefulness_total": 13.92,
+      "scheduled_send_usefulness_mean": 0.87,
+      "usefulness_column": "usefulness",
+      "received_valid_packets": 98,
+      "observed_sequence_min": 0,
+      "observed_sequence_max": 97,
+      "observed_missing_transmitted_sequences": [],
+      "observed_missing_transmitted_sequence_count": 0,
+      "delivered_usefulness_total": 85.26000000000002,
+      "delivered_usefulness_mean_per_received_packet": 0.8700000000000002,
+      "delivered_priority_total": 88.19999999999999,
+      "delivered_priority_mean_per_received_packet": 0.8999999999999999,
+      "mean_receiver_interarrival_ms": 3979.422680412371,
+      "received_packets_per_scheduled_send_row": 6.125,
+      "received_packets_per_scheduled_demand_row": 1.53125,
+      "delivered_usefulness_per_scheduled_send_row": 5.328750000000001,
+      "delivered_usefulness_per_scheduled_demand_row": 1.3321875000000003
+    }
+  ],
+  "expected_scheduled_ratios": {
+    "TXB/TXA": 0.5,
+    "TXC/TXA": 0.25,
+    "TXC/TXB": 0.5
+  },
+  "observed_received_packet_ratios": {
+    "TXA/TXB": 2.0257731958762886,
+    "TXA/TXC": 4.010204081632653,
+    "TXB/TXA": 0.49363867684478374,
+    "TXB/TXC": 1.9795918367346939,
+    "TXC/TXA": 0.24936386768447838,
+    "TXC/TXB": 0.5051546391752577
+  },
+  "ratio_comparisons": {
+    "TXB/TXA": {
+      "scheduled_expected_ratio": 0.5,
+      "observed_received_packet_ratio": 0.49363867684478374,
+      "observed_minus_expected": -0.006361323155216259
+    },
+    "TXC/TXA": {
+      "scheduled_expected_ratio": 0.25,
+      "observed_received_packet_ratio": 0.24936386768447838,
+      "observed_minus_expected": -0.0006361323155216203
+    },
+    "TXC/TXB": {
+      "scheduled_expected_ratio": 0.5,
+      "observed_received_packet_ratio": 0.5051546391752577,
+      "observed_minus_expected": 0.005154639175257714
+    }
+  },
+  "interpretation_boundary": [
+    "Schedule CSVs define one repeated schedule period.",
+    "Observed packet ratios are receiver-side proportions.",
+    "This analysis does not infer exact transmitted-packet counts.",
+    "Missing sequence numbers are observed sequence gaps only, not confirmed collisions.",
+    "recv_ms and tx_ms are not synchronized across boards and are not true latency.",
+    "Usefulness and priority are synthetic metadata.",
+    "This is point-to-point LoRa, not LoRaWAN.",
+    "This is not an energy, airtime-optimization, scaling, live-controller, or operational wildfire result."
+  ]
+}

@@ -1551,3 +1551,37 @@ The usefulness and priority fields are currently synthetic metadata. They are no
 The setup uses point-to-point LoRa at 915 MHz. It is not a LoRaWAN system.
 
 `recv_ms` and `tx_ms` are measured on different boards and should not be interpreted as synchronized packet-latency measurements.
+
+
+### v3.9 three-transmitter analysis generalization
+
+Milestone `v3.9-three-transmitter-analysis-generalization` adds a manifest-bound multi-transmitter analysis path for Run 030 and later N-transmitter SD replay runs.
+
+The new analyzer is:
+
+    scripts/analyze_scheduled_replay_manifest_multi.py
+
+It reads a list-valued manifest transmitter structure, combines each transmitter schedule with the parsed receiver log, and writes one row per transmitter plus expected-vs-observed packet-ratio comparisons.
+
+For Run 030, the analyzer command produced:
+
+    TXA/N01: 393 received, 64/64 scheduled SEND
+    TXB/N16: 194 received, 32/64 scheduled SEND
+    TXC/N31:  98 received, 16/64 scheduled SEND
+
+Expected-vs-observed ratios were:
+
+    TXB/TXA: observed 0.4936 vs expected 0.5000
+    TXC/TXA: observed 0.2494 vs expected 0.2500
+    TXC/TXB: observed 0.5052 vs expected 0.5000
+
+The generated outputs are:
+
+    outputs/run030_three_transmitter_manifest_replay_summary.json
+    outputs/run030_three_transmitter_manifest_replay_summary.csv
+
+This milestone leaves the older two-transmitter analysis tools intact and adds a separate N-transmitter manifest analyzer. It preserves the same interpretation boundary: observed ratios are receiver-side packet proportions, not exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, or operational wildfire behavior.
+
+The development note is:
+
+    docs/development/three_transmitter_analysis_generalization.md
