@@ -1675,3 +1675,28 @@ For list-valued manifests such as Run 030, the preferred tools are now:
 * `scripts/validate_manifest_replay_bundle_multi.py`
 
 The older two-transmitter tools remain available for earlier two-transmitter workflow artifacts.
+
+## v3.12 legacy and multi-transmitter tool status
+
+The v3.12 milestone documents the current status of the scheduled replay analysis and validation tools after the move from two-transmitter manifests to list-valued N-transmitter manifests.
+
+New development note:
+
+* `docs/development/legacy_and_multi_transmitter_tool_status.md`
+
+Current preferred tools for list-valued N-transmitter manifests, such as Run 030:
+
+* `scripts/analyze_scheduled_replay_manifest_multi.py`
+* `scripts/validate_manifest_replay_bundle_multi.py`
+
+Legacy two-transmitter tools retained for earlier artifacts:
+
+* `scripts/analyze_scheduled_replay.py`
+* `scripts/analyze_scheduled_replay_from_manifest.py`
+* `scripts/validate_run_bundle.py`
+
+The older tools remain available because they document and support earlier two-transmitter milestones. They are not the preferred path for Run 030-style list-valued manifests.
+
+This is a documentation/status milestone only. It does not change firmware, schedules, logs, parser behavior, analysis semantics, validation semantics, or physical replay results.
+
+For future scale-up work, the preferred path is the list-valued manifest workflow using the N-transmitter analyzer and validator.
