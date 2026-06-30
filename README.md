@@ -1585,3 +1585,43 @@ This milestone leaves the older two-transmitter analysis tools intact and adds a
 The development note is:
 
     docs/development/three_transmitter_analysis_generalization.md
+
+## v3.10 multi-transmitter bundle validation
+
+The v3.10 milestone adds validation support for the list-valued N-transmitter manifest replay workflow introduced for Run 030.
+
+New validator:
+
+* `scripts/validate_manifest_replay_bundle_multi.py`
+
+New validation output:
+
+* `outputs/run030_three_transmitter_manifest_replay_validation.json`
+
+The validator checks that the Run 030 manifest, transmitter schedule CSVs, parsed receiver CSV, summary JSON, and summary CSV form a coherent N-transmitter replay bundle. It validates the list-valued `transmitters` manifest structure, per-transmitter expected row counts, scheduled SEND/SKIP counts, summary JSON and CSV alignment, expected scheduled ratio comparisons, and interpretation-boundary text.
+
+Run 030 validation command:
+
+```
+python scripts/validate_manifest_replay_bundle_multi.py \
+  --manifest traces/run030_reporting_reporting_schedule_manifest.json \
+  --summary-json outputs/run030_three_transmitter_manifest_replay_summary.json \
+  --summary-csv outputs/run030_three_transmitter_manifest_replay_summary.csv \
+  --parsed logs/parsed_run_030_three_transmitter_sd_replay.csv \
+  --out-json outputs/run030_three_transmitter_manifest_replay_validation.json
+```
+
+Confirmed result:
+
+```
+Validation summary: 101/101 checks passed; 0 failed.
+```
+
+This is a validation/tooling milestone only. It does not add a new physical run, firmware change, or schedule change.
+
+Bounded interpretation:
+
+The Run 030 manifest, schedule CSVs, parsed receiver CSV, summary JSON, and summary CSV now form a coherent N-transmitter validation bundle for the three-transmitter SD-backed lab replay.
+
+Important boundaries remain unchanged: this does not infer exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, airtime optimization, energy savings, live-controller behavior, scaling behavior, or operational wildfire behavior.
+
