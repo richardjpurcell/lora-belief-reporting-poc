@@ -1625,3 +1625,53 @@ The Run 030 manifest, schedule CSVs, parsed receiver CSV, summary JSON, and summ
 
 Important boundaries remain unchanged: this does not infer exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, airtime optimization, energy savings, live-controller behavior, scaling behavior, or operational wildfire behavior.
 
+## v3.11 multi-transmitter reproduction cleanup
+
+The v3.11 milestone documents the canonical reproduction commands for the Run 030 N-transmitter manifest replay workflow.
+
+New development note:
+
+* `docs/development/run030_multi_transmitter_reproduction_commands.md`
+
+This note records how to regenerate the Run 030 N-transmitter analysis outputs and validation report from committed artifacts:
+
+* `traces/run030_reporting_reporting_schedule_manifest.json`
+* `logs/parsed_run_030_three_transmitter_sd_replay.csv`
+* `scripts/analyze_scheduled_replay_manifest_multi.py`
+* `scripts/validate_manifest_replay_bundle_multi.py`
+
+Canonical analysis command:
+
+```
+python scripts/analyze_scheduled_replay_manifest_multi.py \
+  --manifest traces/run030_reporting_reporting_schedule_manifest.json \
+  --parsed logs/parsed_run_030_three_transmitter_sd_replay.csv \
+  --out-json outputs/run030_three_transmitter_manifest_replay_summary.json \
+  --out-csv outputs/run030_three_transmitter_manifest_replay_summary.csv
+```
+
+Canonical validation command:
+
+```
+python scripts/validate_manifest_replay_bundle_multi.py \
+  --manifest traces/run030_reporting_reporting_schedule_manifest.json \
+  --summary-json outputs/run030_three_transmitter_manifest_replay_summary.json \
+  --summary-csv outputs/run030_three_transmitter_manifest_replay_summary.csv \
+  --parsed logs/parsed_run_030_three_transmitter_sd_replay.csv \
+  --out-json outputs/run030_three_transmitter_manifest_replay_validation.json
+```
+
+Confirmed validation result:
+
+```
+Validation summary: 101/101 checks passed; 0 failed.
+```
+
+This is a reproducibility-cleanup milestone only. It does not add a new physical run, firmware change, schedule change, parser change, or analysis interpretation change.
+
+For list-valued manifests such as Run 030, the preferred tools are now:
+
+* `scripts/analyze_scheduled_replay_manifest_multi.py`
+* `scripts/validate_manifest_replay_bundle_multi.py`
+
+The older two-transmitter tools remain available for earlier two-transmitter workflow artifacts.
