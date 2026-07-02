@@ -91,6 +91,50 @@ Secondary ratios:
 * TXD/TXB = 0.2500
 * TXD/TXC = 0.5000
 
+## Condition A result: current baseline phase
+
+Condition A was captured using the current baseline programmed phase pattern:
+
+* TXA/N01: 0 ms
+* TXB/N16: 500 ms
+* TXC/N31: 750 ms
+* TXD/N46: 1000 ms
+
+Capture and analysis files:
+
+* Raw receiver log: `logs/rx_run_031_phase_validation_A_near_simultaneous.csv`
+* Parsed valid packets: `logs/parsed_run_031_phase_validation_A_near_simultaneous.csv`
+* Parsed rejects: `logs/parsed_run_031_phase_validation_A_near_simultaneous_rejects.csv`
+* Summary JSON: `outputs/run031_phase_validation_A_near_simultaneous_summary.json`
+* Summary CSV: `outputs/run031_phase_validation_A_near_simultaneous_summary.csv`
+* Validation JSON: `outputs/run031_phase_validation_A_near_simultaneous_validation.json`
+
+Observed receiver-side packet counts:
+
+* TXA/N01: 354
+* TXB/N16: 180
+* TXC/N31: 90
+* TXD/N46: 0
+
+Observed receiver-side ratios:
+
+* TXB/TXA: expected 0.5000, observed 0.5085
+* TXC/TXA: expected 0.2500, observed 0.2542
+* TXD/TXA: expected 0.1250, observed 0.0000
+* TXC/TXB: expected 0.5000, observed 0.5000
+* TXD/TXB: expected 0.2500, observed 0.0000
+* TXD/TXC: expected 0.5000, observed 0.0000
+
+Validation result:
+
+* checks_total: 136
+* checks_passed: 136
+* checks_failed: 0
+
+Condition A is therefore a TXD reception failure under the current near-simultaneous baseline programmed phase. TXA, TXB, and TXC remained close to their expected receiver-side scheduled ratios, while TXD had no received packets in the raw receiver log or parsed output.
+
+This supports proceeding to Condition B, the TXD-first programmed phase test.
+
 ## Interpretation plan
 
 If Condition A fails but Condition B succeeds, startup phase is likely important.
