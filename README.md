@@ -1880,3 +1880,95 @@ Validation passed:
 * Checks failed: 0
 
 Interpretation boundary: this result supports the SD-backed, manifest-bound replay workflow at four transmitters under this adjusted lab condition. It does not establish 12-transmitter behavior, exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, or operational wildfire behavior.
+
+
+## v4.4 Run 031 startup phase validation
+
+The v4.4 milestone tests whether programmed startup-phase patterns affect receiver-side packet proportions in the Run 031 four-transmitter setup.
+
+This milestone was motivated by the v4.3 caveat: the successful adjusted-position replay used manual startup order with TXD started first. Condition A, B, and C therefore keep the Run 031 schedules and four-board setup fixed while changing programmed startup offsets.
+
+Condition A used the current baseline phase:
+
+* TXA/N01: 0 ms
+* TXB/N16: 500 ms
+* TXC/N31: 750 ms
+* TXD/N46: 1000 ms
+
+Condition A received packets:
+
+* TXA/N01: 354
+* TXB/N16: 180
+* TXC/N31: 90
+* TXD/N46: 0
+
+Condition B used a TXD-first programmed phase:
+
+* TXD/N46: 0 ms
+* TXA/N01: 500 ms
+* TXB/N16: 750 ms
+* TXC/N31: 1000 ms
+
+Condition B received packets:
+
+* TXA/N01: 399
+* TXB/N16: 200
+* TXC/N31: 97
+* TXD/N46: 50
+
+Condition C used a TXA-first stretched programmed phase:
+
+* TXA/N01: 0 ms
+* TXB/N16: 500 ms
+* TXC/N31: 1000 ms
+* TXD/N46: 1500 ms
+
+Condition C received packets:
+
+* TXA/N01: 372
+* TXB/N16: 187
+* TXC/N31: 1
+* TXD/N46: 46
+
+The A/B/C pattern supports a cautious receiver-side phase/schedule-interaction hypothesis. In Condition A, TXD nearly or fully disappeared when aligned with TXA's 1 s rhythm. In Condition B, all four transmitters were received close to expected receiver-side scheduled ratios. In Condition C, TXD remained close to its expected receiver-side ratio, but TXC nearly disappeared when placed at the 1000 ms phase relative to TXA.
+
+Primary v4.4 artifacts:
+
+* `docs/development/run031_startup_phase_validation.md`
+* `outputs/run031_phase_validation_abc_comparison.json`
+* `outputs/run031_phase_validation_abc_comparison.csv`
+
+Condition A artifacts:
+
+* `logs/rx_run_031_phase_validation_A_near_simultaneous.csv`
+* `logs/parsed_run_031_phase_validation_A_near_simultaneous.csv`
+* `logs/parsed_run_031_phase_validation_A_near_simultaneous_rejects.csv`
+* `outputs/run031_phase_validation_A_near_simultaneous_summary.json`
+* `outputs/run031_phase_validation_A_near_simultaneous_summary.csv`
+* `outputs/run031_phase_validation_A_near_simultaneous_validation.json`
+
+Condition B artifacts:
+
+* `logs/rx_run_031_phase_validation_B_txd_first.csv`
+* `logs/parsed_run_031_phase_validation_B_txd_first.csv`
+* `logs/parsed_run_031_phase_validation_B_txd_first_rejects.csv`
+* `outputs/run031_phase_validation_B_txd_first_summary.json`
+* `outputs/run031_phase_validation_B_txd_first_summary.csv`
+* `outputs/run031_phase_validation_B_txd_first_validation.json`
+
+Condition C artifacts:
+
+* `logs/rx_run_031_phase_validation_C_txa_first_stretched.csv`
+* `logs/parsed_run_031_phase_validation_C_txa_first_stretched.csv`
+* `logs/parsed_run_031_phase_validation_C_txa_first_stretched_rejects.csv`
+* `outputs/run031_phase_validation_C_txa_first_stretched_summary.json`
+* `outputs/run031_phase_validation_C_txa_first_stretched_summary.csv`
+* `outputs/run031_phase_validation_C_txa_first_stretched_validation.json`
+
+Validation passed for all three condition bundles:
+
+* Condition A: 136/136 checks passed
+* Condition B: 136/136 checks passed
+* Condition C: 136/136 checks passed
+
+Interpretation boundary: this result is a receiver-side bench validation of startup-phase sensitivity in a four-transmitter point-to-point LoRa setup. It does not infer exact transmitted-packet counts, confirm collisions, establish synchronized latency, evaluate LoRaWAN behavior, establish energy savings, establish airtime optimization, use a live belief-maintenance controller, establish 12-transmitter behavior, or evaluate operational wildfire behavior.
