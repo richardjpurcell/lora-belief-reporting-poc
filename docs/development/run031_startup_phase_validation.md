@@ -135,6 +135,57 @@ Condition A is therefore a TXD reception failure under the current near-simultan
 
 This supports proceeding to Condition B, the TXD-first programmed phase test.
 
+## Condition B result: TXD-first programmed phase
+
+Condition B was captured using the TXD-first programmed phase pattern:
+
+* TXD/N46: 0 ms
+* TXA/N01: 500 ms
+* TXB/N16: 750 ms
+* TXC/N31: 1000 ms
+
+Capture and analysis files:
+
+* Raw receiver log: `logs/rx_run_031_phase_validation_B_txd_first.csv`
+* Parsed valid packets: `logs/parsed_run_031_phase_validation_B_txd_first.csv`
+* Parsed rejects: `logs/parsed_run_031_phase_validation_B_txd_first_rejects.csv`
+* Summary JSON: `outputs/run031_phase_validation_B_txd_first_summary.json`
+* Summary CSV: `outputs/run031_phase_validation_B_txd_first_summary.csv`
+* Validation JSON: `outputs/run031_phase_validation_B_txd_first_validation.json`
+
+Observed receiver-side packet counts:
+
+* TXA/N01: 399
+* TXB/N16: 200
+* TXC/N31: 97
+* TXD/N46: 50
+
+Observed receiver-side ratios:
+
+* TXB/TXA: expected 0.5000, observed 0.5013
+* TXC/TXA: expected 0.2500, observed 0.2431
+* TXD/TXA: expected 0.1250, observed 0.1253
+* TXC/TXB: expected 0.5000, observed 0.4850
+* TXD/TXB: expected 0.2500, observed 0.2500
+* TXD/TXC: expected 0.5000, observed 0.5155
+
+Observed sequence gaps:
+
+* TXA/N01: none
+* TXB/N16: none
+* TXC/N31: 2 missing observed transmitted sequences: `[41, 77]`
+* TXD/N46: none
+
+Validation result:
+
+* checks_total: 136
+* checks_passed: 136
+* checks_failed: 0
+
+Condition B is therefore a successful TXD reception case under four-transmitter operation. TXD returned to the expected receiver-side scheduled ratio, with TXD/TXA observed at 0.1253 against the expected 0.1250.
+
+Together, Conditions A and B support the interpretation that programmed startup phase is likely important in this bench setup. Condition C is still useful because it can test whether longer phase separation helps without making TXD first.
+
 ## Interpretation plan
 
 If Condition A fails but Condition B succeeds, startup phase is likely important.
