@@ -1,0 +1,688 @@
+{
+  "passed": true,
+  "checks_total": 136,
+  "checks_passed": 136,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "name": "manifest exists",
+      "passed": true,
+      "detail": "traces/run031_reporting_reporting_schedule_manifest.json"
+    },
+    {
+      "name": "manifest is readable JSON",
+      "passed": true,
+      "detail": "traces/run031_reporting_reporting_schedule_manifest.json"
+    },
+    {
+      "name": "manifest root is object",
+      "passed": true,
+      "detail": "object"
+    },
+    {
+      "name": "manifest has non-empty list transmitters",
+      "passed": true,
+      "detail": "count=4"
+    },
+    {
+      "name": "transmitters[0] is object",
+      "passed": true,
+      "detail": "object"
+    },
+    {
+      "name": "transmitters[0] required fields",
+      "passed": true,
+      "detail": "TXA/N01"
+    },
+    {
+      "name": "transmitters[0] unique tx_id/node_id",
+      "passed": true,
+      "detail": "TXA/N01"
+    },
+    {
+      "name": "transmitters[1] is object",
+      "passed": true,
+      "detail": "object"
+    },
+    {
+      "name": "transmitters[1] required fields",
+      "passed": true,
+      "detail": "TXB/N16"
+    },
+    {
+      "name": "transmitters[1] unique tx_id/node_id",
+      "passed": true,
+      "detail": "TXB/N16"
+    },
+    {
+      "name": "transmitters[2] is object",
+      "passed": true,
+      "detail": "object"
+    },
+    {
+      "name": "transmitters[2] required fields",
+      "passed": true,
+      "detail": "TXC/N31"
+    },
+    {
+      "name": "transmitters[2] unique tx_id/node_id",
+      "passed": true,
+      "detail": "TXC/N31"
+    },
+    {
+      "name": "transmitters[3] is object",
+      "passed": true,
+      "detail": "object"
+    },
+    {
+      "name": "transmitters[3] required fields",
+      "passed": true,
+      "detail": "TXD/N46"
+    },
+    {
+      "name": "transmitters[3] unique tx_id/node_id",
+      "passed": true,
+      "detail": "TXD/N46"
+    },
+    {
+      "name": "schedule CSV exists: TXA/N01",
+      "passed": true,
+      "detail": "traces/run031_reporting_txa_fixed_all_schedule.csv"
+    },
+    {
+      "name": "schedule CSV counts readable: TXA/N01",
+      "passed": true,
+      "detail": "{'expected_rows': 64, 'expected_send_rows': 64, 'expected_skip_rows': 0}"
+    },
+    {
+      "name": "schedule expected_rows matches manifest: TXA/N01",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "schedule expected_send_rows matches manifest: TXA/N01",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "schedule expected_skip_rows matches manifest: TXA/N01",
+      "passed": true,
+      "detail": "actual=0 expected=0"
+    },
+    {
+      "name": "schedule CSV exists: TXB/N16",
+      "passed": true,
+      "detail": "traces/run031_reporting_txb_medium_threshold_schedule.csv"
+    },
+    {
+      "name": "schedule CSV counts readable: TXB/N16",
+      "passed": true,
+      "detail": "{'expected_rows': 64, 'expected_send_rows': 32, 'expected_skip_rows': 32}"
+    },
+    {
+      "name": "schedule expected_rows matches manifest: TXB/N16",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "schedule expected_send_rows matches manifest: TXB/N16",
+      "passed": true,
+      "detail": "actual=32 expected=32"
+    },
+    {
+      "name": "schedule expected_skip_rows matches manifest: TXB/N16",
+      "passed": true,
+      "detail": "actual=32 expected=32"
+    },
+    {
+      "name": "schedule CSV exists: TXC/N31",
+      "passed": true,
+      "detail": "traces/run031_reporting_txc_strict_threshold_schedule.csv"
+    },
+    {
+      "name": "schedule CSV counts readable: TXC/N31",
+      "passed": true,
+      "detail": "{'expected_rows': 64, 'expected_send_rows': 16, 'expected_skip_rows': 48}"
+    },
+    {
+      "name": "schedule expected_rows matches manifest: TXC/N31",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "schedule expected_send_rows matches manifest: TXC/N31",
+      "passed": true,
+      "detail": "actual=16 expected=16"
+    },
+    {
+      "name": "schedule expected_skip_rows matches manifest: TXC/N31",
+      "passed": true,
+      "detail": "actual=48 expected=48"
+    },
+    {
+      "name": "schedule CSV exists: TXD/N46",
+      "passed": true,
+      "detail": "traces/run031_reporting_txd_very_strict_threshold_schedule.csv"
+    },
+    {
+      "name": "schedule CSV counts readable: TXD/N46",
+      "passed": true,
+      "detail": "{'expected_rows': 64, 'expected_send_rows': 8, 'expected_skip_rows': 56}"
+    },
+    {
+      "name": "schedule expected_rows matches manifest: TXD/N46",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "schedule expected_send_rows matches manifest: TXD/N46",
+      "passed": true,
+      "detail": "actual=8 expected=8"
+    },
+    {
+      "name": "schedule expected_skip_rows matches manifest: TXD/N46",
+      "passed": true,
+      "detail": "actual=56 expected=56"
+    },
+    {
+      "name": "parsed receiver CSV exists",
+      "passed": true,
+      "detail": "logs/parsed_run_031_phase_validation_A_near_simultaneous.csv"
+    },
+    {
+      "name": "parsed receiver CSV is readable CSV",
+      "passed": true,
+      "detail": "rows=624 cols=20"
+    },
+    {
+      "name": "parsed receiver CSV has rows",
+      "passed": true,
+      "detail": "rows=624"
+    },
+    {
+      "name": "summary JSON exists",
+      "passed": true,
+      "detail": "outputs/run031_phase_validation_A_near_simultaneous_summary.json"
+    },
+    {
+      "name": "summary JSON is readable",
+      "passed": true,
+      "detail": "outputs/run031_phase_validation_A_near_simultaneous_summary.json"
+    },
+    {
+      "name": "summary JSON root is object",
+      "passed": true,
+      "detail": "object"
+    },
+    {
+      "name": "summary CSV exists",
+      "passed": true,
+      "detail": "outputs/run031_phase_validation_A_near_simultaneous_summary.csv"
+    },
+    {
+      "name": "summary CSV is readable CSV",
+      "passed": true,
+      "detail": "rows=4 cols=31"
+    },
+    {
+      "name": "summary JSON has per_transmitter list",
+      "passed": true,
+      "detail": "count=4"
+    },
+    {
+      "name": "summary JSON per_transmitter[0] has tx_id/node_id",
+      "passed": true,
+      "detail": "TXA/N01"
+    },
+    {
+      "name": "summary JSON per_transmitter[1] has tx_id/node_id",
+      "passed": true,
+      "detail": "TXB/N16"
+    },
+    {
+      "name": "summary JSON per_transmitter[2] has tx_id/node_id",
+      "passed": true,
+      "detail": "TXC/N31"
+    },
+    {
+      "name": "summary JSON per_transmitter[3] has tx_id/node_id",
+      "passed": true,
+      "detail": "TXD/N46"
+    },
+    {
+      "name": "summary CSV has tx_id/node_id columns",
+      "passed": true,
+      "detail": "['tx_id', 'node_id', 'role', 'policy', 'policy_code', 'threshold_family', 'schedule_csv', 'demand_rows', 'scheduled_send_rows', 'scheduled_skip_rows', 'send_fraction', 'expected_rows_manifest', 'expected_send_rows_manifest', 'expected_skip_rows_manifest', 'scheduled_send_usefulness_total', 'scheduled_send_usefulness_mean', 'usefulness_column', 'received_valid_packets', 'observed_sequence_min', 'observed_sequence_max', 'observed_missing_transmitted_sequences', 'observed_missing_transmitted_sequence_count', 'delivered_usefulness_total', 'delivered_usefulness_mean_per_received_packet', 'delivered_priority_total', 'delivered_priority_mean_per_received_packet', 'mean_receiver_interarrival_ms', 'received_packets_per_scheduled_send_row', 'received_packets_per_scheduled_demand_row', 'delivered_usefulness_per_scheduled_send_row', 'delivered_usefulness_per_scheduled_demand_row']"
+    },
+    {
+      "name": "summary CSV row count",
+      "passed": true,
+      "detail": "rows=4"
+    },
+    {
+      "name": "summary JSON transmitter count matches manifest",
+      "passed": true,
+      "detail": "summary=4 manifest=4"
+    },
+    {
+      "name": "summary CSV transmitter count matches manifest",
+      "passed": true,
+      "detail": "summary=4 manifest=4"
+    },
+    {
+      "name": "summary JSON has manifest transmitter: TXA/N01",
+      "passed": true,
+      "detail": "TXA/N01"
+    },
+    {
+      "name": "summary CSV has manifest transmitter: TXA/N01",
+      "passed": true,
+      "detail": "TXA/N01"
+    },
+    {
+      "name": "summary JSON demand_rows matches manifest: TXA/N01",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON echoes expected_rows: TXA/N01",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary CSV demand_rows matches manifest: TXA/N01",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON scheduled_send_rows matches manifest: TXA/N01",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON echoes expected_send_rows: TXA/N01",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary CSV scheduled_send_rows matches manifest: TXA/N01",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON scheduled_skip_rows matches manifest: TXA/N01",
+      "passed": true,
+      "detail": "actual=0 expected=0"
+    },
+    {
+      "name": "summary JSON echoes expected_skip_rows: TXA/N01",
+      "passed": true,
+      "detail": "actual=0 expected=0"
+    },
+    {
+      "name": "summary CSV scheduled_skip_rows matches manifest: TXA/N01",
+      "passed": true,
+      "detail": "actual=0 expected=0"
+    },
+    {
+      "name": "summary JSON has manifest transmitter: TXB/N16",
+      "passed": true,
+      "detail": "TXB/N16"
+    },
+    {
+      "name": "summary CSV has manifest transmitter: TXB/N16",
+      "passed": true,
+      "detail": "TXB/N16"
+    },
+    {
+      "name": "summary JSON demand_rows matches manifest: TXB/N16",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON echoes expected_rows: TXB/N16",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary CSV demand_rows matches manifest: TXB/N16",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON scheduled_send_rows matches manifest: TXB/N16",
+      "passed": true,
+      "detail": "actual=32 expected=32"
+    },
+    {
+      "name": "summary JSON echoes expected_send_rows: TXB/N16",
+      "passed": true,
+      "detail": "actual=32 expected=32"
+    },
+    {
+      "name": "summary CSV scheduled_send_rows matches manifest: TXB/N16",
+      "passed": true,
+      "detail": "actual=32 expected=32"
+    },
+    {
+      "name": "summary JSON scheduled_skip_rows matches manifest: TXB/N16",
+      "passed": true,
+      "detail": "actual=32 expected=32"
+    },
+    {
+      "name": "summary JSON echoes expected_skip_rows: TXB/N16",
+      "passed": true,
+      "detail": "actual=32 expected=32"
+    },
+    {
+      "name": "summary CSV scheduled_skip_rows matches manifest: TXB/N16",
+      "passed": true,
+      "detail": "actual=32 expected=32"
+    },
+    {
+      "name": "summary JSON has manifest transmitter: TXC/N31",
+      "passed": true,
+      "detail": "TXC/N31"
+    },
+    {
+      "name": "summary CSV has manifest transmitter: TXC/N31",
+      "passed": true,
+      "detail": "TXC/N31"
+    },
+    {
+      "name": "summary JSON demand_rows matches manifest: TXC/N31",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON echoes expected_rows: TXC/N31",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary CSV demand_rows matches manifest: TXC/N31",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON scheduled_send_rows matches manifest: TXC/N31",
+      "passed": true,
+      "detail": "actual=16 expected=16"
+    },
+    {
+      "name": "summary JSON echoes expected_send_rows: TXC/N31",
+      "passed": true,
+      "detail": "actual=16 expected=16"
+    },
+    {
+      "name": "summary CSV scheduled_send_rows matches manifest: TXC/N31",
+      "passed": true,
+      "detail": "actual=16 expected=16"
+    },
+    {
+      "name": "summary JSON scheduled_skip_rows matches manifest: TXC/N31",
+      "passed": true,
+      "detail": "actual=48 expected=48"
+    },
+    {
+      "name": "summary JSON echoes expected_skip_rows: TXC/N31",
+      "passed": true,
+      "detail": "actual=48 expected=48"
+    },
+    {
+      "name": "summary CSV scheduled_skip_rows matches manifest: TXC/N31",
+      "passed": true,
+      "detail": "actual=48 expected=48"
+    },
+    {
+      "name": "summary JSON has manifest transmitter: TXD/N46",
+      "passed": true,
+      "detail": "TXD/N46"
+    },
+    {
+      "name": "summary CSV has manifest transmitter: TXD/N46",
+      "passed": true,
+      "detail": "TXD/N46"
+    },
+    {
+      "name": "summary JSON demand_rows matches manifest: TXD/N46",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON echoes expected_rows: TXD/N46",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary CSV demand_rows matches manifest: TXD/N46",
+      "passed": true,
+      "detail": "actual=64 expected=64"
+    },
+    {
+      "name": "summary JSON scheduled_send_rows matches manifest: TXD/N46",
+      "passed": true,
+      "detail": "actual=8 expected=8"
+    },
+    {
+      "name": "summary JSON echoes expected_send_rows: TXD/N46",
+      "passed": true,
+      "detail": "actual=8 expected=8"
+    },
+    {
+      "name": "summary CSV scheduled_send_rows matches manifest: TXD/N46",
+      "passed": true,
+      "detail": "actual=8 expected=8"
+    },
+    {
+      "name": "summary JSON scheduled_skip_rows matches manifest: TXD/N46",
+      "passed": true,
+      "detail": "actual=56 expected=56"
+    },
+    {
+      "name": "summary JSON echoes expected_skip_rows: TXD/N46",
+      "passed": true,
+      "detail": "actual=56 expected=56"
+    },
+    {
+      "name": "summary CSV scheduled_skip_rows matches manifest: TXD/N46",
+      "passed": true,
+      "detail": "actual=56 expected=56"
+    },
+    {
+      "name": "manifest has expected_scheduled_ratios",
+      "passed": true,
+      "detail": "count=6"
+    },
+    {
+      "name": "summary JSON has ratio_comparisons",
+      "passed": true,
+      "detail": "count=6"
+    },
+    {
+      "name": "ratio comparison exists: TXB/TXA",
+      "passed": true,
+      "detail": "TXB/TXA"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio numeric: TXB/TXA",
+      "passed": true,
+      "detail": "0.5"
+    },
+    {
+      "name": "ratio observed_received_packet_ratio numeric: TXB/TXA",
+      "passed": true,
+      "detail": "0.5084745762711864"
+    },
+    {
+      "name": "ratio observed_minus_expected numeric: TXB/TXA",
+      "passed": true,
+      "detail": "0.008474576271186418"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio matches manifest: TXB/TXA",
+      "passed": true,
+      "detail": "actual=0.5 expected=0.5"
+    },
+    {
+      "name": "ratio comparison exists: TXC/TXA",
+      "passed": true,
+      "detail": "TXC/TXA"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio numeric: TXC/TXA",
+      "passed": true,
+      "detail": "0.25"
+    },
+    {
+      "name": "ratio observed_received_packet_ratio numeric: TXC/TXA",
+      "passed": true,
+      "detail": "0.2542372881355932"
+    },
+    {
+      "name": "ratio observed_minus_expected numeric: TXC/TXA",
+      "passed": true,
+      "detail": "0.004237288135593209"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio matches manifest: TXC/TXA",
+      "passed": true,
+      "detail": "actual=0.25 expected=0.25"
+    },
+    {
+      "name": "ratio comparison exists: TXD/TXA",
+      "passed": true,
+      "detail": "TXD/TXA"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio numeric: TXD/TXA",
+      "passed": true,
+      "detail": "0.125"
+    },
+    {
+      "name": "ratio observed_received_packet_ratio numeric: TXD/TXA",
+      "passed": true,
+      "detail": "0.0"
+    },
+    {
+      "name": "ratio observed_minus_expected numeric: TXD/TXA",
+      "passed": true,
+      "detail": "-0.125"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio matches manifest: TXD/TXA",
+      "passed": true,
+      "detail": "actual=0.125 expected=0.125"
+    },
+    {
+      "name": "ratio comparison exists: TXC/TXB",
+      "passed": true,
+      "detail": "TXC/TXB"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio numeric: TXC/TXB",
+      "passed": true,
+      "detail": "0.5"
+    },
+    {
+      "name": "ratio observed_received_packet_ratio numeric: TXC/TXB",
+      "passed": true,
+      "detail": "0.5"
+    },
+    {
+      "name": "ratio observed_minus_expected numeric: TXC/TXB",
+      "passed": true,
+      "detail": "0.0"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio matches manifest: TXC/TXB",
+      "passed": true,
+      "detail": "actual=0.5 expected=0.5"
+    },
+    {
+      "name": "ratio comparison exists: TXD/TXB",
+      "passed": true,
+      "detail": "TXD/TXB"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio numeric: TXD/TXB",
+      "passed": true,
+      "detail": "0.25"
+    },
+    {
+      "name": "ratio observed_received_packet_ratio numeric: TXD/TXB",
+      "passed": true,
+      "detail": "0.0"
+    },
+    {
+      "name": "ratio observed_minus_expected numeric: TXD/TXB",
+      "passed": true,
+      "detail": "-0.25"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio matches manifest: TXD/TXB",
+      "passed": true,
+      "detail": "actual=0.25 expected=0.25"
+    },
+    {
+      "name": "ratio comparison exists: TXD/TXC",
+      "passed": true,
+      "detail": "TXD/TXC"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio numeric: TXD/TXC",
+      "passed": true,
+      "detail": "0.5"
+    },
+    {
+      "name": "ratio observed_received_packet_ratio numeric: TXD/TXC",
+      "passed": true,
+      "detail": "0.0"
+    },
+    {
+      "name": "ratio observed_minus_expected numeric: TXD/TXC",
+      "passed": true,
+      "detail": "-0.5"
+    },
+    {
+      "name": "ratio scheduled_expected_ratio matches manifest: TXD/TXC",
+      "passed": true,
+      "detail": "actual=0.5 expected=0.5"
+    },
+    {
+      "name": "summary JSON has interpretation_boundary list",
+      "passed": true,
+      "detail": "count=8"
+    },
+    {
+      "name": "interpretation boundary covers: exact transmitted-packet counts",
+      "passed": true,
+      "detail": "matched=['not infer exact transmitted', 'does not infer exact transmitted', 'exact transmitted-packet counts']"
+    },
+    {
+      "name": "interpretation boundary covers: confirmed collisions",
+      "passed": true,
+      "detail": "matched=['confirmed collisions', 'not confirmed collisions']"
+    },
+    {
+      "name": "interpretation boundary covers: synchronized latency",
+      "passed": true,
+      "detail": "matched=['true latency', 'not true latency', 'not synchronized']"
+    },
+    {
+      "name": "interpretation boundary covers: LoRaWAN behavior",
+      "passed": true,
+      "detail": "matched=['lorawan', 'not lorawan']"
+    },
+    {
+      "name": "interpretation boundary covers: energy savings",
+      "passed": true,
+      "detail": "matched=['not an energy']"
+    },
+    {
+      "name": "interpretation boundary covers: live-controller behavior",
+      "passed": true,
+      "detail": "matched=['live-controller']"
+    }
+  ]
+}

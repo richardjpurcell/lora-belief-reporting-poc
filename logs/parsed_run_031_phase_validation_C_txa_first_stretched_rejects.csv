@@ -1,0 +1,3 @@
+wall_time_utc,serial_port,raw_line,parse_error
+2026-07-02T22:06:00.403+00:00,/dev/cu.usbserial-576B0005451,"RX,2588998,���Y","expected 15 fields, got 3"
+2026-07-02T22:06:00.404+00:00,/dev/cu.usbserial-576B0005451,"�r��+�Z� d���<U�Q��C�T�O�}T,-116,-12.00","expected 15 fields, got 3"

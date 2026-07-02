@@ -28,7 +28,7 @@ const char* NODE_ID = "N01";
 const char* SCHEDULE_FILE = "/schedule.csv";
 
 const unsigned long SLOT_INTERVAL_MS = 1000;
-
+const unsigned long STARTUP_OFFSET_MS = 500;
 
 const uint16_t MAX_SCHEDULE_ROWS = 256;
 
@@ -226,7 +226,9 @@ void setup() {
 
   Serial.println("LoRa init OK.");
 
-
+  Serial.print("Startup offset ms: ");
+  Serial.println(STARTUP_OFFSET_MS);
+  delay(STARTUP_OFFSET_MS);
 
   loadScheduleFromSD();
 }

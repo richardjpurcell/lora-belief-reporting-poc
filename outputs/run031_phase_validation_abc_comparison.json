@@ -1,0 +1,348 @@
+{
+  "description": "Receiver-side A/B/C startup-phase comparison for Run 031. Residues are computed from received packet rx_ms values relative to the first received packet in each condition. This does not establish synchronized latency, exact transmitted-packet counts, or confirmed collisions.",
+  "conditions": {
+    "A_near_simultaneous": {
+      "raw_log": "logs/rx_run_031_phase_validation_A_near_simultaneous.csv",
+      "summary_json": "outputs/run031_phase_validation_A_near_simultaneous_summary.json",
+      "base_rx_ms": 281360,
+      "offsets_ms": {
+        "TXA/N01": 0,
+        "TXB/N16": 500,
+        "TXC/N31": 750,
+        "TXD/N46": 1000
+      },
+      "per_transmitter": {
+        "TXA/N01": {
+          "count": 354,
+          "startup_offset_ms": 0,
+          "rx_ms_mod1000_min": 0,
+          "rx_ms_mod1000_mean": 5.686440677966102,
+          "rx_ms_mod1000_max": 7,
+          "rx_ms_mod8000_first10": [
+            0,
+            1000,
+            2000,
+            3000,
+            4000,
+            5000,
+            6000,
+            7000,
+            0,
+            1005
+          ]
+        },
+        "TXB/N16": {
+          "count": 180,
+          "startup_offset_ms": 500,
+          "rx_ms_mod1000_min": 516,
+          "rx_ms_mod1000_mean": 521.4555555555555,
+          "rx_ms_mod1000_max": 522,
+          "rx_ms_mod8000_first10": [
+            516,
+            2516,
+            4516,
+            6516,
+            521,
+            2521,
+            4521,
+            6521,
+            521,
+            2521
+          ]
+        },
+        "TXC/N31": {
+          "count": 90,
+          "startup_offset_ms": 750,
+          "rx_ms_mod1000_min": 754,
+          "rx_ms_mod1000_mean": 758.1777777777778,
+          "rx_ms_mod1000_max": 759,
+          "rx_ms_mod8000_first10": [
+            4754,
+            6754,
+            4759,
+            6759,
+            4759,
+            6759,
+            4759,
+            6759,
+            4759,
+            6759
+          ]
+        },
+        "TXD/N46": {
+          "count": 0,
+          "startup_offset_ms": 1000,
+          "rx_ms_mod1000_min": null,
+          "rx_ms_mod1000_mean": null,
+          "rx_ms_mod1000_max": null,
+          "rx_ms_mod8000_first10": []
+        }
+      },
+      "ratio_comparisons": {
+        "TXB/TXA": {
+          "scheduled_expected_ratio": 0.5,
+          "observed_received_packet_ratio": 0.5084745762711864,
+          "observed_minus_expected": 0.008474576271186418
+        },
+        "TXC/TXA": {
+          "scheduled_expected_ratio": 0.25,
+          "observed_received_packet_ratio": 0.2542372881355932,
+          "observed_minus_expected": 0.004237288135593209
+        },
+        "TXD/TXA": {
+          "scheduled_expected_ratio": 0.125,
+          "observed_received_packet_ratio": 0.0,
+          "observed_minus_expected": -0.125
+        },
+        "TXC/TXB": {
+          "scheduled_expected_ratio": 0.5,
+          "observed_received_packet_ratio": 0.5,
+          "observed_minus_expected": 0.0
+        },
+        "TXD/TXB": {
+          "scheduled_expected_ratio": 0.25,
+          "observed_received_packet_ratio": 0.0,
+          "observed_minus_expected": -0.25
+        },
+        "TXD/TXC": {
+          "scheduled_expected_ratio": 0.5,
+          "observed_received_packet_ratio": 0.0,
+          "observed_minus_expected": -0.5
+        }
+      }
+    },
+    "B_txd_first": {
+      "raw_log": "logs/rx_run_031_phase_validation_B_txd_first.csv",
+      "summary_json": "outputs/run031_phase_validation_B_txd_first_summary.json",
+      "base_rx_ms": 1528922,
+      "offsets_ms": {
+        "TXA/N01": 500,
+        "TXB/N16": 750,
+        "TXC/N31": 1000,
+        "TXD/N46": 0
+      },
+      "per_transmitter": {
+        "TXA/N01": {
+          "count": 399,
+          "startup_offset_ms": 500,
+          "rx_ms_mod1000_min": 0,
+          "rx_ms_mod1000_mean": 22.546365914786968,
+          "rx_ms_mod1000_max": 999,
+          "rx_ms_mod8000_first10": [
+            0,
+            999,
+            1999,
+            2999,
+            3999,
+            4999,
+            5999,
+            6999,
+            4,
+            1004
+          ]
+        },
+        "TXB/N16": {
+          "count": 200,
+          "startup_offset_ms": 750,
+          "rx_ms_mod1000_min": 266,
+          "rx_ms_mod1000_mean": 271.785,
+          "rx_ms_mod1000_max": 273,
+          "rx_ms_mod8000_first10": [
+            266,
+            2266,
+            4266,
+            6266,
+            271,
+            2271,
+            4271,
+            6271,
+            271,
+            2271
+          ]
+        },
+        "TXC/N31": {
+          "count": 97,
+          "startup_offset_ms": 1000,
+          "rx_ms_mod1000_min": 503,
+          "rx_ms_mod1000_mean": 507.30927835051546,
+          "rx_ms_mod1000_max": 508,
+          "rx_ms_mod8000_first10": [
+            4503,
+            6503,
+            4508,
+            6508,
+            4508,
+            6508,
+            4508,
+            6508,
+            4508,
+            6508
+          ]
+        },
+        "TXD/N46": {
+          "count": 50,
+          "startup_offset_ms": 0,
+          "rx_ms_mod1000_min": 503,
+          "rx_ms_mod1000_mean": 508.32,
+          "rx_ms_mod1000_max": 509,
+          "rx_ms_mod8000_first10": [
+            5503,
+            5508,
+            5508,
+            5508,
+            5508,
+            5508,
+            5508,
+            5508,
+            5508,
+            5508
+          ]
+        }
+      },
+      "ratio_comparisons": {
+        "TXB/TXA": {
+          "scheduled_expected_ratio": 0.5,
+          "observed_received_packet_ratio": 0.5012531328320802,
+          "observed_minus_expected": 0.0012531328320801727
+        },
+        "TXC/TXA": {
+          "scheduled_expected_ratio": 0.25,
+          "observed_received_packet_ratio": 0.24310776942355888,
+          "observed_minus_expected": -0.006892230576441116
+        },
+        "TXD/TXA": {
+          "scheduled_expected_ratio": 0.125,
+          "observed_received_packet_ratio": 0.12531328320802004,
+          "observed_minus_expected": 0.00031328320802004317
+        },
+        "TXC/TXB": {
+          "scheduled_expected_ratio": 0.5,
+          "observed_received_packet_ratio": 0.485,
+          "observed_minus_expected": -0.015000000000000013
+        },
+        "TXD/TXB": {
+          "scheduled_expected_ratio": 0.25,
+          "observed_received_packet_ratio": 0.25,
+          "observed_minus_expected": 0.0
+        },
+        "TXD/TXC": {
+          "scheduled_expected_ratio": 0.5,
+          "observed_received_packet_ratio": 0.5154639175257731,
+          "observed_minus_expected": 0.015463917525773141
+        }
+      }
+    },
+    "C_txa_first_stretched": {
+      "raw_log": "logs/rx_run_031_phase_validation_C_txa_first_stretched.csv",
+      "summary_json": "outputs/run031_phase_validation_C_txa_first_stretched_summary.json",
+      "base_rx_ms": 2506617,
+      "offsets_ms": {
+        "TXA/N01": 0,
+        "TXB/N16": 500,
+        "TXC/N31": 1000,
+        "TXD/N46": 1500
+      },
+      "per_transmitter": {
+        "TXA/N01": {
+          "count": 372,
+          "startup_offset_ms": 0,
+          "rx_ms_mod1000_min": 0,
+          "rx_ms_mod1000_mean": 26.870967741935484,
+          "rx_ms_mod1000_max": 999,
+          "rx_ms_mod8000_first10": [
+            0,
+            999,
+            1999,
+            2999,
+            3999,
+            4999,
+            5999,
+            6999,
+            7999,
+            1005
+          ]
+        },
+        "TXB/N16": {
+          "count": 187,
+          "startup_offset_ms": 500,
+          "rx_ms_mod1000_min": 515,
+          "rx_ms_mod1000_mean": 521.1497326203208,
+          "rx_ms_mod1000_max": 522,
+          "rx_ms_mod8000_first10": [
+            516,
+            2515,
+            4515,
+            6515,
+            520,
+            2520,
+            4520,
+            6520,
+            520,
+            2520
+          ]
+        },
+        "TXC/N31": {
+          "count": 1,
+          "startup_offset_ms": 1000,
+          "rx_ms_mod1000_min": 7,
+          "rx_ms_mod1000_mean": 7.0,
+          "rx_ms_mod1000_max": 7,
+          "rx_ms_mod8000_first10": [
+            5007
+          ]
+        },
+        "TXD/N46": {
+          "count": 46,
+          "startup_offset_ms": 1500,
+          "rx_ms_mod1000_min": 502,
+          "rx_ms_mod1000_mean": 506.7391304347826,
+          "rx_ms_mod1000_max": 507,
+          "rx_ms_mod8000_first10": [
+            7502,
+            7506,
+            7506,
+            7506,
+            7506,
+            7506,
+            7507,
+            7506,
+            7506,
+            7507
+          ]
+        }
+      },
+      "ratio_comparisons": {
+        "TXB/TXA": {
+          "scheduled_expected_ratio": 0.5,
+          "observed_received_packet_ratio": 0.5026881720430108,
+          "observed_minus_expected": 0.0026881720430107503
+        },
+        "TXC/TXA": {
+          "scheduled_expected_ratio": 0.25,
+          "observed_received_packet_ratio": 0.002688172043010753,
+          "observed_minus_expected": -0.24731182795698925
+        },
+        "TXD/TXA": {
+          "scheduled_expected_ratio": 0.125,
+          "observed_received_packet_ratio": 0.12365591397849462,
+          "observed_minus_expected": -0.0013440860215053752
+        },
+        "TXC/TXB": {
+          "scheduled_expected_ratio": 0.5,
+          "observed_received_packet_ratio": 0.0053475935828877,
+          "observed_minus_expected": -0.4946524064171123
+        },
+        "TXD/TXB": {
+          "scheduled_expected_ratio": 0.25,
+          "observed_received_packet_ratio": 0.24598930481283424,
+          "observed_minus_expected": -0.004010695187165764
+        },
+        "TXD/TXC": {
+          "scheduled_expected_ratio": 0.5,
+          "observed_received_packet_ratio": 46.0,
+          "observed_minus_expected": 45.5
+        }
+      }
+    }
+  }
+}
