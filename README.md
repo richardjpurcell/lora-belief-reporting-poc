@@ -1822,3 +1822,61 @@ Run 031 startup offsets:
 These offsets are practical bench-start staggering only. They are not synchronized timing, collision-avoidance guarantees, latency measurements, or MAC-layer coordination.
 
 This is physical preparation only. It does not copy schedules to SD cards, flash hardware, run the receiver, parse logs, or make four-transmitter physical replay claims.
+
+## v4.3 Run 031 four-transmitter physical replay
+
+The v4.3 milestone records the first successful four-transmitter SD-backed physical replay for Run 031.
+
+Run 031 transmitter set:
+
+* TXA/N01: fixed-all baseline, 64/64 scheduled SEND
+* TXB/N16: medium threshold scheduled skipping, 32/64 scheduled SEND
+* TXC/N31: strict threshold scheduled skipping, 16/64 scheduled SEND
+* TXD/N46: very-strict threshold scheduled skipping, 8/64 scheduled SEND
+
+The successful adjusted-position replay attempt produced:
+
+* Valid packets: 800
+* Rejects: empty
+* Run IDs: R31 only
+
+Received valid packets by transmitter:
+
+* TXA/N01: 433
+* TXB/N16: 212
+* TXC/N31: 102
+* TXD/N46: 53
+
+Observed receiver-side packet ratios were close to the expected scheduled-send ladder:
+
+* TXB/TXA: expected 0.5000, observed 0.4896
+* TXC/TXA: expected 0.2500, observed 0.2356
+* TXD/TXA: expected 0.1250, observed 0.1224
+* TXC/TXB: expected 0.5000, observed 0.4811
+* TXD/TXB: expected 0.2500, observed 0.2500
+* TXD/TXC: expected 0.5000, observed 0.5196
+
+Primary replay artifacts:
+
+* `logs/rx_run_031_four_transmitter_sd_replay_attempt3.csv`
+* `logs/parsed_run_031_four_transmitter_sd_replay_attempt3.csv`
+* `logs/parsed_run_031_four_transmitter_sd_replay_attempt3_rejects.csv`
+* `outputs/run031_four_transmitter_manifest_replay_attempt3_summary.json`
+* `outputs/run031_four_transmitter_manifest_replay_attempt3_summary.csv`
+* `outputs/run031_four_transmitter_manifest_replay_attempt3_validation.json`
+
+A TXD-only diagnostic capture is also retained:
+
+* `logs/rx_run_031_txd_only_check.csv`
+* `logs/parsed_run_031_txd_only_check.csv`
+* `logs/parsed_run_031_txd_only_check_rejects.csv`
+
+The successful attempt used adjusted TXD placement and manual startup order with TXD started first, followed by TXA, TXB, and TXC. It should therefore be described as a successful adjusted-position four-transmitter replay attempt, not as a synchronized or identical-start replay.
+
+Validation passed:
+
+* Checks total: 136
+* Checks passed: 136
+* Checks failed: 0
+
+Interpretation boundary: this result supports the SD-backed, manifest-bound replay workflow at four transmitters under this adjusted lab condition. It does not establish 12-transmitter behavior, exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, or operational wildfire behavior.
