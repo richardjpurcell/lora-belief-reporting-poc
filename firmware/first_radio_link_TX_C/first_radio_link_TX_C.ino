@@ -28,7 +28,7 @@ const char* NODE_ID = "N31";
 const char* SCHEDULE_FILE = "/schedule.csv";
 
 const unsigned long SLOT_INTERVAL_MS = 1000;
-const unsigned long STARTUP_OFFSET_MS = 750;
+const unsigned long STARTUP_OFFSET_MS = 1000;
 
 const uint16_t MAX_SCHEDULE_ROWS = 256;
 
