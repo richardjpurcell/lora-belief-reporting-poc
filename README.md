@@ -1700,3 +1700,49 @@ The older tools remain available because they document and support earlier two-t
 This is a documentation/status milestone only. It does not change firmware, schedules, logs, parser behavior, analysis semantics, validation semantics, or physical replay results.
 
 For future scale-up work, the preferred path is the list-valued manifest workflow using the N-transmitter analyzer and validator.
+
+## v4.0 four-transmitter scale design
+
+The v4.0 milestone begins the next design phase after the Run 030 three-transmitter replay workflow was analyzed, validated, reproduced, and documented.
+
+New development note:
+
+* `docs/development/four_transmitter_scale_design.md`
+
+This is a design-only milestone. It does not generate schedules, copy SD cards, flash firmware, run the receiver, parse logs, or change analysis outputs.
+
+Recommended next run:
+
+* Run 031
+
+Recommended four-transmitter design:
+
+* TXA/N01: fixed-all baseline, 64/64 SEND
+* TXB/N16: medium threshold, 32/64 SEND
+* TXC/N31: strict threshold, 16/64 SEND
+* TXD/Nxx: very-strict threshold, 8/64 SEND
+
+The schedule period should remain 64 rows.
+
+The expected scheduled-send ladder is:
+
+* TXA = 1.000
+* TXB = 0.500
+* TXC = 0.250
+* TXD = 0.125
+
+Expected scheduled ratios include:
+
+* TXB/TXA = 0.5000
+* TXC/TXA = 0.2500
+* TXD/TXA = 0.1250
+* TXC/TXB = 0.5000
+* TXD/TXB = 0.2500
+* TXD/TXC = 0.5000
+
+Future Run 031 artifacts should use the list-valued manifest path and the current N-transmitter tools:
+
+* `scripts/analyze_scheduled_replay_manifest_multi.py`
+* `scripts/validate_manifest_replay_bundle_multi.py`
+
+This milestone does not claim four-transmitter physical behavior, 12-transmitter behavior, exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, airtime optimization, energy savings, live-controller behavior, or operational wildfire behavior.
