@@ -1,0 +1,13 @@
+tx_node,role,policy,threshold_family,startup_offset_ms,expected_send_fraction,modeled_send_period_ms,offset_mod_1000_ms,offset_mod_2000_ms,offset_mod_4000_ms,offset_mod_8000_ms,modeled_send_times_ms,fixed_anchor_mod_slot_alignment_flag_count
+TXA/N01,fixed-all anchor,fixed_all,,500,1.0,1000,500,500,500,500,"[500, 1500, 2500, 3500, 4500, 5500, 6500, 7500]",0
+TXD/N46,very-strict threshold scheduled skipping,usefulness_threshold,very_strict,0,0.125,8000,0,0,0,0,[0],0
+TXB/N16,medium threshold scheduled skipping,usefulness_threshold,medium,2750,0.5,2000,750,750,2750,2750,"[750, 2750, 4750, 6750]",0
+TXE/N61,medium threshold scheduled skipping,usefulness_threshold,medium,7250,0.5,2000,250,1250,3250,7250,"[1250, 3250, 5250, 7250]",0
+TXH/N106,medium threshold scheduled skipping,usefulness_threshold,medium,1750,0.5,2000,750,1750,1750,1750,"[1750, 3750, 5750, 7750]",0
+TXK/N151,medium threshold scheduled skipping,usefulness_threshold,medium,1000,0.5,2000,0,1000,1000,1000,"[1000, 3000, 5000, 7000]",0
+TXL/N166,medium threshold scheduled skipping,usefulness_threshold,medium,6750,0.5,2000,750,750,2750,6750,"[750, 2750, 4750, 6750]",0
+TXC/N31,strict threshold scheduled skipping,usefulness_threshold,strict,4250,0.25,4000,250,250,250,4250,"[250, 4250]",0
+TXF/N76,strict threshold scheduled skipping,usefulness_threshold,strict,2000,0.25,4000,0,0,2000,2000,"[2000, 6000]",0
+TXI/N121,strict threshold scheduled skipping,usefulness_threshold,strict,2250,0.25,4000,250,250,2250,2250,"[2250, 6250]",0
+TXG/N91,very-strict threshold scheduled skipping,usefulness_threshold,very_strict,4000,0.125,8000,0,0,0,4000,[4000],0
+TXJ/N136,very-strict threshold scheduled skipping,usefulness_threshold,very_strict,3000,0.125,8000,0,1000,3000,3000,[3000],0

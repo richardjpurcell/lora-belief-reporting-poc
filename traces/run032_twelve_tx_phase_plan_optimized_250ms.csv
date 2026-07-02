@@ -1,0 +1,13 @@
+tx_id,node_id,role,policy,threshold_family,startup_offset_ms,expected_send_fraction,notes
+TXA,N01,fixed-all anchor,fixed_all,,500,1.000,Only fixed-all anchor; preserves Run 031 Condition B active anchor phase
+TXD,N46,very-strict threshold scheduled skipping,usefulness_threshold,very_strict,0,0.125,Preserves successful Run 031 Condition B sparse phase relation
+TXB,N16,medium threshold scheduled skipping,usefulness_threshold,medium,2750,0.500,Optimized 250 ms-grid medium lane
+TXE,N61,medium threshold scheduled skipping,usefulness_threshold,medium,7250,0.500,Optimized 250 ms-grid medium lane
+TXH,N106,medium threshold scheduled skipping,usefulness_threshold,medium,1750,0.500,Optimized 250 ms-grid medium lane
+TXK,N151,medium threshold scheduled skipping,usefulness_threshold,medium,1000,0.500,Optimized 250 ms-grid medium lane
+TXL,N166,medium threshold scheduled skipping,usefulness_threshold,medium,6750,0.500,Optimized 250 ms-grid medium lane
+TXC,N31,strict threshold scheduled skipping,usefulness_threshold,strict,4250,0.250,Optimized 250 ms-grid strict lane
+TXF,N76,strict threshold scheduled skipping,usefulness_threshold,strict,2000,0.250,Optimized 250 ms-grid strict lane
+TXI,N121,strict threshold scheduled skipping,usefulness_threshold,strict,2250,0.250,Optimized 250 ms-grid strict lane
+TXG,N91,very-strict threshold scheduled skipping,usefulness_threshold,very_strict,4000,0.125,Optimized 250 ms-grid sparse lane
+TXJ,N136,very-strict threshold scheduled skipping,usefulness_threshold,very_strict,3000,0.125,Optimized 250 ms-grid sparse lane

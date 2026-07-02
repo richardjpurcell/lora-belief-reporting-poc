@@ -389,6 +389,61 @@ Reason:
 
 Candidate phase table C should still be treated as a hypothesis, not a validated solution.
 
+## Phase-plan analyzer result
+
+A first phase-risk analyzer was added:
+
+* `scripts/analyze_phase_plan.py`
+
+The analyzer reports startup-offset residue groups, simplified modeled SEND times, repeated SEND/SEND co-phase opportunities, and risk flags. It is a design diagnostic only. It does not estimate collision probability, infer exact transmitted-packet counts, or establish synchronized latency.
+
+Two candidate twelve-transmitter phase plans were analyzed.
+
+### Conservative one-anchor candidate
+
+Input:
+
+* `traces/run032_twelve_tx_phase_plan_conservative.csv`
+
+Outputs:
+
+* `outputs/run032_twelve_tx_phase_plan_conservative_summary.json`
+* `outputs/run032_twelve_tx_phase_plan_conservative_summary.csv`
+
+Analyzer result:
+
+* transmitter_count: 12
+* fixed_all_count: 1
+* risk_flags: 9
+
+The conservative candidate preserved one fixed-all anchor and the successful Run 031 Condition B TXA/TXD relation, but the analyzer flagged TXG/N91 and TXJ/N136 as sharing the modulo-slot phase of the fixed-all TXA/N01 anchor. This repeated the kind of phase pattern that v4.4 suggested should be avoided.
+
+### Optimized 250 ms-grid candidate
+
+Input:
+
+* `traces/run032_twelve_tx_phase_plan_optimized_250ms.csv`
+
+Outputs:
+
+* `outputs/run032_twelve_tx_phase_plan_optimized_250ms_summary.json`
+* `outputs/run032_twelve_tx_phase_plan_optimized_250ms_summary.csv`
+
+Analyzer result:
+
+* transmitter_count: 12
+* fixed_all_count: 1
+* risk_flags: 2
+
+The optimized 250 ms-grid candidate reduced the simplified-model risk flags from 9 to 2 and removed the fixed-anchor modulo-slot alignment flags. Remaining flags were:
+
+* TXB/N16 <-> TXL/N166: low modeled repeated SEND/SEND co-phase opportunity
+* TXK/N151 <-> TXJ/N136: needs physical validation modeled repeated SEND/SEND co-phase opportunity
+
+This does not prove that the optimized candidate will work physically. It does make it a better next candidate than the initial conservative table under the current phase-risk diagnostic.
+
+The optimized 250 ms-grid candidate is therefore the preferred current phase-plan candidate for future twelve-transmitter physical preparation.
+
 ## Interpretation boundary
 
 This note designs a next-step phase strategy for a future twelve-transmitter point-to-point LoRa bench experiment.
