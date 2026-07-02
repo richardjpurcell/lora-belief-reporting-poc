@@ -1882,6 +1882,48 @@ Validation passed:
 Interpretation boundary: this result supports the SD-backed, manifest-bound replay workflow at four transmitters under this adjusted lab condition. It does not establish 12-transmitter behavior, exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, or operational wildfire behavior.
 
 
+## v4.5 Run 032 twelve-transmitter slot-phase design
+
+The v4.5 milestone begins the twelve-transmitter design path after the Run 031 v4.4 startup-phase validation.
+
+The main result from v4.4 was that receiver-side packet reception was sensitive to relative programmed startup phase. The Run 032 design therefore treats startup delay as replay phase rather than as a casual board-start convenience.
+
+New design note:
+
+* `docs/development/run032_twelve_transmitter_slot_phase_design.md`
+
+New phase-plan inputs:
+
+* `traces/run032_twelve_tx_phase_plan_conservative.csv`
+* `traces/run032_twelve_tx_phase_plan_optimized_250ms.csv`
+
+New phase-plan analyzer:
+
+* `scripts/analyze_phase_plan.py`
+
+New analysis outputs:
+
+* `outputs/run032_twelve_tx_phase_plan_conservative_summary.json`
+* `outputs/run032_twelve_tx_phase_plan_conservative_summary.csv`
+* `outputs/run032_twelve_tx_phase_plan_optimized_250ms_summary.json`
+* `outputs/run032_twelve_tx_phase_plan_optimized_250ms_summary.csv`
+
+The first conservative one-anchor candidate produced:
+
+* transmitter_count: 12
+* fixed_all_count: 1
+* risk_flags: 9
+
+The optimized 250 ms-grid candidate produced:
+
+* transmitter_count: 12
+* fixed_all_count: 1
+* risk_flags: 2
+
+The optimized 250 ms-grid candidate is therefore the preferred current phase-plan candidate for later twelve-transmitter physical preparation. This does not prove twelve-transmitter physical behavior. It only selects a better candidate under the current simplified phase-risk diagnostic.
+
+Interpretation boundary: this milestone is a design and analysis milestone only. It does not flash twelve transmitters, run a twelve-transmitter physical replay, infer exact transmitted-packet counts, confirm collisions, establish synchronized latency, evaluate LoRaWAN behavior, establish energy savings, establish airtime optimization, use a live belief-maintenance controller, or evaluate operational wildfire behavior.
+
 ## v4.4 Run 031 startup phase validation
 
 The v4.4 milestone tests whether programmed startup-phase patterns affect receiver-side packet proportions in the Run 031 four-transmitter setup.

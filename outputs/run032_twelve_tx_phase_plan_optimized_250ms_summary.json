@@ -1,0 +1,1121 @@
+{
+  "description": "Phase-plan design diagnostic. Results are based on startup offsets and simplified expected send fractions. This does not prove collisions, exact transmitted-packet counts, synchronized latency, LoRaWAN behavior, airtime optimization, or energy savings.",
+  "phase_plan": "traces/run032_twelve_tx_phase_plan_optimized_250ms.csv",
+  "slot_ms": 1000,
+  "superframe_ms": 8000,
+  "residue_windows_ms": [
+    1000,
+    2000,
+    4000,
+    8000
+  ],
+  "co_phase_tolerance_ms": 75,
+  "transmitter_count": 12,
+  "fixed_all_count": 1,
+  "residue_groups": {
+    "1000": {
+      "0": [
+        "TXD/N46",
+        "TXK/N151",
+        "TXF/N76",
+        "TXG/N91",
+        "TXJ/N136"
+      ],
+      "250": [
+        "TXE/N61",
+        "TXC/N31",
+        "TXI/N121"
+      ],
+      "500": [
+        "TXA/N01"
+      ],
+      "750": [
+        "TXB/N16",
+        "TXH/N106",
+        "TXL/N166"
+      ]
+    },
+    "2000": {
+      "0": [
+        "TXD/N46",
+        "TXF/N76",
+        "TXG/N91"
+      ],
+      "250": [
+        "TXC/N31",
+        "TXI/N121"
+      ],
+      "500": [
+        "TXA/N01"
+      ],
+      "750": [
+        "TXB/N16",
+        "TXL/N166"
+      ],
+      "1000": [
+        "TXK/N151",
+        "TXJ/N136"
+      ],
+      "1250": [
+        "TXE/N61"
+      ],
+      "1750": [
+        "TXH/N106"
+      ]
+    },
+    "4000": {
+      "0": [
+        "TXD/N46",
+        "TXG/N91"
+      ],
+      "250": [
+        "TXC/N31"
+      ],
+      "500": [
+        "TXA/N01"
+      ],
+      "1000": [
+        "TXK/N151"
+      ],
+      "1750": [
+        "TXH/N106"
+      ],
+      "2000": [
+        "TXF/N76"
+      ],
+      "2250": [
+        "TXI/N121"
+      ],
+      "2750": [
+        "TXB/N16",
+        "TXL/N166"
+      ],
+      "3000": [
+        "TXJ/N136"
+      ],
+      "3250": [
+        "TXE/N61"
+      ]
+    },
+    "8000": {
+      "0": [
+        "TXD/N46"
+      ],
+      "500": [
+        "TXA/N01"
+      ],
+      "1000": [
+        "TXK/N151"
+      ],
+      "1750": [
+        "TXH/N106"
+      ],
+      "2000": [
+        "TXF/N76"
+      ],
+      "2250": [
+        "TXI/N121"
+      ],
+      "2750": [
+        "TXB/N16"
+      ],
+      "3000": [
+        "TXJ/N136"
+      ],
+      "4000": [
+        "TXG/N91"
+      ],
+      "4250": [
+        "TXC/N31"
+      ],
+      "6750": [
+        "TXL/N166"
+      ],
+      "7250": [
+        "TXE/N61"
+      ]
+    }
+  },
+  "per_transmitter": [
+    {
+      "tx_node": "TXA/N01",
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "role": "fixed-all anchor",
+      "policy": "fixed_all",
+      "threshold_family": "",
+      "startup_offset_ms": 500,
+      "expected_send_fraction": 1.0,
+      "modeled_send_period_ms": 1000,
+      "modeled_send_times_ms": [
+        500,
+        1500,
+        2500,
+        3500,
+        4500,
+        5500,
+        6500,
+        7500
+      ],
+      "offset_mod_1000_ms": 500,
+      "offset_mod_2000_ms": 500,
+      "offset_mod_4000_ms": 500,
+      "offset_mod_8000_ms": 500,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXD/N46",
+      "tx_id": "TXD",
+      "node_id": "N46",
+      "role": "very-strict threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "very_strict",
+      "startup_offset_ms": 0,
+      "expected_send_fraction": 0.125,
+      "modeled_send_period_ms": 8000,
+      "modeled_send_times_ms": [
+        0
+      ],
+      "offset_mod_1000_ms": 0,
+      "offset_mod_2000_ms": 0,
+      "offset_mod_4000_ms": 0,
+      "offset_mod_8000_ms": 0,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXB/N16",
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "role": "medium threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "medium",
+      "startup_offset_ms": 2750,
+      "expected_send_fraction": 0.5,
+      "modeled_send_period_ms": 2000,
+      "modeled_send_times_ms": [
+        750,
+        2750,
+        4750,
+        6750
+      ],
+      "offset_mod_1000_ms": 750,
+      "offset_mod_2000_ms": 750,
+      "offset_mod_4000_ms": 2750,
+      "offset_mod_8000_ms": 2750,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXE/N61",
+      "tx_id": "TXE",
+      "node_id": "N61",
+      "role": "medium threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "medium",
+      "startup_offset_ms": 7250,
+      "expected_send_fraction": 0.5,
+      "modeled_send_period_ms": 2000,
+      "modeled_send_times_ms": [
+        1250,
+        3250,
+        5250,
+        7250
+      ],
+      "offset_mod_1000_ms": 250,
+      "offset_mod_2000_ms": 1250,
+      "offset_mod_4000_ms": 3250,
+      "offset_mod_8000_ms": 7250,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXH/N106",
+      "tx_id": "TXH",
+      "node_id": "N106",
+      "role": "medium threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "medium",
+      "startup_offset_ms": 1750,
+      "expected_send_fraction": 0.5,
+      "modeled_send_period_ms": 2000,
+      "modeled_send_times_ms": [
+        1750,
+        3750,
+        5750,
+        7750
+      ],
+      "offset_mod_1000_ms": 750,
+      "offset_mod_2000_ms": 1750,
+      "offset_mod_4000_ms": 1750,
+      "offset_mod_8000_ms": 1750,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXK/N151",
+      "tx_id": "TXK",
+      "node_id": "N151",
+      "role": "medium threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "medium",
+      "startup_offset_ms": 1000,
+      "expected_send_fraction": 0.5,
+      "modeled_send_period_ms": 2000,
+      "modeled_send_times_ms": [
+        1000,
+        3000,
+        5000,
+        7000
+      ],
+      "offset_mod_1000_ms": 0,
+      "offset_mod_2000_ms": 1000,
+      "offset_mod_4000_ms": 1000,
+      "offset_mod_8000_ms": 1000,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXL/N166",
+      "tx_id": "TXL",
+      "node_id": "N166",
+      "role": "medium threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "medium",
+      "startup_offset_ms": 6750,
+      "expected_send_fraction": 0.5,
+      "modeled_send_period_ms": 2000,
+      "modeled_send_times_ms": [
+        750,
+        2750,
+        4750,
+        6750
+      ],
+      "offset_mod_1000_ms": 750,
+      "offset_mod_2000_ms": 750,
+      "offset_mod_4000_ms": 2750,
+      "offset_mod_8000_ms": 6750,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXC/N31",
+      "tx_id": "TXC",
+      "node_id": "N31",
+      "role": "strict threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "strict",
+      "startup_offset_ms": 4250,
+      "expected_send_fraction": 0.25,
+      "modeled_send_period_ms": 4000,
+      "modeled_send_times_ms": [
+        250,
+        4250
+      ],
+      "offset_mod_1000_ms": 250,
+      "offset_mod_2000_ms": 250,
+      "offset_mod_4000_ms": 250,
+      "offset_mod_8000_ms": 4250,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXF/N76",
+      "tx_id": "TXF",
+      "node_id": "N76",
+      "role": "strict threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "strict",
+      "startup_offset_ms": 2000,
+      "expected_send_fraction": 0.25,
+      "modeled_send_period_ms": 4000,
+      "modeled_send_times_ms": [
+        2000,
+        6000
+      ],
+      "offset_mod_1000_ms": 0,
+      "offset_mod_2000_ms": 0,
+      "offset_mod_4000_ms": 2000,
+      "offset_mod_8000_ms": 2000,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXI/N121",
+      "tx_id": "TXI",
+      "node_id": "N121",
+      "role": "strict threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "strict",
+      "startup_offset_ms": 2250,
+      "expected_send_fraction": 0.25,
+      "modeled_send_period_ms": 4000,
+      "modeled_send_times_ms": [
+        2250,
+        6250
+      ],
+      "offset_mod_1000_ms": 250,
+      "offset_mod_2000_ms": 250,
+      "offset_mod_4000_ms": 2250,
+      "offset_mod_8000_ms": 2250,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXG/N91",
+      "tx_id": "TXG",
+      "node_id": "N91",
+      "role": "very-strict threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "very_strict",
+      "startup_offset_ms": 4000,
+      "expected_send_fraction": 0.125,
+      "modeled_send_period_ms": 8000,
+      "modeled_send_times_ms": [
+        4000
+      ],
+      "offset_mod_1000_ms": 0,
+      "offset_mod_2000_ms": 0,
+      "offset_mod_4000_ms": 0,
+      "offset_mod_8000_ms": 4000,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    },
+    {
+      "tx_node": "TXJ/N136",
+      "tx_id": "TXJ",
+      "node_id": "N136",
+      "role": "very-strict threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "threshold_family": "very_strict",
+      "startup_offset_ms": 3000,
+      "expected_send_fraction": 0.125,
+      "modeled_send_period_ms": 8000,
+      "modeled_send_times_ms": [
+        3000
+      ],
+      "offset_mod_1000_ms": 0,
+      "offset_mod_2000_ms": 1000,
+      "offset_mod_4000_ms": 3000,
+      "offset_mod_8000_ms": 3000,
+      "fixed_anchor_mod_slot_alignment_flags": []
+    }
+  ],
+  "pairwise_phase_distances": [
+    {
+      "left": "TXA/N01",
+      "right": "TXD/N46",
+      "left_offset_ms": 500,
+      "right_offset_ms": 0,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 500,
+      "phase_distance_mod_8000_ms": 500
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXB/N16",
+      "left_offset_ms": 500,
+      "right_offset_ms": 2750,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 2250
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXE/N61",
+      "left_offset_ms": 500,
+      "right_offset_ms": 7250,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 1250
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXH/N106",
+      "left_offset_ms": 500,
+      "right_offset_ms": 1750,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 1250
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXK/N151",
+      "left_offset_ms": 500,
+      "right_offset_ms": 1000,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 500,
+      "phase_distance_mod_8000_ms": 500
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXL/N166",
+      "left_offset_ms": 500,
+      "right_offset_ms": 6750,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 1750
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXC/N31",
+      "left_offset_ms": 500,
+      "right_offset_ms": 4250,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 250,
+      "phase_distance_mod_8000_ms": 3750
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXF/N76",
+      "left_offset_ms": 500,
+      "right_offset_ms": 2000,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 1500,
+      "phase_distance_mod_8000_ms": 1500
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXI/N121",
+      "left_offset_ms": 500,
+      "right_offset_ms": 2250,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 1750
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXG/N91",
+      "left_offset_ms": 500,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 500,
+      "phase_distance_mod_8000_ms": 3500
+    },
+    {
+      "left": "TXA/N01",
+      "right": "TXJ/N136",
+      "left_offset_ms": 500,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 1500,
+      "phase_distance_mod_8000_ms": 2500
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXB/N16",
+      "left_offset_ms": 0,
+      "right_offset_ms": 2750,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 2750
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXE/N61",
+      "left_offset_ms": 0,
+      "right_offset_ms": 7250,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 750,
+      "phase_distance_mod_8000_ms": 750
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXH/N106",
+      "left_offset_ms": 0,
+      "right_offset_ms": 1750,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 1750
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXK/N151",
+      "left_offset_ms": 0,
+      "right_offset_ms": 1000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 1000
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXL/N166",
+      "left_offset_ms": 0,
+      "right_offset_ms": 6750,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 1250
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXC/N31",
+      "left_offset_ms": 0,
+      "right_offset_ms": 4250,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 250,
+      "phase_distance_mod_8000_ms": 3750
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXF/N76",
+      "left_offset_ms": 0,
+      "right_offset_ms": 2000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 0,
+      "phase_distance_mod_4000_ms": 2000,
+      "phase_distance_mod_8000_ms": 2000
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXI/N121",
+      "left_offset_ms": 0,
+      "right_offset_ms": 2250,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 2250
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXG/N91",
+      "left_offset_ms": 0,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 0,
+      "phase_distance_mod_4000_ms": 0,
+      "phase_distance_mod_8000_ms": 4000
+    },
+    {
+      "left": "TXD/N46",
+      "right": "TXJ/N136",
+      "left_offset_ms": 0,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 3000
+    },
+    {
+      "left": "TXB/N16",
+      "right": "TXE/N61",
+      "left_offset_ms": 2750,
+      "right_offset_ms": 7250,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 500,
+      "phase_distance_mod_8000_ms": 3500
+    },
+    {
+      "left": "TXB/N16",
+      "right": "TXH/N106",
+      "left_offset_ms": 2750,
+      "right_offset_ms": 1750,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 1000
+    },
+    {
+      "left": "TXB/N16",
+      "right": "TXK/N151",
+      "left_offset_ms": 2750,
+      "right_offset_ms": 1000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 1750
+    },
+    {
+      "left": "TXB/N16",
+      "right": "TXL/N166",
+      "left_offset_ms": 2750,
+      "right_offset_ms": 6750,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 0,
+      "phase_distance_mod_4000_ms": 0,
+      "phase_distance_mod_8000_ms": 4000
+    },
+    {
+      "left": "TXB/N16",
+      "right": "TXC/N31",
+      "left_offset_ms": 2750,
+      "right_offset_ms": 4250,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 1500,
+      "phase_distance_mod_8000_ms": 1500
+    },
+    {
+      "left": "TXB/N16",
+      "right": "TXF/N76",
+      "left_offset_ms": 2750,
+      "right_offset_ms": 2000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 750,
+      "phase_distance_mod_8000_ms": 750
+    },
+    {
+      "left": "TXB/N16",
+      "right": "TXI/N121",
+      "left_offset_ms": 2750,
+      "right_offset_ms": 2250,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 500,
+      "phase_distance_mod_8000_ms": 500
+    },
+    {
+      "left": "TXB/N16",
+      "right": "TXG/N91",
+      "left_offset_ms": 2750,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 1250
+    },
+    {
+      "left": "TXB/N16",
+      "right": "TXJ/N136",
+      "left_offset_ms": 2750,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 250,
+      "phase_distance_mod_8000_ms": 250
+    },
+    {
+      "left": "TXE/N61",
+      "right": "TXH/N106",
+      "left_offset_ms": 7250,
+      "right_offset_ms": 1750,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 1500,
+      "phase_distance_mod_8000_ms": 2500
+    },
+    {
+      "left": "TXE/N61",
+      "right": "TXK/N151",
+      "left_offset_ms": 7250,
+      "right_offset_ms": 1000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 1750
+    },
+    {
+      "left": "TXE/N61",
+      "right": "TXL/N166",
+      "left_offset_ms": 7250,
+      "right_offset_ms": 6750,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 500,
+      "phase_distance_mod_8000_ms": 500
+    },
+    {
+      "left": "TXE/N61",
+      "right": "TXC/N31",
+      "left_offset_ms": 7250,
+      "right_offset_ms": 4250,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 3000
+    },
+    {
+      "left": "TXE/N61",
+      "right": "TXF/N76",
+      "left_offset_ms": 7250,
+      "right_offset_ms": 2000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 2750
+    },
+    {
+      "left": "TXE/N61",
+      "right": "TXI/N121",
+      "left_offset_ms": 7250,
+      "right_offset_ms": 2250,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 3000
+    },
+    {
+      "left": "TXE/N61",
+      "right": "TXG/N91",
+      "left_offset_ms": 7250,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 750,
+      "phase_distance_mod_8000_ms": 3250
+    },
+    {
+      "left": "TXE/N61",
+      "right": "TXJ/N136",
+      "left_offset_ms": 7250,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 250,
+      "phase_distance_mod_8000_ms": 3750
+    },
+    {
+      "left": "TXH/N106",
+      "right": "TXK/N151",
+      "left_offset_ms": 1750,
+      "right_offset_ms": 1000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 750,
+      "phase_distance_mod_8000_ms": 750
+    },
+    {
+      "left": "TXH/N106",
+      "right": "TXL/N166",
+      "left_offset_ms": 1750,
+      "right_offset_ms": 6750,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 3000
+    },
+    {
+      "left": "TXH/N106",
+      "right": "TXC/N31",
+      "left_offset_ms": 1750,
+      "right_offset_ms": 4250,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 1500,
+      "phase_distance_mod_8000_ms": 2500
+    },
+    {
+      "left": "TXH/N106",
+      "right": "TXF/N76",
+      "left_offset_ms": 1750,
+      "right_offset_ms": 2000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 250,
+      "phase_distance_mod_8000_ms": 250
+    },
+    {
+      "left": "TXH/N106",
+      "right": "TXI/N121",
+      "left_offset_ms": 1750,
+      "right_offset_ms": 2250,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 500,
+      "phase_distance_mod_8000_ms": 500
+    },
+    {
+      "left": "TXH/N106",
+      "right": "TXG/N91",
+      "left_offset_ms": 1750,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 2250
+    },
+    {
+      "left": "TXH/N106",
+      "right": "TXJ/N136",
+      "left_offset_ms": 1750,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 1250
+    },
+    {
+      "left": "TXK/N151",
+      "right": "TXL/N166",
+      "left_offset_ms": 1000,
+      "right_offset_ms": 6750,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 2250
+    },
+    {
+      "left": "TXK/N151",
+      "right": "TXC/N31",
+      "left_offset_ms": 1000,
+      "right_offset_ms": 4250,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 750,
+      "phase_distance_mod_8000_ms": 3250
+    },
+    {
+      "left": "TXK/N151",
+      "right": "TXF/N76",
+      "left_offset_ms": 1000,
+      "right_offset_ms": 2000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 1000
+    },
+    {
+      "left": "TXK/N151",
+      "right": "TXI/N121",
+      "left_offset_ms": 1000,
+      "right_offset_ms": 2250,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 1250
+    },
+    {
+      "left": "TXK/N151",
+      "right": "TXG/N91",
+      "left_offset_ms": 1000,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 3000
+    },
+    {
+      "left": "TXK/N151",
+      "right": "TXJ/N136",
+      "left_offset_ms": 1000,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 0,
+      "phase_distance_mod_4000_ms": 2000,
+      "phase_distance_mod_8000_ms": 2000
+    },
+    {
+      "left": "TXL/N166",
+      "right": "TXC/N31",
+      "left_offset_ms": 6750,
+      "right_offset_ms": 4250,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 1500,
+      "phase_distance_mod_8000_ms": 2500
+    },
+    {
+      "left": "TXL/N166",
+      "right": "TXF/N76",
+      "left_offset_ms": 6750,
+      "right_offset_ms": 2000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 750,
+      "phase_distance_mod_8000_ms": 3250
+    },
+    {
+      "left": "TXL/N166",
+      "right": "TXI/N121",
+      "left_offset_ms": 6750,
+      "right_offset_ms": 2250,
+      "phase_distance_mod_1000_ms": 500,
+      "phase_distance_mod_2000_ms": 500,
+      "phase_distance_mod_4000_ms": 500,
+      "phase_distance_mod_8000_ms": 3500
+    },
+    {
+      "left": "TXL/N166",
+      "right": "TXG/N91",
+      "left_offset_ms": 6750,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 2750
+    },
+    {
+      "left": "TXL/N166",
+      "right": "TXJ/N136",
+      "left_offset_ms": 6750,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 250,
+      "phase_distance_mod_8000_ms": 3750
+    },
+    {
+      "left": "TXC/N31",
+      "right": "TXF/N76",
+      "left_offset_ms": 4250,
+      "right_offset_ms": 2000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 2250
+    },
+    {
+      "left": "TXC/N31",
+      "right": "TXI/N121",
+      "left_offset_ms": 4250,
+      "right_offset_ms": 2250,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 0,
+      "phase_distance_mod_4000_ms": 2000,
+      "phase_distance_mod_8000_ms": 2000
+    },
+    {
+      "left": "TXC/N31",
+      "right": "TXG/N91",
+      "left_offset_ms": 4250,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 250,
+      "phase_distance_mod_8000_ms": 250
+    },
+    {
+      "left": "TXC/N31",
+      "right": "TXJ/N136",
+      "left_offset_ms": 4250,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 1250,
+      "phase_distance_mod_8000_ms": 1250
+    },
+    {
+      "left": "TXF/N76",
+      "right": "TXI/N121",
+      "left_offset_ms": 2000,
+      "right_offset_ms": 2250,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 250,
+      "phase_distance_mod_8000_ms": 250
+    },
+    {
+      "left": "TXF/N76",
+      "right": "TXG/N91",
+      "left_offset_ms": 2000,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 0,
+      "phase_distance_mod_4000_ms": 2000,
+      "phase_distance_mod_8000_ms": 2000
+    },
+    {
+      "left": "TXF/N76",
+      "right": "TXJ/N136",
+      "left_offset_ms": 2000,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 1000
+    },
+    {
+      "left": "TXI/N121",
+      "right": "TXG/N91",
+      "left_offset_ms": 2250,
+      "right_offset_ms": 4000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 250,
+      "phase_distance_mod_4000_ms": 1750,
+      "phase_distance_mod_8000_ms": 1750
+    },
+    {
+      "left": "TXI/N121",
+      "right": "TXJ/N136",
+      "left_offset_ms": 2250,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 250,
+      "phase_distance_mod_2000_ms": 750,
+      "phase_distance_mod_4000_ms": 750,
+      "phase_distance_mod_8000_ms": 750
+    },
+    {
+      "left": "TXG/N91",
+      "right": "TXJ/N136",
+      "left_offset_ms": 4000,
+      "right_offset_ms": 3000,
+      "phase_distance_mod_1000_ms": 0,
+      "phase_distance_mod_2000_ms": 1000,
+      "phase_distance_mod_4000_ms": 1000,
+      "phase_distance_mod_8000_ms": 1000
+    }
+  ],
+  "repeated_send_send_alignments": [
+    {
+      "left": "TXB/N16",
+      "right": "TXL/N166",
+      "left_expected_send_fraction": 0.5,
+      "right_expected_send_fraction": 0.5,
+      "close_event_count": 4,
+      "close_events": [
+        {
+          "left_time_ms": 750,
+          "right_time_ms": 750,
+          "distance_ms": 0
+        },
+        {
+          "left_time_ms": 2750,
+          "right_time_ms": 2750,
+          "distance_ms": 0
+        },
+        {
+          "left_time_ms": 4750,
+          "right_time_ms": 4750,
+          "distance_ms": 0
+        },
+        {
+          "left_time_ms": 6750,
+          "right_time_ms": 6750,
+          "distance_ms": 0
+        }
+      ]
+    },
+    {
+      "left": "TXK/N151",
+      "right": "TXJ/N136",
+      "left_expected_send_fraction": 0.5,
+      "right_expected_send_fraction": 0.125,
+      "close_event_count": 1,
+      "close_events": [
+        {
+          "left_time_ms": 3000,
+          "right_time_ms": 3000,
+          "distance_ms": 0
+        }
+      ]
+    }
+  ],
+  "risk_flags": [
+    {
+      "severity": "low",
+      "tx_node": "TXB/N16 <-> TXL/N166",
+      "flag": "modeled repeated SEND/SEND co-phase opportunity",
+      "details": {
+        "close_event_count": 4,
+        "tolerance_ms": 75
+      }
+    },
+    {
+      "severity": "needs physical validation",
+      "tx_node": "TXK/N151 <-> TXJ/N136",
+      "flag": "modeled repeated SEND/SEND co-phase opportunity",
+      "details": {
+        "close_event_count": 1,
+        "tolerance_ms": 75
+      }
+    }
+  ]
+}
