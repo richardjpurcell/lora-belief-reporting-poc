@@ -239,6 +239,11 @@ Condition C is therefore not a full four-transmitter success. TXD reception rema
 
 A receiver-side phase-residue check was run across Conditions A, B, and C using received packet times relative to the first received packet in each capture. This diagnostic does not establish synchronized transmit latency, exact transmitted-packet counts, or confirmed collisions. It is only a receiver-side check for repeated phase structure in the received logs.
 
+Comparison artifacts:
+
+* JSON: `outputs/run031_phase_validation_abc_comparison.json`
+* CSV: `outputs/run031_phase_validation_abc_comparison.csv`
+
 The A/B/C pattern suggests that the reception problem may depend on relative phase alignment with TXA's fixed-all 1 s rhythm:
 
 * In Condition A, TXA used 0 ms and TXD used 1000 ms. TXD produced zero received packets.
