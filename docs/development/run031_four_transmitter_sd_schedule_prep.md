@@ -56,9 +56,9 @@ The v4.0 design milestone recommended extending that structure by one halving st
 
 * TXD/N46: very-strict threshold, 8/64 SEND
 
-The TXD node ID has been assigned in this schedule-preparation milestone:
+The TXD node ID was initially a placeholder in v4.1 and was assigned in the later v4.2 physical-preparation branch:
 
-* `NXX`
+* `N46`
 
 The physical TXD node ID should be confirmed from the board label during a later physical-preparation milestone.
 
@@ -307,7 +307,7 @@ The next milestone should be physical preparation only:
 That later milestone should:
 
 1. Confirm the physical TXD board label and node ID.
-2. Decide whether `NXX` should be replaced in schedule artifacts before physical replay.
+2. Use the assigned TXD node ID `N46` when preparing the physical board and firmware.
 3. Prepare or copy an explicit TXD firmware configuration.
 4. Confirm all four transmitter firmware identities.
 5. Copy each SD-facing all-slot CSV to the correct SD card as `/schedule.csv`.
