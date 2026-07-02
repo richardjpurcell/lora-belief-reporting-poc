@@ -62,7 +62,7 @@
     },
     {
       "tx_id": "TXD",
-      "node_id": "NXX",
+      "node_id": "N46",
       "role": "very-strict threshold scheduled skipping",
       "policy": "usefulness_threshold",
       "policy_code": "U",
