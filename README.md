@@ -1785,3 +1785,40 @@ Expected scheduled ratios:
 * TXD/TXC = 0.5000
 
 This is schedule preparation only. It does not copy files to SD cards, flash firmware, run hardware, parse receiver logs, or make four-transmitter physical replay claims.
+
+## v4.2 Run 031 four-transmitter physical preparation
+
+The v4.2 milestone prepares repository-side firmware identities and physical-prep documentation for the Run 031 four-transmitter SD-backed replay.
+
+TXD was assigned the node identity:
+
+* TXD/N46
+
+This gives the four-transmitter set:
+
+* TXA/N01
+* TXB/N16
+* TXC/N31
+* TXD/N46
+
+Run 031 firmware identities were prepared for all four transmitters:
+
+* TXA/N01: `RUN_ID = "R31"`
+* TXB/N16: `RUN_ID = "R31"`
+* TXC/N31: `RUN_ID = "R31"`
+* TXD/N46: `RUN_ID = "R31"`
+
+New TXD firmware sketch:
+
+* `firmware/first_radio_link_TX_D/first_radio_link_TX_D.ino`
+
+Run 031 startup offsets:
+
+* TXA/N01: 0 ms
+* TXB/N16: 500 ms
+* TXC/N31: 750 ms
+* TXD/N46: 1000 ms
+
+These offsets are practical bench-start staggering only. They are not synchronized timing, collision-avoidance guarantees, latency measurements, or MAC-layer coordination.
+
+This is physical preparation only. It does not copy schedules to SD cards, flash hardware, run the receiver, parse logs, or make four-transmitter physical replay claims.
