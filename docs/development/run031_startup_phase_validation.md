@@ -255,6 +255,13 @@ This suggests that the issue is not TXD identity alone and not a standalone 1000
 
 This remains a phase/schedule-interaction hypothesis. The current receiver-side logs do not prove packet collisions or exact transmitted-packet counts.
 
+After the A/B/C validation, the active transmitter firmware was restored to the successful Condition B programmed phase:
+
+* TXD/N46: 0 ms
+* TXA/N01: 500 ms
+* TXB/N16: 750 ms
+* TXC/N31: 1000 ms
+
 ## Interpretation plan
 
 If Condition A fails but Condition B succeeds, startup phase is likely important.

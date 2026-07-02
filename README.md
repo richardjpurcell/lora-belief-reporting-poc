@@ -1971,4 +1971,11 @@ Validation passed for all three condition bundles:
 * Condition B: 136/136 checks passed
 * Condition C: 136/136 checks passed
 
+After the A/B/C validation, the active transmitter firmware was restored to the successful Condition B programmed phase:
+
+* TXD/N46: 0 ms
+* TXA/N01: 500 ms
+* TXB/N16: 750 ms
+* TXC/N31: 1000 ms
+
 Interpretation boundary: this result is a receiver-side bench validation of startup-phase sensitivity in a four-transmitter point-to-point LoRa setup. It does not infer exact transmitted-packet counts, confirm collisions, establish synchronized latency, evaluate LoRaWAN behavior, establish energy savings, establish airtime optimization, use a live belief-maintenance controller, establish 12-transmitter behavior, or evaluate operational wildfire behavior.
