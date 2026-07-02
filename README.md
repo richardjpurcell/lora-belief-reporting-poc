@@ -1771,9 +1771,9 @@ Run 031 schedule design:
 * TXA/N01: fixed-all baseline, 64/64 SEND
 * TXB/N16: medium threshold, 32/64 SEND
 * TXC/N31: strict threshold, 16/64 SEND
-* TXD/NXX: very-strict threshold, 8/64 SEND
+* TXD/N46: very-strict threshold, 8/64 SEND
 
-The TXD node ID remains a placeholder in this schedule-preparation milestone and should be confirmed from the physical board label before physical replay.
+The TXD node ID has been assigned in this schedule-preparation milestone and should be used when labeling and flashing the physical board before physical replay.
 
 Expected scheduled ratios:
 

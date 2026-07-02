@@ -54,9 +54,9 @@ Run 030 established a validated three-transmitter SD-backed replay workflow with
 
 The v4.0 design milestone recommended extending that structure by one halving step:
 
-* TXD/NXX: very-strict threshold, 8/64 SEND
+* TXD/N46: very-strict threshold, 8/64 SEND
 
-The TXD node ID remains a placeholder in this schedule-preparation milestone:
+The TXD node ID has been assigned in this schedule-preparation milestone:
 
 * `NXX`
 
@@ -104,7 +104,7 @@ Manifest transmitter entries:
 * TXA/N01
 * TXB/N16
 * TXC/N31
-* TXD/NXX
+* TXD/N46
 
 ## Generated schedule artifacts
 
@@ -164,21 +164,21 @@ Expected all-slot row counts:
 * TXA/N01: 64 rows
 * TXB/N16: 64 rows
 * TXC/N31: 64 rows
-* TXD/NXX: 64 rows
+* TXD/N46: 64 rows
 
 Expected SEND counts:
 
 * TXA/N01: 64/64 SEND
 * TXB/N16: 32/64 SEND
 * TXC/N31: 16/64 SEND
-* TXD/NXX: 8/64 SEND
+* TXD/N46: 8/64 SEND
 
 Expected SKIP counts:
 
 * TXA/N01: 0/64 SKIP
 * TXB/N16: 32/64 SKIP
 * TXC/N31: 48/64 SKIP
-* TXD/NXX: 56/64 SKIP
+* TXD/N46: 56/64 SKIP
 
 ## Expected scheduled ratios
 
@@ -224,7 +224,7 @@ schedule_period_rows: 64
 TXA/N01: rows=64 send=64 skip=0 threshold=None
 TXB/N16: rows=64 send=32 skip=32 threshold=medium
 TXC/N31: rows=64 send=16 skip=48 threshold=strict
-TXD/NXX: rows=64 send=8 skip=56 threshold=very_strict
+TXD/N46: rows=64 send=8 skip=56 threshold=very_strict
 
 TXB/TXA: 0.5000
 TXC/TXA: 0.2500
