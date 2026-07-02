@@ -186,6 +186,70 @@ Condition B is therefore a successful TXD reception case under four-transmitter 
 
 Together, Conditions A and B support the interpretation that programmed startup phase is likely important in this bench setup. Condition C is still useful because it can test whether longer phase separation helps without making TXD first.
 
+## Condition C result: TXA-first stretched programmed phase
+
+Condition C was captured using the TXA-first stretched programmed phase pattern:
+
+* TXA/N01: 0 ms
+* TXB/N16: 500 ms
+* TXC/N31: 1000 ms
+* TXD/N46: 1500 ms
+
+Capture and analysis files:
+
+* Raw receiver log: `logs/rx_run_031_phase_validation_C_txa_first_stretched.csv`
+* Parsed valid packets: `logs/parsed_run_031_phase_validation_C_txa_first_stretched.csv`
+* Parsed rejects: `logs/parsed_run_031_phase_validation_C_txa_first_stretched_rejects.csv`
+* Summary JSON: `outputs/run031_phase_validation_C_txa_first_stretched_summary.json`
+* Summary CSV: `outputs/run031_phase_validation_C_txa_first_stretched_summary.csv`
+* Validation JSON: `outputs/run031_phase_validation_C_txa_first_stretched_validation.json`
+
+Observed receiver-side packet counts:
+
+* TXA/N01: 372
+* TXB/N16: 187
+* TXC/N31: 1
+* TXD/N46: 46
+
+Observed receiver-side ratios:
+
+* TXB/TXA: expected 0.5000, observed 0.5027
+* TXC/TXA: expected 0.2500, observed 0.0027
+* TXD/TXA: expected 0.1250, observed 0.1237
+* TXC/TXB: expected 0.5000, observed 0.0053
+* TXD/TXB: expected 0.2500, observed 0.2460
+* TXD/TXC: expected 0.5000, observed 46.0000
+
+Observed sequence gaps:
+
+* TXA/N01: 2 missing observed transmitted sequences: `[157, 239]`
+* TXB/N16: none
+* TXC/N31: none, but only one TXC packet was received
+* TXD/N46: none
+
+Validation result:
+
+* checks_total: 136
+* checks_passed: 136
+* checks_failed: 0
+
+Condition C is therefore not a full four-transmitter success. TXD reception remained close to its expected receiver-side ratio, but TXC nearly disappeared.
+
+## Receiver-side phase-residue diagnostic
+
+A receiver-side phase-residue check was run across Conditions A, B, and C using received packet times relative to the first received packet in each capture. This diagnostic does not establish synchronized transmit latency, exact transmitted-packet counts, or confirmed collisions. It is only a receiver-side check for repeated phase structure in the received logs.
+
+The A/B/C pattern suggests that the reception problem may depend on relative phase alignment with TXA's fixed-all 1 s rhythm:
+
+* In Condition A, TXA used 0 ms and TXD used 1000 ms. TXD produced zero received packets.
+* In Condition B, TXD used 0 ms while TXA used 500 ms. TXD was received successfully, with TXD/TXA observed at 0.1253 against the expected 0.1250.
+* In Condition C, TXA used 0 ms and TXC used 1000 ms. TXC produced only one received packet.
+* In Condition C, TXD used 1500 ms and was received successfully, with TXD/TXA observed at 0.1237 against the expected 0.1250.
+
+This suggests that the issue is not TXD identity alone and not a standalone 1000 ms startup offset defect. A more precise hypothesis is that sparse scheduled transmitters can be poorly received when their programmed replay phase aligns with TXA's fixed-all 1 s rhythm modulo the slot interval.
+
+This remains a phase/schedule-interaction hypothesis. The current receiver-side logs do not prove packet collisions or exact transmitted-packet counts.
+
 ## Interpretation plan
 
 If Condition A fails but Condition B succeeds, startup phase is likely important.
