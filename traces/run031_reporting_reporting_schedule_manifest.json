@@ -1,0 +1,96 @@
+{
+  "run_id": "run031_four_transmitter_sd_schedule_prep",
+  "milestone": "v4.1-run031-four-transmitter-schedule-prep",
+  "purpose": "Prepare manifest-bound four-transmitter all-slot SD schedules for a later physical replay milestone.",
+  "source_schedule": "traces/run029_reporting_txa_fixed_all_schedule.csv",
+  "run031_base_schedule_copy": "traces/run031_four_tx_base_schedule.csv",
+  "schedule_period_rows": 64,
+  "sd_schedule_schema": [
+    "seq",
+    "region",
+    "event",
+    "priority",
+    "usefulness",
+    "stale_after",
+    "policy",
+    "send"
+  ],
+  "transmitters": [
+    {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "role": "fixed-all baseline",
+      "policy": "fixed_all",
+      "policy_code": "F",
+      "threshold_family": null,
+      "schedule_csv": "traces/run031_reporting_txa_fixed_all_schedule.csv",
+      "compact_csv": "traces/run031_reporting_txa_fixed_all_compact.csv",
+      "sd_csv": "traces/run031_sd_txa_schedule.csv",
+      "expected_rows": 64,
+      "expected_send_rows": 64,
+      "expected_skip_rows": 0
+    },
+    {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "role": "medium threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "policy_code": "U",
+      "threshold_family": "medium",
+      "selection_rule": "top 32 rows by usefulness, sequence ascending for ties",
+      "schedule_csv": "traces/run031_reporting_txb_medium_threshold_schedule.csv",
+      "compact_csv": "traces/run031_reporting_txb_medium_threshold_compact.csv",
+      "sd_csv": "traces/run031_sd_txb_schedule.csv",
+      "expected_rows": 64,
+      "expected_send_rows": 32,
+      "expected_skip_rows": 32
+    },
+    {
+      "tx_id": "TXC",
+      "node_id": "N31",
+      "role": "strict threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "policy_code": "U",
+      "threshold_family": "strict",
+      "selection_rule": "top 16 rows by usefulness, sequence ascending for ties",
+      "schedule_csv": "traces/run031_reporting_txc_strict_threshold_schedule.csv",
+      "compact_csv": "traces/run031_reporting_txc_strict_threshold_compact.csv",
+      "sd_csv": "traces/run031_sd_txc_schedule.csv",
+      "expected_rows": 64,
+      "expected_send_rows": 16,
+      "expected_skip_rows": 48
+    },
+    {
+      "tx_id": "TXD",
+      "node_id": "NXX",
+      "role": "very-strict threshold scheduled skipping",
+      "policy": "usefulness_threshold",
+      "policy_code": "U",
+      "threshold_family": "very_strict",
+      "selection_rule": "top 8 rows by usefulness, sequence ascending for ties",
+      "schedule_csv": "traces/run031_reporting_txd_very_strict_threshold_schedule.csv",
+      "compact_csv": "traces/run031_reporting_txd_very_strict_threshold_compact.csv",
+      "sd_csv": "traces/run031_sd_txd_schedule.csv",
+      "expected_rows": 64,
+      "expected_send_rows": 8,
+      "expected_skip_rows": 56
+    }
+  ],
+  "expected_scheduled_ratios": {
+    "TXB/TXA": 0.5,
+    "TXC/TXA": 0.25,
+    "TXD/TXA": 0.125,
+    "TXC/TXB": 0.5,
+    "TXD/TXB": 0.25,
+    "TXD/TXC": 0.5
+  },
+  "sd_card_convention": "Each transmitter SD-facing all-slot CSV should later be copied to that board's SD card as /schedule.csv. Compact SEND-only CSVs are not SD replay files.",
+  "interpretation_cautions": [
+    "This is schedule preparation only, not a physical replay.",
+    "This is point-to-point LoRa at 915 MHz, not LoRaWAN.",
+    "The schedule CSVs define one repeated schedule period.",
+    "Scheduled SEND counts are not measured transmitted-packet counts.",
+    "No collision, latency, energy, scaling, or operational wildfire claims are made here.",
+    "Usefulness and priority are synthetic metadata."
+  ]
+}

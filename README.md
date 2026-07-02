@@ -1746,3 +1746,42 @@ Future Run 031 artifacts should use the list-valued manifest path and the curren
 * `scripts/validate_manifest_replay_bundle_multi.py`
 
 This milestone does not claim four-transmitter physical behavior, 12-transmitter behavior, exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, airtime optimization, energy savings, live-controller behavior, or operational wildfire behavior.
+
+## v4.1 Run 031 four-transmitter schedule preparation
+
+The v4.1 milestone prepares schedule artifacts for the first four-transmitter SD-backed replay design.
+
+New schedule-preparation script:
+
+* `scripts/prepare_run031_four_tx_schedules.py`
+
+New Run 031 manifest:
+
+* `traces/run031_reporting_reporting_schedule_manifest.json`
+
+New SD-facing all-slot schedules:
+
+* `traces/run031_sd_txa_schedule.csv`
+* `traces/run031_sd_txb_schedule.csv`
+* `traces/run031_sd_txc_schedule.csv`
+* `traces/run031_sd_txd_schedule.csv`
+
+Run 031 schedule design:
+
+* TXA/N01: fixed-all baseline, 64/64 SEND
+* TXB/N16: medium threshold, 32/64 SEND
+* TXC/N31: strict threshold, 16/64 SEND
+* TXD/NXX: very-strict threshold, 8/64 SEND
+
+The TXD node ID remains a placeholder in this schedule-preparation milestone and should be confirmed from the physical board label before physical replay.
+
+Expected scheduled ratios:
+
+* TXB/TXA = 0.5000
+* TXC/TXA = 0.2500
+* TXD/TXA = 0.1250
+* TXC/TXB = 0.5000
+* TXD/TXB = 0.2500
+* TXD/TXC = 0.5000
+
+This is schedule preparation only. It does not copy files to SD cards, flash firmware, run hardware, parse receiver logs, or make four-transmitter physical replay claims.
