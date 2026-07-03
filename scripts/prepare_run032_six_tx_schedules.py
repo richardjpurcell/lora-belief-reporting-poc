@@ -351,7 +351,7 @@ def main() -> None:
         "schedule_period_rows": 64,
         "sd_schedule_schema": SCHEDULE_COLUMNS,
         "transmitters": manifest_transmitters,
-        "expected_scheduled_ratios_vs_txa": {
+        "expected_scheduled_ratios": {
             "TXB/TXA": 32 / 64,
             "TXC/TXA": 16 / 64,
             "TXD/TXA": 8 / 64,

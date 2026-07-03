@@ -119,13 +119,6 @@
       "selection_rule": "top 32 rows by usefulness, sequence ascending for ties"
     }
   ],
-  "expected_scheduled_ratios_vs_txa": {
-    "TXB/TXA": 0.5,
-    "TXC/TXA": 0.25,
-    "TXD/TXA": 0.125,
-    "TXE/TXA": 0.5,
-    "TXF/TXA": 0.25
-  },
   "sd_card_convention": "Each transmitter SD-facing all-slot CSV should later be copied to that board's SD card as /schedule.csv. Compact SEND-only CSVs are not SD replay files.",
   "interpretation_cautions": [
     "This is schedule preparation only, not a physical replay.",
@@ -135,5 +128,12 @@
     "The same threshold family uses the same selected SEND rows; startup phase is handled separately by firmware configuration.",
     "No collision, latency, energy, scaling, or operational wildfire claims are made here.",
     "Usefulness and priority are synthetic metadata."
-  ]
+  ],
+  "expected_scheduled_ratios": {
+    "TXB/TXA": 0.5,
+    "TXC/TXA": 0.25,
+    "TXD/TXA": 0.125,
+    "TXE/TXA": 0.5,
+    "TXF/TXA": 0.25
+  }
 }
