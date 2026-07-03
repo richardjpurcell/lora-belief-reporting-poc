@@ -1882,6 +1882,46 @@ Validation passed:
 Interpretation boundary: this result supports the SD-backed, manifest-bound replay workflow at four transmitters under this adjusted lab condition. It does not establish 12-transmitter behavior, exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, or operational wildfire behavior.
 
 
+## v4.6 Run 032 six-transmitter phase bridge
+
+The v4.6 milestone creates a six-transmitter bridge between the Run 031 four-transmitter startup-phase validation and the Run 032 twelve-transmitter slot-phase design.
+
+This milestone does not jump directly to twelve physical transmitters. Instead, it derives a six-transmitter subset from the optimized 250 ms-grid twelve-transmitter phase-plan candidate and analyzes whether the phase logic remains readable at the next scale.
+
+New design note:
+
+* `docs/development/run032_six_transmitter_phase_bridge_design.md`
+
+New bridge phase-plan input:
+
+* `traces/run032_six_tx_phase_plan_bridge.csv`
+
+New analyzer outputs:
+
+* `outputs/run032_six_tx_phase_plan_bridge_summary.json`
+* `outputs/run032_six_tx_phase_plan_bridge_summary.csv`
+
+The six-transmitter bridge subset is:
+
+| Transmitter | Node | Role                                     | Startup offset |
+| ----------- | ---: | ---------------------------------------- | -------------: |
+| TXD         |  N46 | very-strict threshold scheduled skipping |           0 ms |
+| TXA         |  N01 | fixed-all anchor                         |         500 ms |
+| TXB         |  N16 | medium threshold scheduled skipping      |        2750 ms |
+| TXG         |  N91 | very-strict threshold scheduled skipping |        4000 ms |
+| TXC         |  N31 | strict threshold scheduled skipping      |        4250 ms |
+| TXE         |  N61 | medium threshold scheduled skipping      |        7250 ms |
+
+Analyzer summary:
+
+```text
+Transmitters: 6
+Fixed-all anchors: 1
+Risk flags: 0
+```
+
+Interpretation boundary: this milestone is a design and analysis bridge only. It does not flash six transmitters, run a six-transmitter physical replay, infer exact transmitted-packet counts, confirm collisions, establish synchronized latency, evaluate LoRaWAN behavior, establish energy savings, establish airtime optimization, use a live belief-maintenance controller, or evaluate operational wildfire behavior.
+
 ## v4.5 Run 032 twelve-transmitter slot-phase design
 
 The v4.5 milestone begins the twelve-transmitter design path after the Run 031 v4.4 startup-phase validation.
