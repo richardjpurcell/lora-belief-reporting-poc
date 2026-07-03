@@ -1881,6 +1881,60 @@ Validation passed:
 
 Interpretation boundary: this result supports the SD-backed, manifest-bound replay workflow at four transmitters under this adjusted lab condition. It does not establish 12-transmitter behavior, exact transmitted-packet counts, confirmed collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, or operational wildfire behavior.
 
+## v4.7 Run 032 six-transmitter physical preparation
+
+The v4.7 milestone prepares a six-transmitter Run 032 physical replay candidate.
+
+This milestone does not run a six-transmitter physical replay. It prepares repository-side schedules, firmware identities, startup phases, and documentation so that a later replay milestone can begin from a clean setup.
+
+New physical-prep note:
+
+* `docs/development/run032_six_transmitter_physical_prep.md`
+
+New schedule-prep script:
+
+* `scripts/prepare_run032_six_tx_schedules.py`
+
+New TXF phase-plan candidate:
+
+* `traces/run032_six_tx_phase_plan_bridge_txf.csv`
+* `outputs/run032_six_tx_phase_plan_bridge_txf_summary.json`
+* `outputs/run032_six_tx_phase_plan_bridge_txf_summary.csv`
+
+The TXF candidate was selected for physical preparation because it preserves the natural physical identity sequence TXA through TXF while remaining clean under the simplified phase-plan analyzer.
+
+Prepared six-transmitter identity and startup-offset set:
+
+| Transmitter | Node | Role                                     | STARTUP_OFFSET_MS |
+| ----------- | ---: | ---------------------------------------- | ----------------: |
+| TXD         |  N46 | very-strict threshold scheduled skipping |                 0 |
+| TXA         |  N01 | fixed-all anchor                         |               500 |
+| TXF         |  N76 | strict threshold scheduled skipping      |              2000 |
+| TXB         |  N16 | medium threshold scheduled skipping      |              2750 |
+| TXC         |  N31 | strict threshold scheduled skipping      |              4250 |
+| TXE         |  N61 | medium threshold scheduled skipping      |              7250 |
+
+Prepared SD-facing all-slot schedules:
+
+| Transmitter | SD-facing schedule                  | Rows | SEND | SKIP |
+| ----------- | ----------------------------------- | ---: | ---: | ---: |
+| TXA/N01     | `traces/run032_sd_txa_schedule.csv` |   64 |   64 |    0 |
+| TXB/N16     | `traces/run032_sd_txb_schedule.csv` |   64 |   32 |   32 |
+| TXC/N31     | `traces/run032_sd_txc_schedule.csv` |   64 |   16 |   48 |
+| TXD/N46     | `traces/run032_sd_txd_schedule.csv` |   64 |    8 |   56 |
+| TXE/N61     | `traces/run032_sd_txe_schedule.csv` |   64 |   32 |   32 |
+| TXF/N76     | `traces/run032_sd_txf_schedule.csv` |   64 |   16 |   48 |
+
+Prepared firmware sketches:
+
+* `firmware/first_radio_link_TX-A/first_radio_link_TX-A.ino`
+* `firmware/first_radio_link_TX_B/first_radio_link_TX_B.ino`
+* `firmware/first_radio_link_TX_C/first_radio_link_TX_C.ino`
+* `firmware/first_radio_link_TX_D/first_radio_link_TX_D.ino`
+* `firmware/first_radio_link_TX_E/first_radio_link_TX_E.ino`
+* `firmware/first_radio_link_TX_F/first_radio_link_TX_F.ino`
+
+Interpretation boundary: this milestone is physical preparation only. It does not flash six transmitters, copy SD cards, run receiver logging, collect packets, infer exact transmitted-packet counts, confirm collisions, establish synchronized latency, evaluate LoRaWAN behavior, establish energy savings, establish airtime optimization, use a live belief-maintenance controller, or evaluate operational wildfire behavior.
 
 ## v4.6 Run 032 six-transmitter phase bridge
 
