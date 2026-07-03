@@ -22,13 +22,13 @@
 #define LORA_BAND 915E6
 
 const char* RUN_ID = "R32";
-const char* TX_ID = "TXA";
-const char* NODE_ID = "N01";
+const char* TX_ID = "TXE";
+const char* NODE_ID = "N61";
 
 const char* SCHEDULE_FILE = "/schedule.csv";
 
 const unsigned long SLOT_INTERVAL_MS = 1000;
-const unsigned long STARTUP_OFFSET_MS = 500;
+const unsigned long STARTUP_OFFSET_MS = 7250;
 
 const uint16_t MAX_SCHEDULE_ROWS = 256;
 
@@ -210,7 +210,7 @@ void setup() {
   delay(1500);
 
   Serial.println();
-  Serial.println("=== TX-A: LilyGO LoRa32 sender ===");
+  Serial.println("=== TX-E: LilyGO LoRa32 sender ===");
 
   SPI.begin(LORA_SCK, LORA_MISO, LORA_MOSI, LORA_SS);
   LoRa.setPins(LORA_SS, LORA_RST, LORA_DIO0);

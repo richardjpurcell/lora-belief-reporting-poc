@@ -21,14 +21,14 @@
 // North America / Canada ISM band
 #define LORA_BAND 915E6
 
-const char* RUN_ID = "R31";
+const char* RUN_ID = "R32";
 const char* TX_ID = "TXB";
 const char* NODE_ID = "N16";
 
 const char* SCHEDULE_FILE = "/schedule.csv";
 
 const unsigned long SLOT_INTERVAL_MS = 1000;
-const unsigned long STARTUP_OFFSET_MS = 750;
+const unsigned long STARTUP_OFFSET_MS = 2750;
 
 const uint16_t MAX_SCHEDULE_ROWS = 256;
 
