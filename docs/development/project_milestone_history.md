@@ -2198,3 +2198,37 @@ Recommended next milestone:
 * `v5.0-run033-eight-transmitter-bridge-design`
 
 Interpretation boundary: this milestone is documentation and scale-up synthesis only. It does not generate schedules, flash hardware, run a receiver, collect packets, or make new physical replay claims.
+
+
+## v5.0 Run 033 eight-transmitter bridge design
+
+The v5.0 milestone designs the next cautious hardware step after the validated Run 032 six-transmitter synthesis.
+
+New design note:
+
+* `docs/development/run033_eight_transmitter_bridge_design.md`
+
+Purpose:
+
+* define an eight-transmitter bridge between the validated six-transmitter bench replay and the eventual twelve-transmitter platform;
+* preserve the scaling ladder rather than jumping directly from six to twelve;
+* record candidate transmitter identities, scheduled SEND ratios, expected receiver-side proportions, phase-sensitivity requirements, analysis requirements, and success criteria.
+
+Candidate Run 033 ladder:
+
+| Transmitter | Node | Scheduled SEND rows |
+| ----------- | ---: | ------------------: |
+| TXA | N01 | 64/64 |
+| TXB | N16 | 32/64 |
+| TXC | N31 | 16/64 |
+| TXD | N46 | 8/64 |
+| TXE | N61 | 32/64 |
+| TXF | N76 | 16/64 |
+| TXG | N91 | 8/64 |
+| TXH | N106 | 4/64 |
+
+Recommended next milestone:
+
+* `v5.1-run033-eight-transmitter-schedule-prep`
+
+Interpretation boundary: this milestone is design-only. It does not generate schedules, prepare SD cards, flash firmware, run hardware, collect packets, or make new physical replay claims.
