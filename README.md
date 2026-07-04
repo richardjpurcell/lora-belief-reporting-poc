@@ -18,7 +18,7 @@ The current validated scale point is the Run 032 six-transmitter SD-backed physi
 
 Latest completed milestone on this branch:
 
-- `v4.8-run032-six-transmitter-physical-replay`
+- `v4.9-run032-six-transmitter-synthesis`
 
 Previous stable tag before this branch:
 
@@ -72,9 +72,10 @@ Bundle validation result:
 
 - Validation summary: 171/171 checks passed; 0 failed
 
-Detailed note:
+Detailed notes:
 
 - `docs/development/run032_six_transmitter_physical_replay.md`
+- `docs/development/run032_six_transmitter_synthesis.md`
 
 ## Reproducing the latest analysis
 

@@ -2125,3 +2125,76 @@ After the A/B/C validation, the active transmitter firmware was restored to the 
 * TXC/N31: 1000 ms
 
 Interpretation boundary: this result is a receiver-side bench validation of startup-phase sensitivity in a four-transmitter point-to-point LoRa setup. It does not infer exact transmitted-packet counts, confirm collisions, establish synchronized latency, evaluate LoRaWAN behavior, establish energy savings, establish airtime optimization, use a live belief-maintenance controller, establish 12-transmitter behavior, or evaluate operational wildfire behavior.
+
+
+## v4.8 Run 032 six-transmitter physical replay
+
+The v4.8 milestone records the clean six-transmitter SD-backed physical replay for Run 032.
+
+Run 032 transmitter set:
+
+| Transmitter | Node | Scheduled SEND rows | Received valid packets |
+| ----------- | ---: | ------------------: | ---------------------: |
+| TXA | N01 | 64/64 | 442 |
+| TXB | N16 | 32/64 | 220 |
+| TXC | N31 | 16/64 | 110 |
+| TXD | N46 | 8/64 | 55 |
+| TXE | N61 | 32/64 | 219 |
+| TXF | N76 | 16/64 | 110 |
+
+Parser summary:
+
+* Valid packets: 1156
+* Malformed packets: 0
+* Missing observed transmitted sequences: none for all six transmitters
+
+Expected-vs-observed receiver-side ratios relative to TXA:
+
+| Ratio | Observed | Expected | Difference |
+| ----- | -------: | -------: | ---------: |
+| TXB/TXA | 0.4977 | 0.5000 | -0.0023 |
+| TXC/TXA | 0.2489 | 0.2500 | -0.0011 |
+| TXD/TXA | 0.1244 | 0.1250 | -0.0006 |
+| TXE/TXA | 0.4955 | 0.5000 | -0.0045 |
+| TXF/TXA | 0.2489 | 0.2500 | -0.0011 |
+
+Validation passed:
+
+* 171/171 checks passed
+* 0 failed
+
+Primary development note:
+
+* `docs/development/run032_six_transmitter_physical_replay.md`
+
+Interpretation boundary: this is a validated six-transmitter receiver-side bench replay result. It does not establish exact transmitted-packet counts, confirmed collisions or absence of collisions, synchronized latency, LoRaWAN behavior, airtime or energy optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire behaviour.
+
+## v4.9 Run 032 six-transmitter synthesis
+
+The v4.9 milestone synthesizes the validated three-, four-, and six-transmitter SD-backed physical replay progression.
+
+New synthesis note:
+
+* `docs/development/run032_six_transmitter_synthesis.md`
+
+The synthesis compares:
+
+* Run 030: three-transmitter validation;
+* Run 031: four-transmitter validation, followed by startup-phase sensitivity;
+* Run 032: clean six-transmitter replay and 171/171 manifest-bundle validation.
+
+Main synthesis:
+
+Run 032 is a strong six-transmitter validation point, but it is still one physical bench condition. It should support a scale-up decision, not an immediate unqualified claim about twelve-transmitter behavior.
+
+Recommended next path:
+
+* do not jump directly to twelve transmitters;
+* use the v4.9 synthesis as the decision point;
+* prefer an eight-transmitter bridge before twelve-transmitter physical replay.
+
+Recommended next milestone:
+
+* `v5.0-run033-eight-transmitter-bridge-design`
+
+Interpretation boundary: this milestone is documentation and scale-up synthesis only. It does not generate schedules, flash hardware, run a receiver, collect packets, or make new physical replay claims.
