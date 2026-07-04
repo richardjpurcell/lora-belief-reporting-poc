@@ -2232,3 +2232,56 @@ Recommended next milestone:
 * `v5.1-run033-eight-transmitter-schedule-prep`
 
 Interpretation boundary: this milestone is design-only. It does not generate schedules, prepare SD cards, flash firmware, run hardware, collect packets, or make new physical replay claims.
+
+
+## v5.1 Run 033 eight-transmitter schedule prep
+
+The v5.1 milestone prepares repository-side schedule artifacts for the Run 033 eight-transmitter bridge.
+
+This milestone also repairs two accidentally emptied Run 032 artifacts before generating Run 033 schedules:
+
+* `scripts/prepare_run032_six_tx_schedules.py`
+* `traces/run032_reporting_reporting_schedule_manifest.json`
+
+New Run 033 schedule-prep script:
+
+* `scripts/prepare_run033_eight_tx_schedules.py`
+
+New Run 033 schedule-prep note:
+
+* `docs/development/run033_eight_transmitter_schedule_prep.md`
+
+New Run 033 manifest:
+
+* `traces/run033_reporting_reporting_schedule_manifest.json`
+
+Candidate Run 033 ladder:
+
+| Transmitter | Node | Expected SEND rows |
+| ----------- | ---: | -----------------: |
+| TXA | N01 | 64/64 |
+| TXB | N16 | 32/64 |
+| TXC | N31 | 16/64 |
+| TXD | N46 | 8/64 |
+| TXE | N61 | 32/64 |
+| TXF | N76 | 16/64 |
+| TXG | N91 | 8/64 |
+| TXH | N106 | 4/64 |
+
+Expected scheduled ratios relative to TXA:
+
+| Ratio | Expected |
+| ----- | -------: |
+| TXB/TXA | 0.5000 |
+| TXC/TXA | 0.2500 |
+| TXD/TXA | 0.1250 |
+| TXE/TXA | 0.5000 |
+| TXF/TXA | 0.2500 |
+| TXG/TXA | 0.1250 |
+| TXH/TXA | 0.0625 |
+
+Recommended next milestone:
+
+* `v5.2-run033-eight-transmitter-physical-prep`
+
+Interpretation boundary: this milestone prepares schedule artifacts only. It does not copy SD cards, flash hardware, run a receiver, collect packets, or make physical replay claims.
