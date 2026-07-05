@@ -1,0 +1,220 @@
+{
+  "run_id": "run033_eight_transmitter_physical_prep",
+  "milestone": "v5.2-run033-eight-transmitter-physical-prep",
+  "source_manifest": "traces/run033_reporting_reporting_schedule_manifest.json",
+  "phase_plan_csv": "traces/run033_eight_tx_phase_plan_physical_prep.csv",
+  "transmitter_count": 8,
+  "startup_plan": [
+    {
+      "startup_order": 1,
+      "tx_id": "TXD",
+      "node_id": "N46",
+      "role": "very-strict threshold scheduled skipping",
+      "expected_send_rows": 8,
+      "expected_send_fraction": "0.125000",
+      "expected_ratio_to_txa": "0.125000",
+      "startup_offset_ms": 0,
+      "sd_schedule_csv": "traces/run033_sd_txd_schedule.csv",
+      "recommended_sd_filename": "SCHEDULE.CSV",
+      "board_identity_label": "TXD_N46",
+      "physical_status": "prepared for later bench setup",
+      "notes": "startup offset is a programmed bench-prep value, not a synchronization or latency claim"
+    },
+    {
+      "startup_order": 2,
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "role": "fixed-all anchor",
+      "expected_send_rows": 64,
+      "expected_send_fraction": "1.000000",
+      "expected_ratio_to_txa": "",
+      "startup_offset_ms": 500,
+      "sd_schedule_csv": "traces/run033_sd_txa_schedule.csv",
+      "recommended_sd_filename": "SCHEDULE.CSV",
+      "board_identity_label": "TXA_N01",
+      "physical_status": "prepared for later bench setup",
+      "notes": "startup offset is a programmed bench-prep value, not a synchronization or latency claim"
+    },
+    {
+      "startup_order": 3,
+      "tx_id": "TXF",
+      "node_id": "N76",
+      "role": "strict threshold scheduled skipping",
+      "expected_send_rows": 16,
+      "expected_send_fraction": "0.250000",
+      "expected_ratio_to_txa": "0.250000",
+      "startup_offset_ms": 2000,
+      "sd_schedule_csv": "traces/run033_sd_txf_schedule.csv",
+      "recommended_sd_filename": "SCHEDULE.CSV",
+      "board_identity_label": "TXF_N76",
+      "physical_status": "prepared for later bench setup",
+      "notes": "startup offset is a programmed bench-prep value, not a synchronization or latency claim"
+    },
+    {
+      "startup_order": 4,
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "role": "medium threshold scheduled skipping",
+      "expected_send_rows": 32,
+      "expected_send_fraction": "0.500000",
+      "expected_ratio_to_txa": "0.500000",
+      "startup_offset_ms": 2750,
+      "sd_schedule_csv": "traces/run033_sd_txb_schedule.csv",
+      "recommended_sd_filename": "SCHEDULE.CSV",
+      "board_identity_label": "TXB_N16",
+      "physical_status": "prepared for later bench setup",
+      "notes": "startup offset is a programmed bench-prep value, not a synchronization or latency claim"
+    },
+    {
+      "startup_order": 5,
+      "tx_id": "TXC",
+      "node_id": "N31",
+      "role": "strict threshold scheduled skipping",
+      "expected_send_rows": 16,
+      "expected_send_fraction": "0.250000",
+      "expected_ratio_to_txa": "0.250000",
+      "startup_offset_ms": 4250,
+      "sd_schedule_csv": "traces/run033_sd_txc_schedule.csv",
+      "recommended_sd_filename": "SCHEDULE.CSV",
+      "board_identity_label": "TXC_N31",
+      "physical_status": "prepared for later bench setup",
+      "notes": "startup offset is a programmed bench-prep value, not a synchronization or latency claim"
+    },
+    {
+      "startup_order": 6,
+      "tx_id": "TXE",
+      "node_id": "N61",
+      "role": "medium threshold scheduled skipping",
+      "expected_send_rows": 32,
+      "expected_send_fraction": "0.500000",
+      "expected_ratio_to_txa": "0.500000",
+      "startup_offset_ms": 7250,
+      "sd_schedule_csv": "traces/run033_sd_txe_schedule.csv",
+      "recommended_sd_filename": "SCHEDULE.CSV",
+      "board_identity_label": "TXE_N61",
+      "physical_status": "prepared for later bench setup",
+      "notes": "startup offset is a programmed bench-prep value, not a synchronization or latency claim"
+    },
+    {
+      "startup_order": 7,
+      "tx_id": "TXG",
+      "node_id": "N91",
+      "role": "very-strict threshold scheduled skipping",
+      "expected_send_rows": 8,
+      "expected_send_fraction": "0.125000",
+      "expected_ratio_to_txa": "0.125000",
+      "startup_offset_ms": 8750,
+      "sd_schedule_csv": "traces/run033_sd_txg_schedule.csv",
+      "recommended_sd_filename": "SCHEDULE.CSV",
+      "board_identity_label": "TXG_N91",
+      "physical_status": "prepared for later bench setup",
+      "notes": "startup offset is a programmed bench-prep value, not a synchronization or latency claim"
+    },
+    {
+      "startup_order": 8,
+      "tx_id": "TXH",
+      "node_id": "N106",
+      "role": "ultra-strict threshold scheduled skipping",
+      "expected_send_rows": 4,
+      "expected_send_fraction": "0.062500",
+      "expected_ratio_to_txa": "0.062500",
+      "startup_offset_ms": 10250,
+      "sd_schedule_csv": "traces/run033_sd_txh_schedule.csv",
+      "recommended_sd_filename": "SCHEDULE.CSV",
+      "board_identity_label": "TXH_N106",
+      "physical_status": "prepared for later bench setup",
+      "notes": "startup offset is a programmed bench-prep value, not a synchronization or latency claim"
+    }
+  ],
+  "receiver_log_target": "logs/rx_run_033_eight_transmitter_sd_replay.csv",
+  "parsed_log_target": "logs/parsed_run_033_eight_transmitter_sd_replay.csv",
+  "rejects_log_target": "logs/parsed_run_033_eight_transmitter_sd_replay_rejects.csv",
+  "expected_summary_json": "outputs/run033_eight_transmitter_manifest_replay_summary.json",
+  "expected_summary_csv": "outputs/run033_eight_transmitter_manifest_replay_summary.csv",
+  "expected_validation_json": "outputs/run033_eight_transmitter_manifest_replay_validation.json",
+  "sd_copy_checklist": [
+    {
+      "tx_id": "TXD",
+      "node_id": "N46",
+      "source": "traces/run033_sd_txd_schedule.csv",
+      "destination_filename": "SCHEDULE.CSV",
+      "action": "copy during physical-prep bench setup, not in this script"
+    },
+    {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "source": "traces/run033_sd_txa_schedule.csv",
+      "destination_filename": "SCHEDULE.CSV",
+      "action": "copy during physical-prep bench setup, not in this script"
+    },
+    {
+      "tx_id": "TXF",
+      "node_id": "N76",
+      "source": "traces/run033_sd_txf_schedule.csv",
+      "destination_filename": "SCHEDULE.CSV",
+      "action": "copy during physical-prep bench setup, not in this script"
+    },
+    {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "source": "traces/run033_sd_txb_schedule.csv",
+      "destination_filename": "SCHEDULE.CSV",
+      "action": "copy during physical-prep bench setup, not in this script"
+    },
+    {
+      "tx_id": "TXC",
+      "node_id": "N31",
+      "source": "traces/run033_sd_txc_schedule.csv",
+      "destination_filename": "SCHEDULE.CSV",
+      "action": "copy during physical-prep bench setup, not in this script"
+    },
+    {
+      "tx_id": "TXE",
+      "node_id": "N61",
+      "source": "traces/run033_sd_txe_schedule.csv",
+      "destination_filename": "SCHEDULE.CSV",
+      "action": "copy during physical-prep bench setup, not in this script"
+    },
+    {
+      "tx_id": "TXG",
+      "node_id": "N91",
+      "source": "traces/run033_sd_txg_schedule.csv",
+      "destination_filename": "SCHEDULE.CSV",
+      "action": "copy during physical-prep bench setup, not in this script"
+    },
+    {
+      "tx_id": "TXH",
+      "node_id": "N106",
+      "source": "traces/run033_sd_txh_schedule.csv",
+      "destination_filename": "SCHEDULE.CSV",
+      "action": "copy during physical-prep bench setup, not in this script"
+    }
+  ],
+  "receiver_checklist": [
+    "confirm receiver firmware and serial port before replay",
+    "start receiver logging before powering transmitters",
+    "record absolute start time in lab notes",
+    "save raw receiver log using the Run 033 target filename",
+    "do not edit the raw receiver log after capture"
+  ],
+  "bench_checklist": [
+    "confirm each board identity label TXA through TXH",
+    "confirm node identity N01 through N106",
+    "confirm each SD card receives the matching Run 033 schedule file",
+    "confirm programmed startup offsets match the phase-plan CSV",
+    "preserve transmitter placement order in lab notes",
+    "preserve receiver placement in lab notes",
+    "record antenna and power conditions"
+  ],
+  "post_run_analysis_checklist": [
+    "parse the raw receiver log",
+    "write parsed valid-packet CSV",
+    "write rejects CSV",
+    "generate manifest-bound summary JSON and CSV",
+    "generate manifest-bound validation JSON",
+    "report receiver-side packet proportions relative to TXA",
+    "report malformed/rejected rows explicitly",
+    "report observed sequence gaps explicitly"
+  ],
+  "interpretation_boundary": "Physical-prep artifact only. No SD cards were copied by this script, no firmware was flashed, no receiver was run, no packets were collected, and no physical replay claim is made."
+}
