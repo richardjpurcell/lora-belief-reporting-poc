@@ -14,10 +14,11 @@ It is not a LoRaWAN system, not an operational adaptive reporting policy, not a 
 
 ## Current validated state
 
-The current validated scale point is the Run 032 six-transmitter SD-backed physical replay.
+The current validated scale point is the Run 033 eight-transmitter SD-backed physical replay with deterministic startup-phase deconfliction.
 
 Latest completed milestone on this branch:
 
+- `v5.3-run033-eight-transmitter-physical-replay`
 - `v5.2-run033-eight-transmitter-physical-prep`
 
 Previous stable tag before this branch:
@@ -39,46 +40,48 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 032 six-transmitter physical replay
+## Latest result: Run 033 eight-transmitter phase-shifted physical replay
 
-Run 032 produced:
+Run 033 extends the validated physical replay ladder from six transmitters to eight transmitters.
 
-| Transmitter | Node | Received valid packets | Scheduled SEND fraction |
-|---|---:|---:|---:|
-| TXA | N01 | 442 | 1.000 |
-| TXB | N16 | 220 | 0.500 |
-| TXC | N31 | 110 | 0.250 |
-| TXD | N46 | 55 | 0.125 |
-| TXE | N61 | 219 | 0.500 |
-| TXF | N76 | 110 | 0.250 |
+The first full eight-transmitter attempts exposed a startup-phase artifact: repeated exact scheduled SEND coincidences could suppress sparse scheduled transmitters in the receiver-side packet log. In particular, TXH was absent in the first two full-group attempts, and TXD was weak or absent under denser group conditions.
 
-Parser summary:
+A deterministic startup-phase deconfliction was then applied while preserving the same schedules and fixed slot interval. The phase-shifted candidate removed exact same-ms scheduled SEND coincidences among scheduled transmitters.
 
-- Valid packets: 1156
-- Malformed packets: 0
-- Missing observed transmitted sequences: none for all six transmitters
+Phase-shifted Run 033 result:
 
-Expected-vs-observed receiver-side ratios relative to TXA:
+- 1192 valid packets
+- 0 malformed packets
+- all eight transmitters receiver-visible
+- observed receiver-side packet ratios close to the manifest-defined scheduled SEND ratios
+- 221/221 manifest replay validation checks passed
 
-| Ratio | Observed receiver-side ratio | Expected scheduled ratio | Difference |
-|---|---:|---:|---:|
-| TXB/TXA | 0.4977 | 0.5000 | -0.0023 |
-| TXC/TXA | 0.2489 | 0.2500 | -0.0011 |
-| TXD/TXA | 0.1244 | 0.1250 | -0.0006 |
-| TXE/TXA | 0.4955 | 0.5000 | -0.0045 |
-| TXF/TXA | 0.2489 | 0.2500 | -0.0011 |
+Per-transmitter received packet counts:
 
-Bundle validation result:
+| TX | Node | Received packets | Scheduled SEND rows |
+| --- | --- | ---: | ---: |
+| TXA | N01 | 427 | 64/64 |
+| TXB | N16 | 214 | 32/64 |
+| TXC | N31 | 106 | 16/64 |
+| TXD | N46 | 53 | 8/64 |
+| TXE | N61 | 211 | 32/64 |
+| TXF | N76 | 102 | 16/64 |
+| TXG | N91 | 52 | 8/64 |
+| TXH | N106 | 27 | 4/64 |
 
-- Validation summary: 171/171 checks passed; 0 failed
+Expected-vs-observed receiver-side ratios:
 
-Detailed notes:
+| Ratio | Observed | Expected | Difference |
+| --- | ---: | ---: | ---: |
+| TXB/TXA | 0.5012 | 0.5000 | 0.0012 |
+| TXC/TXA | 0.2482 | 0.2500 | -0.0018 |
+| TXD/TXA | 0.1241 | 0.1250 | -0.0009 |
+| TXE/TXA | 0.4941 | 0.5000 | -0.0059 |
+| TXF/TXA | 0.2389 | 0.2500 | -0.0111 |
+| TXG/TXA | 0.1218 | 0.1250 | -0.0032 |
+| TXH/TXA | 0.0632 | 0.0625 | 0.0007 |
 
-- `docs/development/run032_six_transmitter_physical_replay.md`
-- `docs/development/run032_six_transmitter_synthesis.md`
-- `docs/development/run033_eight_transmitter_bridge_design.md`
-- `docs/development/run033_eight_transmitter_schedule_prep.md`
-- `docs/development/run033_eight_transmitter_physical_prep.md`
+Run 033 supports the eight-transmitter bridge step, with an important caveat: startup phase is now part of the physical replay method. The result does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 
