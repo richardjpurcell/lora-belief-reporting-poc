@@ -2328,3 +2328,83 @@ Recommended next milestone:
 * `v5.3-run033-eight-transmitter-physical-replay`
 
 Interpretation boundary: this milestone prepares the physical replay plan only. It does not copy SD cards, flash firmware, run a receiver, collect packets, parse packets, or make physical replay claims.
+
+## v5.3 Run 033 eight-transmitter physical replay
+
+The v5.3 milestone records the Run 033 eight-transmitter SD-backed physical replay.
+
+Run 033 extends the validated physical replay ladder from the Run 032 six-transmitter result to an eight-transmitter bridge. The milestone also records an important physical-replay method finding: startup phase can matter when structured scheduled SEND patterns create repeated exact timing coincidences.
+
+Initial full-group attempts were not treated as clean replay results:
+
+* `logs/rx_run_033_eight_transmitter_sd_replay_attempt1_txh_absent.csv`
+* `logs/rx_run_033_eight_transmitter_sd_replay_attempt2_txh_absent_txd_weak.csv`
+
+These attempts showed TXH absent in the receiver log, with TXD also weak in the second attempt. TXH was then tested independently and confirmed receiver-visible:
+
+* `logs/rx_run_033_txh_receiver_probe.csv`
+
+A phase-shifted diagnostic run showed that deterministic startup-phase deconfliction could restore visibility of the sparse transmitters:
+
+* `logs/rx_run_033_subset_txd_txh_shifted_probe.csv`
+* `logs/parsed_run_033_subset_txd_txh_shifted_probe.csv`
+
+The final phase-shifted candidate removed exact same-ms scheduled SEND coincidences among scheduled transmitters while preserving the same schedules and fixed slot interval.
+
+Final phase-shifted startup offsets:
+
+| TX | Node | Startup offset (ms) |
+| --- | --- | ---: |
+| TXH | N106 | 100 |
+| TXD | N46 | 900 |
+| TXA | N01 | 1000 |
+| TXF | N76 | 2500 |
+| TXB | N16 | 3250 |
+| TXC | N31 | 4750 |
+| TXE | N61 | 7750 |
+| TXG | N91 | 9450 |
+
+Canonical phase-shifted candidate artifacts:
+
+* `logs/rx_run_033_eight_transmitter_sd_replay_phase_shifted_candidate.csv`
+* `logs/parsed_run_033_eight_transmitter_sd_replay_phase_shifted_candidate.csv`
+* `logs/parsed_run_033_eight_transmitter_sd_replay_phase_shifted_candidate_rejects.csv`
+* `outputs/run033_eight_transmitter_manifest_replay_phase_shifted_candidate_summary.json`
+* `outputs/run033_eight_transmitter_manifest_replay_phase_shifted_candidate_summary.csv`
+* `outputs/run033_eight_transmitter_manifest_replay_phase_shifted_candidate_validation.json`
+
+The phase-shifted candidate produced:
+
+* 1192 valid packets
+* 0 malformed packets
+* all eight transmitters receiver-visible
+* 221/221 manifest replay validation checks passed
+
+Per-transmitter received packet counts:
+
+| TX | Node | Received packets | Scheduled SEND rows |
+| --- | --- | ---: | ---: |
+| TXA | N01 | 427 | 64/64 |
+| TXB | N16 | 214 | 32/64 |
+| TXC | N31 | 106 | 16/64 |
+| TXD | N46 | 53 | 8/64 |
+| TXE | N61 | 211 | 32/64 |
+| TXF | N76 | 102 | 16/64 |
+| TXG | N91 | 52 | 8/64 |
+| TXH | N106 | 27 | 4/64 |
+
+Expected-vs-observed receiver-side ratios:
+
+| Ratio | Observed | Expected | Difference |
+| --- | ---: | ---: | ---: |
+| TXB/TXA | 0.5012 | 0.5000 | 0.0012 |
+| TXC/TXA | 0.2482 | 0.2500 | -0.0018 |
+| TXD/TXA | 0.1241 | 0.1250 | -0.0009 |
+| TXE/TXA | 0.4941 | 0.5000 | -0.0059 |
+| TXF/TXA | 0.2389 | 0.2500 | -0.0111 |
+| TXG/TXA | 0.1218 | 0.1250 | -0.0032 |
+| TXH/TXA | 0.0632 | 0.0625 | 0.0007 |
+
+Interpretation: Run 033 supports the eight-transmitter bridge step, with the caveat that phase-aware startup offsets are now part of the physical replay method. The result is not simply that eight transmitters worked. The run exposed a phase-scheduling artifact, then showed that deterministic phase deconfliction could restore interpretable receiver-side packet proportions without changing the schedules or fixed slot interval.
+
+Interpretation boundary: this is a bounded receiver-side bench replay result. It does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, airtime or energy optimization, live-controller behavior, twelve-transmitter behavior, general arbitrary-layout eight-node behavior, or operational wildfire behavior.
