@@ -2285,3 +2285,46 @@ Recommended next milestone:
 * `v5.2-run033-eight-transmitter-physical-prep`
 
 Interpretation boundary: this milestone prepares schedule artifacts only. It does not copy SD cards, flash hardware, run a receiver, collect packets, or make physical replay claims.
+
+
+## v5.2 Run 033 eight-transmitter physical prep
+
+The v5.2 milestone prepares the physical bench plan for the Run 033 eight-transmitter bridge.
+
+New physical-prep script:
+
+* `scripts/prepare_run033_eight_tx_physical_prep.py`
+
+New phase-plan artifact:
+
+* `traces/run033_eight_tx_phase_plan_physical_prep.csv`
+
+New physical-prep summary artifacts:
+
+* `outputs/run033_eight_tx_physical_prep_summary.json`
+* `outputs/run033_eight_tx_physical_prep_summary.csv`
+
+New development note:
+
+* `docs/development/run033_eight_transmitter_physical_prep.md`
+
+Startup plan:
+
+| Startup order | Transmitter | Node | Expected SEND rows | Startup offset ms |
+| -------------: | ----------- | ---: | -----------------: | ----------------: |
+| 1 | TXD | N46 | 8/64 | 0 |
+| 2 | TXA | N01 | 64/64 | 500 |
+| 3 | TXF | N76 | 16/64 | 2000 |
+| 4 | TXB | N16 | 32/64 | 2750 |
+| 5 | TXC | N31 | 16/64 | 4250 |
+| 6 | TXE | N61 | 32/64 | 7250 |
+| 7 | TXG | N91 | 8/64 | 8750 |
+| 8 | TXH | N106 | 4/64 | 10250 |
+
+The startup offsets are bench-prep values, not synchronization claims.
+
+Recommended next milestone:
+
+* `v5.3-run033-eight-transmitter-physical-replay`
+
+Interpretation boundary: this milestone prepares the physical replay plan only. It does not copy SD cards, flash firmware, run a receiver, collect packets, parse packets, or make physical replay claims.
