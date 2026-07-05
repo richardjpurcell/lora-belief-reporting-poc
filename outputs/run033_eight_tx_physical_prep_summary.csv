@@ -1,0 +1,9 @@
+startup_order,tx_id,node_id,expected_send_rows,expected_ratio_to_txa,startup_offset_ms,sd_schedule_csv
+1,TXD,N46,8,0.125000,0,traces/run033_sd_txd_schedule.csv
+2,TXA,N01,64,,500,traces/run033_sd_txa_schedule.csv
+3,TXF,N76,16,0.250000,2000,traces/run033_sd_txf_schedule.csv
+4,TXB,N16,32,0.500000,2750,traces/run033_sd_txb_schedule.csv
+5,TXC,N31,16,0.250000,4250,traces/run033_sd_txc_schedule.csv
+6,TXE,N61,32,0.500000,7250,traces/run033_sd_txe_schedule.csv
+7,TXG,N91,8,0.125000,8750,traces/run033_sd_txg_schedule.csv
+8,TXH,N106,4,0.062500,10250,traces/run033_sd_txh_schedule.csv
