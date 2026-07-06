@@ -375,6 +375,30 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+
+def normalize_expected_scheduled_ratios(value):
+    """Return expected scheduled ratios keyed as TXB/TXA.
+
+    Accepts both the older dict manifest shape and the newer richer list of
+    numerator/denominator ratio records.
+    """
+    if isinstance(value, dict):
+        return {str(k): float(v) for k, v in value.items()}
+
+    if isinstance(value, list):
+        out = {}
+        for item in value:
+            if not isinstance(item, dict):
+                raise TypeError(f"ratio list contains {type(item).__name__}")
+            numerator = item["numerator_tx_id"]
+            denominator = item["denominator_tx_id"]
+            ratio = float(item["scheduled_expected_ratio"])
+            out[f"{numerator}/{denominator}"] = ratio
+        return out
+
+    return {}
+
+
 def main() -> int:
     args = parse_args()
 
@@ -397,7 +421,7 @@ def main() -> int:
         per_transmitter.append(combine_summary(schedule_summary, receiver_summary))
 
     observed_ratios = compute_observed_ratios(per_transmitter)
-    expected_ratios = manifest.get("expected_scheduled_ratios", {})
+    expected_ratios = normalize_expected_scheduled_ratios(manifest.get("expected_scheduled_ratios", {}))
     if not isinstance(expected_ratios, dict):
         expected_ratios = {}
 
