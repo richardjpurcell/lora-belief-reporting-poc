@@ -2449,3 +2449,42 @@ Recommended next milestone:
 The next milestone should formalize deterministic startup-phase deconfliction as a reusable method before attempting a larger bridge. It should define how startup offsets are represented, how scheduled SEND timing overlaps are checked, what counts as an exact scheduled SEND coincidence, what near-coincidence windows should be reported, and how phase plans should be preserved in outputs.
 
 The synthesis recommends deterministic startup-phase offsets for the primary validation ladder. Seeded startup jitter or bounded slot jitter may be useful later as robustness diagnostics, but should not replace the deterministic replay condition used for milestone validation.
+
+## v5.5 Phase-aware replay method freeze
+
+The v5.5 milestone freezes the phase-aware physical replay method that emerged from Run 033.
+
+The method-freeze note is:
+
+* `docs/development/phase_aware_replay_method_freeze.md`
+
+Run 033 showed that larger scheduled SD-backed physical replay runs are not only a matter of adding transmitters. Startup phase can affect whether sparse scheduled transmitters remain visible in the receiver-side packet log. The successful Run 033 candidate occurred after deterministic startup-phase deconfliction removed exact same-ms scheduled SEND coincidences among scheduled transmitters.
+
+The method freeze defines:
+
+* slot interval
+* startup offset
+* scheduled SEND row
+* schedule-time SEND event
+* exact scheduled SEND coincidence
+* near scheduled SEND coincidence
+* required phase-plan representation
+* required checks before canonical replay
+* canonical replay criteria
+* diagnostic replay naming
+* jitter policy
+* interpretation boundaries
+
+The central method rule is:
+
+> The candidate phase plan should avoid exact same-ms scheduled SEND coincidences among structured scheduled transmitters while preserving the manifest schedules and fixed slot interval.
+
+This does not require large separation between all transmitters. Run 033 showed that closeness alone is not necessarily the problem. The stronger problem was repeated exact coincidence between structured SEND schedules.
+
+The milestone recommends deterministic startup offsets for the primary validation ladder because they preserve reproducibility, fixed slot interval, schedule identity, and manifest-bound analysis interpretability.
+
+Random or seeded jitter may be useful later as a robustness experiment, but should not replace deterministic canonical replay for the current validation ladder.
+
+Interpretation boundary: phase-aware replay analysis does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout scaling, or operational wildfire deployment behavior.
+
+Implication: before a ten- or twelve-transmitter replay, the project should design the transmitter set, generate schedules, assign deterministic startup offsets, compute exact and near scheduled SEND coincidences, revise offsets until exact scheduled SEND coincidences are removed, preserve the phase plan, and only then run the physical replay.

@@ -41,41 +41,30 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 033 eight-transmitter synthesis
+## Latest result: phase-aware replay method freeze
 
-Run 033 extended the validated physical replay ladder from six transmitters to eight transmitters.
+The current method milestone is the phase-aware replay method freeze.
 
-The physical replay milestone showed that an eight-transmitter SD-backed scheduled replay could preserve manifest-defined scheduled SEND ratios in receiver-side packet counts, but only after deterministic startup-phase deconfliction removed repeated exact scheduled SEND coincidences.
+This milestone formalizes the main lesson from Run 033: startup phase is now part of the physical replay method. Future N-transmitter physical replay candidates should not simply add devices. They should first document deterministic startup offsets and check for exact scheduled SEND coincidences.
 
-The synthesis milestone records the key lesson:
+Method-freeze note:
 
-- Run 033 is a successful eight-transmitter bridge result.
-- It is not a general LoRa scaling claim.
-- Startup phase is now part of the physical replay method.
-- Larger N-transmitter runs should not simply add transmitters without phase-aware startup planning.
-- The next recommended milestone is a phase-aware replay method freeze before attempting a larger bridge.
+- `docs/development/phase_aware_replay_method_freeze.md`
 
-Run 033 phase-shifted candidate result:
+The frozen method defines:
 
-- 1192 valid packets
-- 0 malformed packets
-- all eight transmitters receiver-visible
-- observed receiver-side packet ratios close to the manifest-defined scheduled SEND ratios
-- 221/221 manifest replay validation checks passed
+- startup offsets as transmitter-specific replay parameters
+- schedule-time SEND events as `startup_offset_ms + slot_interval_ms * schedule_row_index`
+- exact scheduled SEND coincidences as same-ms SEND events between scheduled transmitters
+- near-coincidence reporting windows
+- canonical replay criteria
+- diagnostic replay naming
+- deterministic startup-phase deconfliction as preferred for validation
+- random or seeded jitter as a later robustness experiment, not the primary validation condition
 
-Synthesis note:
+The current validated scale point remains the Run 033 eight-transmitter phase-shifted replay, which produced 1192 valid packets, 0 malformed packets, all eight transmitters receiver-visible, close observed-vs-expected receiver-side packet ratios, and 221/221 validation checks passed.
 
-- `docs/development/run033_eight_transmitter_synthesis.md`
-
-Physical replay note:
-
-- `docs/development/run033_eight_transmitter_physical_replay.md`
-
-Recommended next milestone:
-
-- `v5.5-phase-aware-replay-method-freeze`
-
-Interpretation boundary: Run 033 does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, general arbitrary-layout eight-node behavior, or operational wildfire behavior.
+Recommended next larger-scale work should begin with phase-aware planning, not immediate physical replay.
 
 ## Reproducing the latest analysis
 
