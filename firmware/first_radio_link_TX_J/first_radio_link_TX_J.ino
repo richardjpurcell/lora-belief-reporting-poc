@@ -210,7 +210,7 @@ void setup() {
   delay(1500);
 
   Serial.println();
-  Serial.println("=== TX-D: LilyGO LoRa32 sender ===");
+  Serial.println("=== TX-J: LilyGO LoRa32 sender ===");
 
   SPI.begin(LORA_SCK, LORA_MISO, LORA_MOSI, LORA_SS);
   LoRa.setPins(LORA_SS, LORA_RST, LORA_DIO0);

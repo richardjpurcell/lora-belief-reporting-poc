@@ -43,53 +43,50 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 034 ten-transmitter physical prep
+## Latest result: Run 034 ten-transmitter physical replay
 
-The current milestone is Run 034 ten-transmitter physical preparation.
+The current milestone is the Run 034 ten-transmitter SD-backed physical replay.
 
-This milestone prepares firmware and SD-card instructions for the ten-transmitter scheduled replay. It does not flash hardware, copy schedules to SD cards, collect receiver logs, analyze a receiver log, or make physical replay claims.
+Run 034 advances the validated physical replay scale point from eight transmitters to ten transmitters under the bounded bench conditions used here. The replay used the Run 034 schedule-prep, phase-plan, and physical-prep artifacts from `v5.7` through `v5.9`.
 
-Physical-prep script:
+Physical-replay note:
 
-- `scripts/prepare_run034_ten_tx_physical_prep.py`
+- `docs/development/run034_ten_transmitter_physical_replay.md`
 
-Physical-prep note:
+Replay artifacts:
 
-- `docs/development/run034_ten_transmitter_physical_prep.md`
+- `logs/rx_run_034_ten_transmitter_sd_replay_candidate.csv`
+- `logs/parsed_run_034_ten_transmitter_sd_replay_candidate.csv`
+- `logs/parsed_run_034_ten_transmitter_sd_replay_candidate_rejects.csv`
+- `outputs/run034_ten_transmitter_manifest_replay_candidate_summary.json`
+- `outputs/run034_ten_transmitter_manifest_replay_candidate_summary.csv`
+- `outputs/run034_ten_transmitter_manifest_replay_candidate_validation.json`
 
-Physical-prep outputs:
+Manifest-bound validation:
 
-- `outputs/run034_ten_tx_physical_prep_summary.json`
-- `outputs/run034_ten_tx_physical_prep_summary.csv`
-- `scripts/copy_run034_sd_schedules_to_cards.sh`
+- passed: `True`
+- checks passed: 271/271
+- checks failed: 0
 
-Firmware preparation:
+Receiver-side ratio comparisons relative to TXA/N01:
 
-- TXA/N01: `firmware/first_radio_link_TX_A/first_radio_link_TX_A.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=1000`
-- TXB/N16: `firmware/first_radio_link_TX_B/first_radio_link_TX_B.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=3250`
-- TXC/N31: `firmware/first_radio_link_TX_C/first_radio_link_TX_C.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=4750`
-- TXD/N46: `firmware/first_radio_link_TX_D/first_radio_link_TX_D.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=800`
-- TXE/N61: `firmware/first_radio_link_TX_E/first_radio_link_TX_E.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=7750`
-- TXF/N76: `firmware/first_radio_link_TX_F/first_radio_link_TX_F.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=2500`
-- TXG/N91: `firmware/first_radio_link_TX_G/first_radio_link_TX_G.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=9450`
-- TXH/N106: `firmware/first_radio_link_TX_H/first_radio_link_TX_H.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=100`
-- TXI/N121: `firmware/first_radio_link_TX_I/first_radio_link_TX_I.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=5850`
-- TXJ/N136: `firmware/first_radio_link_TX_J/first_radio_link_TX_J.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=10650`
+- TXB/TXA: observed 0.4876, expected 0.5000, diff -0.0124
+- TXC/TXA: observed 0.2517, expected 0.2500, diff 0.0017
+- TXD/TXA: observed 0.1213, expected 0.1250, diff -0.0037
+- TXE/TXA: observed 0.4989, expected 0.5000, diff -0.0011
+- TXF/TXA: observed 0.2449, expected 0.2500, diff -0.0051
+- TXG/TXA: observed 0.1213, expected 0.1250, diff -0.0037
+- TXH/TXA: observed 0.0629, expected 0.0625, diff 0.0004
+- TXI/TXA: observed 0.2517, expected 0.2500, diff 0.0017
+- TXJ/TXA: observed 0.1191, expected 0.1250, diff -0.0059
 
-TXA firmware was renamed from the older hyphen convention to the underscore convention:
-
-- `firmware/first_radio_link_TX-A/first_radio_link_TX-A.ino`
-- `firmware/first_radio_link_TX_A/first_radio_link_TX_A.ino`
-
-TXI and TXJ firmware sketches were created for the two new transmitters.
-
-The SD-card helper removes old `schedule.csv` or `SCHEDULE.CSV` files and copies the matching Run 034 SD schedule as `schedule.csv` for each mounted `LORA_TX*` volume. The two new cards should be renamed from `NO NAME` to `LORA_TXI` and `LORA_TXJ` before copying.
+The replay confirms that all ten expected transmitters were present in the receiver-side log, including the two new transmitters TXI/N121 and TXJ/N136, and that the sparse TXH/N106 transmitter remained visible.
 
 Recommended next milestone:
 
-- `v5.10-run034-ten-transmitter-physical-replay`
+- `v5.11-run034-ten-transmitter-synthesis`
 
-Interpretation boundary: this physical-prep milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
+Interpretation boundary: this physical-replay milestone does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 

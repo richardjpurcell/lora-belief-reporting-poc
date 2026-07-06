@@ -454,16 +454,50 @@ def validate_summary_alignment(
     return results
 
 
+def normalize_expected_scheduled_ratios(value: Any) -> dict[str, float]:
+    """Return expected scheduled ratios keyed as TXB/TXA.
+
+    Accepts both the older dict manifest shape and the newer richer list of
+    numerator/denominator ratio records.
+    """
+    if isinstance(value, dict):
+        return {str(k): float(v) for k, v in value.items()}
+
+    if isinstance(value, list):
+        out: dict[str, float] = {}
+        for item in value:
+            if not isinstance(item, dict):
+                raise TypeError(f"ratio list contains {type(item).__name__}")
+            numerator = item["numerator_tx_id"]
+            denominator = item["denominator_tx_id"]
+            ratio = float(item["scheduled_expected_ratio"])
+            out[f"{numerator}/{denominator}"] = ratio
+        return out
+
+    raise TypeError(type(value).__name__)
+
+
 def validate_ratio_comparisons(
     manifest: dict[str, Any],
     summary_json: dict[str, Any],
 ) -> list[CheckResult]:
     results: list[CheckResult] = []
-    expected = manifest.get("expected_scheduled_ratios")
+    raw_expected = manifest.get("expected_scheduled_ratios")
     comparisons = summary_json.get("ratio_comparisons")
 
-    if not isinstance(expected, dict) or not expected:
-        return [CheckResult("manifest has expected_scheduled_ratios", False, type(expected).__name__)]
+    try:
+        expected = normalize_expected_scheduled_ratios(raw_expected)
+    except (KeyError, TypeError, ValueError) as exc:
+        return [
+            CheckResult(
+                "manifest has expected_scheduled_ratios",
+                False,
+                f"{type(raw_expected).__name__}: {exc}",
+            )
+        ]
+
+    if not expected:
+        return [CheckResult("manifest has expected_scheduled_ratios", False, "empty")]
 
     results.append(
         CheckResult(
