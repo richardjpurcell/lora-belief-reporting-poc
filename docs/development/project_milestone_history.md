@@ -2831,3 +2831,94 @@ Recommended twelve-transmitter sequence:
 | `v5.17-run035-twelve-transmitter-synthesis` | Synthesize the twelve-transmitter result and decide next direction. |
 
 Interpretation boundary: Run 034 does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, arbitrary-layout ten-node behavior, or operational wildfire deployment behavior.
+
+## v5.12 Run 035 twelve-transmitter cautious bridge design
+
+The v5.12 milestone records the Run 035 twelve-transmitter cautious bridge design.
+
+Design note:
+
+* `docs/development/run035_twelve_transmitter_cautious_bridge_design.md`
+
+Run 035 is proposed as a cautious twelve-transmitter bridge design following the successful Run 034 ten-transmitter SD-backed scheduled physical replay.
+
+This milestone is design-only. It does not generate schedules, modify firmware, prepare SD cards, flash transmitters, or run a physical replay.
+
+The design keeps the validated Run 034 A-J set and proposes two candidate additions:
+
+| TX | Node | Proposed role | Scheduled SEND rows |
+| --- | --- | --- | ---: |
+| TXK | N151 | medium threshold | 32/64 |
+| TXL | N166 | ultra-strict threshold | 4/64 |
+
+The proposed twelve-transmitter schedule ladder is:
+
+| TX | Node | Proposed role | Scheduled SEND rows |
+| --- | --- | --- | ---: |
+| TXA | N01 | fixed-all anchor | 64/64 |
+| TXB | N16 | medium threshold | 32/64 |
+| TXC | N31 | strict threshold | 16/64 |
+| TXD | N46 | very-strict threshold | 8/64 |
+| TXE | N61 | medium threshold | 32/64 |
+| TXF | N76 | strict threshold | 16/64 |
+| TXG | N91 | very-strict threshold | 8/64 |
+| TXH | N106 | ultra-strict threshold | 4/64 |
+| TXI | N121 | strict threshold | 16/64 |
+| TXJ | N136 | very-strict threshold | 8/64 |
+| TXK | N151 | medium threshold | 32/64 |
+| TXL | N166 | ultra-strict threshold | 4/64 |
+
+Expected schedule-defined ratios relative to TXA/N01:
+
+| Ratio | Expected |
+| --- | ---: |
+| TXB/TXA | 0.5000 |
+| TXC/TXA | 0.2500 |
+| TXD/TXA | 0.1250 |
+| TXE/TXA | 0.5000 |
+| TXF/TXA | 0.2500 |
+| TXG/TXA | 0.1250 |
+| TXH/TXA | 0.0625 |
+| TXI/TXA | 0.2500 |
+| TXJ/TXA | 0.1250 |
+| TXK/TXA | 0.5000 |
+| TXL/TXA | 0.0625 |
+
+These ratios are schedule-defined expectations. They are not exact transmitted-packet counts.
+
+The design requires the Run 035 work to remain staged:
+
+* bridge design;
+* schedule preparation;
+* phase-plan analysis;
+* physical preparation;
+* physical replay;
+* synthesis.
+
+Before any physical preparation, the project must compute deterministic startup offsets and preserve exact/near scheduled SEND coincidence checks.
+
+The required phase-plan checks include:
+
+* exact same-ms scheduled SEND coincidences;
+* near scheduled SEND coincidences within at least 150 ms;
+* per-transmitter scheduled SEND event times;
+* pairwise repeated overlap patterns;
+* whether any sparse transmitter has all SEND opportunities aligned with a denser transmitter;
+* whether TXH and TXL, the two ultra-strict transmitters, have distinguishable scheduled SEND opportunities;
+* whether candidate offsets introduce repeated coincidences involving TXK or TXL.
+
+The design also records future physical-prep obligations. Later milestones will need to create TXK and TXL firmware using the underscore naming convention:
+
+| TX | Firmware directory | Sketch file |
+| --- | --- | --- |
+| TXK | `firmware/first_radio_link_TX_K/` | `first_radio_link_TX_K.ino` |
+| TXL | `firmware/first_radio_link_TX_L/` | `first_radio_link_TX_L.ino` |
+
+Later physical preparation will also require two additional SD cards. Those cards should be renamed from the default `NO NAME` volume label to appropriate TX-specific labels before use.
+
+Recommended next milestone:
+
+* `v5.13-run035-twelve-transmitter-schedule-prep`
+
+Interpretation boundary: this design does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire deployment behavior.
+
