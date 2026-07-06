@@ -2640,3 +2640,71 @@ The next recommended milestone is:
 That milestone should prepare firmware and SD-card copying instructions using the phase-plan offsets preserved here.
 
 Interpretation boundary: this milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.
+
+## v5.9 Run 034 ten-transmitter physical prep
+
+The v5.9 milestone prepares firmware and SD-card instructions for the Run 034 ten-transmitter scheduled replay.
+
+This is a physical-preparation milestone only. It does not flash hardware, copy schedules to SD cards, collect receiver logs, analyze a receiver log, or make physical replay claims.
+
+Physical-prep script:
+
+* `scripts/prepare_run034_ten_tx_physical_prep.py`
+
+Physical-prep note:
+
+* `docs/development/run034_ten_transmitter_physical_prep.md`
+
+Physical-prep outputs:
+
+* `outputs/run034_ten_tx_physical_prep_summary.json`
+* `outputs/run034_ten_tx_physical_prep_summary.csv`
+* `scripts/copy_run034_sd_schedules_to_cards.sh`
+
+Prepared firmware:
+
+| TX | Node | Sketch | RUN_ID | STARTUP_OFFSET_MS |
+| --- | --- | --- | --- | ---: |
+| TXA | N01 | `firmware/first_radio_link_TX_A/first_radio_link_TX_A.ino` | R34 | 1000 |
+| TXB | N16 | `firmware/first_radio_link_TX_B/first_radio_link_TX_B.ino` | R34 | 3250 |
+| TXC | N31 | `firmware/first_radio_link_TX_C/first_radio_link_TX_C.ino` | R34 | 4750 |
+| TXD | N46 | `firmware/first_radio_link_TX_D/first_radio_link_TX_D.ino` | R34 | 800 |
+| TXE | N61 | `firmware/first_radio_link_TX_E/first_radio_link_TX_E.ino` | R34 | 7750 |
+| TXF | N76 | `firmware/first_radio_link_TX_F/first_radio_link_TX_F.ino` | R34 | 2500 |
+| TXG | N91 | `firmware/first_radio_link_TX_G/first_radio_link_TX_G.ino` | R34 | 9450 |
+| TXH | N106 | `firmware/first_radio_link_TX_H/first_radio_link_TX_H.ino` | R34 | 100 |
+| TXI | N121 | `firmware/first_radio_link_TX_I/first_radio_link_TX_I.ino` | R34 | 5850 |
+| TXJ | N136 | `firmware/first_radio_link_TX_J/first_radio_link_TX_J.ino` | R34 | 10650 |
+
+Prepared SD-card mapping:
+
+| TX | Run 034 SD source | Expected volume | Destination |
+| --- | --- | --- | --- |
+| TXA | `traces/run034_sd_txa_schedule.csv` | `/Volumes/LORA_TXA` | `/Volumes/LORA_TXA/schedule.csv` |
+| TXB | `traces/run034_sd_txb_schedule.csv` | `/Volumes/LORA_TXB` | `/Volumes/LORA_TXB/schedule.csv` |
+| TXC | `traces/run034_sd_txc_schedule.csv` | `/Volumes/LORA_TXC` | `/Volumes/LORA_TXC/schedule.csv` |
+| TXD | `traces/run034_sd_txd_schedule.csv` | `/Volumes/LORA_TXD` | `/Volumes/LORA_TXD/schedule.csv` |
+| TXE | `traces/run034_sd_txe_schedule.csv` | `/Volumes/LORA_TXE` | `/Volumes/LORA_TXE/schedule.csv` |
+| TXF | `traces/run034_sd_txf_schedule.csv` | `/Volumes/LORA_TXF` | `/Volumes/LORA_TXF/schedule.csv` |
+| TXG | `traces/run034_sd_txg_schedule.csv` | `/Volumes/LORA_TXG` | `/Volumes/LORA_TXG/schedule.csv` |
+| TXH | `traces/run034_sd_txh_schedule.csv` | `/Volumes/LORA_TXH` | `/Volumes/LORA_TXH/schedule.csv` |
+| TXI | `traces/run034_sd_txi_schedule.csv` | `/Volumes/LORA_TXI` | `/Volumes/LORA_TXI/schedule.csv` |
+| TXJ | `traces/run034_sd_txj_schedule.csv` | `/Volumes/LORA_TXJ` | `/Volumes/LORA_TXJ/schedule.csv` |
+
+TXA firmware was renamed for convention consistency:
+
+* `firmware/first_radio_link_TX-A/first_radio_link_TX-A.ino`
+* `firmware/first_radio_link_TX_A/first_radio_link_TX_A.ino`
+
+TXI and TXJ firmware sketches were created for the two new transmitters:
+
+* `firmware/first_radio_link_TX_I/first_radio_link_TX_I.ino`
+* `firmware/first_radio_link_TX_J/first_radio_link_TX_J.ino`
+
+The next recommended milestone is:
+
+* `v5.10-run034-ten-transmitter-physical-replay`
+
+That milestone should flash all ten devices, prepare the SD cards, collect the receiver log, parse it, analyze it against the manifest, and decide whether the ten-transmitter bridge succeeded or whether diagnostic replay is needed.
+
+Interpretation boundary: this milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.

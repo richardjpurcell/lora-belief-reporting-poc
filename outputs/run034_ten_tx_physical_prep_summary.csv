@@ -1,0 +1,11 @@
+tx_id,node_id,firmware_sketch,run_id,startup_offset_ms,sd_source,sd_volume,sd_destination,expected_send_rows,expected_rows
+TXA,N01,firmware/first_radio_link_TX_A/first_radio_link_TX_A.ino,R34,1000,traces/run034_sd_txa_schedule.csv,/Volumes/LORA_TXA,/Volumes/LORA_TXA/schedule.csv,64,64
+TXB,N16,firmware/first_radio_link_TX_B/first_radio_link_TX_B.ino,R34,3250,traces/run034_sd_txb_schedule.csv,/Volumes/LORA_TXB,/Volumes/LORA_TXB/schedule.csv,32,64
+TXC,N31,firmware/first_radio_link_TX_C/first_radio_link_TX_C.ino,R34,4750,traces/run034_sd_txc_schedule.csv,/Volumes/LORA_TXC,/Volumes/LORA_TXC/schedule.csv,16,64
+TXD,N46,firmware/first_radio_link_TX_D/first_radio_link_TX_D.ino,R34,800,traces/run034_sd_txd_schedule.csv,/Volumes/LORA_TXD,/Volumes/LORA_TXD/schedule.csv,8,64
+TXE,N61,firmware/first_radio_link_TX_E/first_radio_link_TX_E.ino,R34,7750,traces/run034_sd_txe_schedule.csv,/Volumes/LORA_TXE,/Volumes/LORA_TXE/schedule.csv,32,64
+TXF,N76,firmware/first_radio_link_TX_F/first_radio_link_TX_F.ino,R34,2500,traces/run034_sd_txf_schedule.csv,/Volumes/LORA_TXF,/Volumes/LORA_TXF/schedule.csv,16,64
+TXG,N91,firmware/first_radio_link_TX_G/first_radio_link_TX_G.ino,R34,9450,traces/run034_sd_txg_schedule.csv,/Volumes/LORA_TXG,/Volumes/LORA_TXG/schedule.csv,8,64
+TXH,N106,firmware/first_radio_link_TX_H/first_radio_link_TX_H.ino,R34,100,traces/run034_sd_txh_schedule.csv,/Volumes/LORA_TXH,/Volumes/LORA_TXH/schedule.csv,4,64
+TXI,N121,firmware/first_radio_link_TX_I/first_radio_link_TX_I.ino,R34,5850,traces/run034_sd_txi_schedule.csv,/Volumes/LORA_TXI,/Volumes/LORA_TXI/schedule.csv,16,64
+TXJ,N136,firmware/first_radio_link_TX_J/first_radio_link_TX_J.ino,R34,10650,traces/run034_sd_txj_schedule.csv,/Volumes/LORA_TXJ,/Volumes/LORA_TXJ/schedule.csv,8,64

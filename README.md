@@ -43,53 +43,53 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 034 ten-transmitter phase plan
+## Latest result: Run 034 ten-transmitter physical prep
 
-The current milestone is Run 034 ten-transmitter phase planning.
+The current milestone is Run 034 ten-transmitter physical preparation.
 
-Run 034 phase planning assigns deterministic startup offsets for the ten-transmitter scheduled replay prepared in `v5.7-run034-ten-transmitter-schedule-prep`. This is an analysis/design milestone only. It does not modify firmware, copy schedules to SD cards, flash transmitters, collect receiver logs, or make physical replay claims.
+This milestone prepares firmware and SD-card instructions for the ten-transmitter scheduled replay. It does not flash hardware, copy schedules to SD cards, collect receiver logs, analyze a receiver log, or make physical replay claims.
 
-Phase-plan script:
+Physical-prep script:
 
-- `scripts/prepare_run034_ten_tx_phase_plan.py`
+- `scripts/prepare_run034_ten_tx_physical_prep.py`
 
-Phase-plan note:
+Physical-prep note:
 
-- `docs/development/run034_ten_transmitter_phase_plan.md`
+- `docs/development/run034_ten_transmitter_physical_prep.md`
 
-Phase-plan outputs:
+Physical-prep outputs:
 
-- `outputs/run034_ten_tx_phase_plan_summary.json`
-- `outputs/run034_ten_tx_phase_plan_exact_coincidences.csv`
-- `outputs/run034_ten_tx_phase_plan_near_coincidences.csv`
+- `outputs/run034_ten_tx_physical_prep_summary.json`
+- `outputs/run034_ten_tx_physical_prep_summary.csv`
+- `scripts/copy_run034_sd_schedules_to_cards.sh`
 
-Assigned startup offsets:
+Firmware preparation:
 
-- TXA/N01: 1000 ms
-- TXB/N16: 3250 ms
-- TXC/N31: 4750 ms
-- TXD/N46: 800 ms
-- TXE/N61: 7750 ms
-- TXF/N76: 2500 ms
-- TXG/N91: 9450 ms
-- TXH/N106: 100 ms
-- TXI/N121: 5850 ms
-- TXJ/N136: 10650 ms
+- TXA/N01: `firmware/first_radio_link_TX_A/first_radio_link_TX_A.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=1000`
+- TXB/N16: `firmware/first_radio_link_TX_B/first_radio_link_TX_B.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=3250`
+- TXC/N31: `firmware/first_radio_link_TX_C/first_radio_link_TX_C.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=4750`
+- TXD/N46: `firmware/first_radio_link_TX_D/first_radio_link_TX_D.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=800`
+- TXE/N61: `firmware/first_radio_link_TX_E/first_radio_link_TX_E.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=7750`
+- TXF/N76: `firmware/first_radio_link_TX_F/first_radio_link_TX_F.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=2500`
+- TXG/N91: `firmware/first_radio_link_TX_G/first_radio_link_TX_G.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=9450`
+- TXH/N106: `firmware/first_radio_link_TX_H/first_radio_link_TX_H.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=100`
+- TXI/N121: `firmware/first_radio_link_TX_I/first_radio_link_TX_I.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=5850`
+- TXJ/N136: `firmware/first_radio_link_TX_J/first_radio_link_TX_J.ino`, `RUN_ID=R34`, `STARTUP_OFFSET_MS=10650`
 
-Coincidence-check result:
+TXA firmware was renamed from the older hyphen convention to the underscore convention:
 
-- exact same-ms scheduled SEND coincidences: 0
-- near scheduled SEND coincidences within 150 ms: 0
-- minimum pairwise scheduled SEND separation: 200 ms
-- status: `pass`
+- `firmware/first_radio_link_TX-A/first_radio_link_TX-A.ino`
+- `firmware/first_radio_link_TX_A/first_radio_link_TX_A.ino`
 
-The Run 034 manifest now records assigned startup offsets and phase-plan metadata.
+TXI and TXJ firmware sketches were created for the two new transmitters.
+
+The SD-card helper removes old `schedule.csv` or `SCHEDULE.CSV` files and copies the matching Run 034 SD schedule as `schedule.csv` for each mounted `LORA_TX*` volume. The two new cards should be renamed from `NO NAME` to `LORA_TXI` and `LORA_TXJ` before copying.
 
 Recommended next milestone:
 
-- `v5.9-run034-ten-transmitter-physical-prep`
+- `v5.10-run034-ten-transmitter-physical-replay`
 
-Interpretation boundary: this phase-plan milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
+Interpretation boundary: this physical-prep milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 
