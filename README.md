@@ -43,36 +43,53 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 034 ten-transmitter schedule prep
+## Latest result: Run 034 ten-transmitter phase plan
 
-The current milestone is Run 034 ten-transmitter schedule prep.
+The current milestone is Run 034 ten-transmitter phase planning.
 
-Run 034 prepares a ten-transmitter scheduled replay bridge between the validated Run 033 eight-transmitter replay and a future twelve-transmitter target. This milestone generates repository-side schedules and a manifest only. It does not modify firmware, copy schedules to SD cards, compute the final phase plan, flash transmitters, collect receiver logs, or make physical replay claims.
+Run 034 phase planning assigns deterministic startup offsets for the ten-transmitter scheduled replay prepared in `v5.7-run034-ten-transmitter-schedule-prep`. This is an analysis/design milestone only. It does not modify firmware, copy schedules to SD cards, flash transmitters, collect receiver logs, or make physical replay claims.
 
-Schedule-prep script:
+Phase-plan script:
 
-- `scripts/prepare_run034_ten_tx_schedules.py`
+- `scripts/prepare_run034_ten_tx_phase_plan.py`
 
-Schedule-prep note:
+Phase-plan note:
 
-- `docs/development/run034_ten_transmitter_schedule_prep.md`
+- `docs/development/run034_ten_transmitter_phase_plan.md`
 
-Run 034 manifest:
+Phase-plan outputs:
 
-- `traces/run034_reporting_reporting_schedule_manifest.json`
+- `outputs/run034_ten_tx_phase_plan_summary.json`
+- `outputs/run034_ten_tx_phase_plan_exact_coincidences.csv`
+- `outputs/run034_ten_tx_phase_plan_near_coincidences.csv`
 
-The Run 034 ladder keeps the Run 033 A-H transmitter set and adds:
+Assigned startup offsets:
 
-- TXI/N121: strict threshold, 16/64 scheduled SEND rows
-- TXJ/N136: very-strict threshold, 8/64 scheduled SEND rows
+- TXA/N01: 1000 ms
+- TXB/N16: 3250 ms
+- TXC/N31: 4750 ms
+- TXD/N46: 800 ms
+- TXE/N61: 7750 ms
+- TXF/N76: 2500 ms
+- TXG/N91: 9450 ms
+- TXH/N106: 100 ms
+- TXI/N121: 5850 ms
+- TXJ/N136: 10650 ms
 
-The generated schedule set contains ten transmitter schedules, compact SEND-only schedules, and SD-card schedule sources. Startup offsets remain intentionally unset in the manifest and are deferred to the phase-plan milestone.
+Coincidence-check result:
+
+- exact same-ms scheduled SEND coincidences: 0
+- near scheduled SEND coincidences within 150 ms: 0
+- minimum pairwise scheduled SEND separation: 200 ms
+- status: `pass`
+
+The Run 034 manifest now records assigned startup offsets and phase-plan metadata.
 
 Recommended next milestone:
 
-- `v5.8-run034-ten-transmitter-phase-plan`
+- `v5.9-run034-ten-transmitter-physical-prep`
 
-Interpretation boundary: this schedule-prep milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
+Interpretation boundary: this phase-plan milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 

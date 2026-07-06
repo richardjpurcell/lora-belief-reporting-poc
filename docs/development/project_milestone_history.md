@@ -2586,3 +2586,57 @@ The next recommended milestone is:
 That milestone should compute and document deterministic startup offsets, exact same-ms scheduled SEND coincidences, and near scheduled SEND coincidences before firmware or SD-card physical preparation.
 
 Interpretation boundary: this milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.
+
+## v5.8 Run 034 ten-transmitter phase plan
+
+The v5.8 milestone assigns deterministic startup offsets for the Run 034 ten-transmitter scheduled replay.
+
+This is an analysis/design milestone only. It does not modify firmware, copy schedules to SD cards, flash transmitters, collect receiver logs, or make physical replay claims.
+
+Phase-plan script:
+
+* `scripts/prepare_run034_ten_tx_phase_plan.py`
+
+Phase-plan note:
+
+* `docs/development/run034_ten_transmitter_phase_plan.md`
+
+Phase-plan outputs:
+
+* `outputs/run034_ten_tx_phase_plan_summary.json`
+* `outputs/run034_ten_tx_phase_plan_exact_coincidences.csv`
+* `outputs/run034_ten_tx_phase_plan_near_coincidences.csv`
+
+Assigned startup offsets:
+
+| TX | Node | Startup offset ms | Scheduled SEND rows |
+| --- | --- | ---: | ---: |
+| TXA | N01 | 1000 | 64 |
+| TXB | N16 | 3250 | 32 |
+| TXC | N31 | 4750 | 16 |
+| TXD | N46 | 800 | 8 |
+| TXE | N61 | 7750 | 32 |
+| TXF | N76 | 2500 | 16 |
+| TXG | N91 | 9450 | 8 |
+| TXH | N106 | 100 | 4 |
+| TXI | N121 | 5850 | 16 |
+| TXJ | N136 | 10650 | 8 |
+
+Coincidence-check result:
+
+| Check | Result |
+| --- | ---: |
+| Exact same-ms scheduled SEND coincidences | 0 |
+| Near scheduled SEND coincidences within 150 ms | 0 |
+| Minimum pairwise scheduled SEND separation | 200 ms |
+| Status | pass |
+
+The Run 034 manifest now records assigned `startup_offset_ms` values, phase-plan status, and links to the phase-plan output files.
+
+The next recommended milestone is:
+
+* `v5.9-run034-ten-transmitter-physical-prep`
+
+That milestone should prepare firmware and SD-card copying instructions using the phase-plan offsets preserved here.
+
+Interpretation boundary: this milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.
