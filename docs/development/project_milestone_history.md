@@ -2408,3 +2408,44 @@ Expected-vs-observed receiver-side ratios:
 Interpretation: Run 033 supports the eight-transmitter bridge step, with the caveat that phase-aware startup offsets are now part of the physical replay method. The result is not simply that eight transmitters worked. The run exposed a phase-scheduling artifact, then showed that deterministic phase deconfliction could restore interpretable receiver-side packet proportions without changing the schedules or fixed slot interval.
 
 Interpretation boundary: this is a bounded receiver-side bench replay result. It does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, airtime or energy optimization, live-controller behavior, twelve-transmitter behavior, general arbitrary-layout eight-node behavior, or operational wildfire behavior.
+
+## v5.4 Run 033 eight-transmitter synthesis
+
+The v5.4 milestone synthesizes the Run 033 eight-transmitter physical replay.
+
+Run 033 was designed as a cautious bridge between the validated Run 032 six-transmitter replay and a future larger physical replay platform. It was not intended to jump directly to twelve transmitters or to make a general claim about arbitrary LoRa network scaling.
+
+The synthesis note is:
+
+* `docs/development/run033_eight_transmitter_synthesis.md`
+
+The synthesis records the current physical replay ladder:
+
+| Run | Scale | Main result |
+| --- | ---: | --- |
+| Run 030 | 3 transmitters | Multi-transmitter manifest-bound replay became practical. |
+| Run 031 | 4 transmitters | Startup-phase sensitivity became visible and was validated. |
+| Run 032 | 6 transmitters | Clean six-transmitter SD-backed replay validated the next scale point. |
+| Run 033 | 8 transmitters | Eight-transmitter replay succeeded after deterministic startup-phase deconfliction. |
+
+The Run 033 phase-shifted candidate produced:
+
+* 1192 valid packets
+* 0 malformed packets
+* all eight transmitters receiver-visible
+* observed receiver-side ratios close to manifest-defined scheduled SEND ratios
+* 221/221 manifest replay validation checks passed
+
+The main synthesis result is:
+
+> Run 033 advances the validated physical replay scale point from six to eight transmitters, but startup-phase deconfliction is now a required part of the physical replay method for larger N-transmitter runs.
+
+The milestone also records what Run 033 did not establish. It does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, general arbitrary-layout eight-node behavior, or operational wildfire deployment behavior.
+
+Recommended next milestone:
+
+* `v5.5-phase-aware-replay-method-freeze`
+
+The next milestone should formalize deterministic startup-phase deconfliction as a reusable method before attempting a larger bridge. It should define how startup offsets are represented, how scheduled SEND timing overlaps are checked, what counts as an exact scheduled SEND coincidence, what near-coincidence windows should be reported, and how phase plans should be preserved in outputs.
+
+The synthesis recommends deterministic startup-phase offsets for the primary validation ladder. Seeded startup jitter or bounded slot jitter may be useful later as robustness diagnostics, but should not replace the deterministic replay condition used for milestone validation.
