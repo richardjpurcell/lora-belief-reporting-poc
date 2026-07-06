@@ -2708,3 +2708,85 @@ The next recommended milestone is:
 That milestone should flash all ten devices, prepare the SD cards, collect the receiver log, parse it, analyze it against the manifest, and decide whether the ten-transmitter bridge succeeded or whether diagnostic replay is needed.
 
 Interpretation boundary: this milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.
+
+## v5.10 Run 034 ten-transmitter physical replay
+
+The v5.10 milestone records the Run 034 ten-transmitter SD-backed physical replay candidate.
+
+Run 034 is a bridge from the validated Run 033 eight-transmitter replay toward a future twelve-transmitter target. It uses the schedule-prep, phase-plan, and physical-prep artifacts prepared in the preceding milestones.
+
+Physical-replay note:
+
+* `docs/development/run034_ten_transmitter_physical_replay.md`
+
+Replay artifacts:
+
+* `logs/rx_run_034_ten_transmitter_sd_replay_candidate.csv`
+* `logs/parsed_run_034_ten_transmitter_sd_replay_candidate.csv`
+* `logs/parsed_run_034_ten_transmitter_sd_replay_candidate_rejects.csv`
+* `outputs/run034_ten_transmitter_manifest_replay_candidate_summary.json`
+* `outputs/run034_ten_transmitter_manifest_replay_candidate_summary.csv`
+* `outputs/run034_ten_transmitter_manifest_replay_candidate_validation.json`
+
+Supporting tooling changes:
+
+* `scripts/copy_run034_one_sd_schedule_to_card.sh`
+* `scripts/analyze_scheduled_replay_manifest_multi.py`
+* `scripts/validate_manifest_replay_bundle_multi.py`
+
+Per-transmitter receiver-side summary:
+
+| TX | Node | Received packets | Scheduled SEND rows | Scheduled SKIP rows |
+| --- | --- | ---: | ---: | ---: |
+| TXA | N01 | 0 | 64/ | 0 |
+| TXB | N16 | 0 | 32/ | 32 |
+| TXC | N31 | 0 | 16/ | 48 |
+| TXD | N46 | 0 | 8/ | 56 |
+| TXE | N61 | 0 | 32/ | 32 |
+| TXF | N76 | 0 | 16/ | 48 |
+| TXG | N91 | 0 | 8/ | 56 |
+| TXH | N106 | 0 | 4/ | 60 |
+| TXI | N121 | 0 | 16/ | 48 |
+| TXJ | N136 | 0 | 8/ | 56 |
+
+Receiver-side ratio comparisons relative to TXA/N01:
+
+| Ratio | Scheduled expected | Observed received-packet ratio | Observed minus expected |
+| --- | ---: | ---: | ---: |
+| TXB/TXA | 0.5000 | 0.4876 | -0.0124 |
+| TXC/TXA | 0.2500 | 0.2517 | 0.0017 |
+| TXD/TXA | 0.1250 | 0.1213 | -0.0037 |
+| TXE/TXA | 0.5000 | 0.4989 | -0.0011 |
+| TXF/TXA | 0.2500 | 0.2449 | -0.0051 |
+| TXG/TXA | 0.1250 | 0.1213 | -0.0037 |
+| TXH/TXA | 0.0625 | 0.0629 | 0.0004 |
+| TXI/TXA | 0.2500 | 0.2517 | 0.0017 |
+| TXJ/TXA | 0.1250 | 0.1191 | -0.0059 |
+
+Manifest-bound validation:
+
+| Check | Result |
+| --- | ---: |
+| Passed | True |
+| Checks total | 271 |
+| Checks passed | 271 |
+| Checks failed | 0 |
+
+Interpretation: Run 034 advances the validated physical replay scale point from eight transmitters to ten transmitters under the bounded bench conditions used here.
+
+The key evidence is:
+
+* all ten expected transmitters are present in the receiver-side log;
+* receiver-side packet counts follow the scheduled SEND ladder;
+* the two new transmitters, TXI/N121 and TXJ/N136, are present;
+* the sparse TXH/N106 transmitter remains visible;
+* malformed packets are isolated in the rejects file and do not prevent validation;
+* manifest-bound validation passes 271/271 checks.
+
+The next recommended milestone is:
+
+* `v5.11-run034-ten-transmitter-synthesis`
+
+That milestone should synthesize what Run 034 establishes, what it does not establish, and whether the next step should be repeat-ten, diagnostic variation, or cautious movement toward twelve transmitters.
+
+Interpretation boundary: this milestone does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.
