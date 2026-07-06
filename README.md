@@ -18,6 +18,8 @@ The current validated scale point is the Run 033 eight-transmitter SD-backed phy
 
 Latest completed milestone on this branch:
 
+- `v5.6-run034-ten-transmitter-bridge-design`
+- `v5.5-phase-aware-replay-method-freeze`
 - `v5.4-run033-eight-transmitter-synthesis`
 - `v5.3-run033-eight-transmitter-physical-replay`
 - `v5.2-run033-eight-transmitter-physical-prep`
@@ -41,30 +43,32 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: phase-aware replay method freeze
+## Latest result: Run 034 ten-transmitter bridge design
 
-The current method milestone is the phase-aware replay method freeze.
+The current design milestone is the Run 034 ten-transmitter bridge design.
 
-This milestone formalizes the main lesson from Run 033: startup phase is now part of the physical replay method. Future N-transmitter physical replay candidates should not simply add devices. They should first document deterministic startup offsets and check for exact scheduled SEND coincidences.
+Run 034 is a cautious bridge between the validated Run 033 eight-transmitter replay and a future twelve-transmitter target. It is a design-only milestone: it does not generate schedules, modify firmware, flash transmitters, or run a physical replay.
 
-Method-freeze note:
+The design keeps the validated Run 033 A-H ladder and adds two proposed transmitters:
 
-- `docs/development/phase_aware_replay_method_freeze.md`
+- TXI/N121: strict threshold, 16/64 scheduled SEND rows
+- TXJ/N136: very-strict threshold, 8/64 scheduled SEND rows
 
-The frozen method defines:
+Design note:
 
-- startup offsets as transmitter-specific replay parameters
-- schedule-time SEND events as `startup_offset_ms + slot_interval_ms * schedule_row_index`
-- exact scheduled SEND coincidences as same-ms SEND events between scheduled transmitters
-- near-coincidence reporting windows
-- canonical replay criteria
-- diagnostic replay naming
-- deterministic startup-phase deconfliction as preferred for validation
-- random or seeded jitter as a later robustness experiment, not the primary validation condition
+- `docs/development/run034_ten_transmitter_bridge_design.md`
 
-The current validated scale point remains the Run 033 eight-transmitter phase-shifted replay, which produced 1192 valid packets, 0 malformed packets, all eight transmitters receiver-visible, close observed-vs-expected receiver-side packet ratios, and 221/221 validation checks passed.
+The design applies the v5.5 phase-aware replay method from the beginning. Before any physical preparation, the next milestones should generate Run 034 schedules, assign deterministic startup offsets, compute exact and near scheduled SEND coincidences, and preserve the phase plan.
 
-Recommended next larger-scale work should begin with phase-aware planning, not immediate physical replay.
+Recommended next milestones:
+
+- `v5.7-run034-ten-transmitter-schedule-prep`
+- `v5.8-run034-ten-transmitter-phase-plan`
+- `v5.9-run034-ten-transmitter-physical-prep`
+- `v5.10-run034-ten-transmitter-physical-replay`
+- `v5.11-run034-ten-transmitter-synthesis`
+
+Interpretation boundary: this design does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 

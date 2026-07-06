@@ -2488,3 +2488,44 @@ Random or seeded jitter may be useful later as a robustness experiment, but shou
 Interpretation boundary: phase-aware replay analysis does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout scaling, or operational wildfire deployment behavior.
 
 Implication: before a ten- or twelve-transmitter replay, the project should design the transmitter set, generate schedules, assign deterministic startup offsets, compute exact and near scheduled SEND coincidences, revise offsets until exact scheduled SEND coincidences are removed, preserve the phase plan, and only then run the physical replay.
+
+## v5.6 Run 034 ten-transmitter bridge design
+
+The v5.6 milestone designs Run 034 as a ten-transmitter bridge between the validated Run 033 eight-transmitter replay and a future twelve-transmitter target.
+
+This is a design-only milestone. It does not generate schedules, modify firmware, flash transmitters, or run a physical replay.
+
+The design note is:
+
+* `docs/development/run034_ten_transmitter_bridge_design.md`
+
+The proposed Run 034 ladder keeps the Run 033 A-H transmitter set and adds:
+
+* TXI/N121: strict threshold, 16/64 scheduled SEND rows
+* TXJ/N136: very-strict threshold, 8/64 scheduled SEND rows
+
+The expected receiver-side ratios relative to TXA are:
+
+| Ratio | Expected |
+| --- | ---: |
+| TXB/TXA | 0.5000 |
+| TXC/TXA | 0.2500 |
+| TXD/TXA | 0.1250 |
+| TXE/TXA | 0.5000 |
+| TXF/TXA | 0.2500 |
+| TXG/TXA | 0.1250 |
+| TXH/TXA | 0.0625 |
+| TXI/TXA | 0.2500 |
+| TXJ/TXA | 0.1250 |
+
+The milestone applies the v5.5 phase-aware replay method from the start. The next schedule and phase-planning milestones should compute exact same-ms scheduled SEND coincidences and near scheduled SEND coincidences before any firmware or physical preparation.
+
+The proposed milestone sequence is:
+
+* `v5.7-run034-ten-transmitter-schedule-prep`
+* `v5.8-run034-ten-transmitter-phase-plan`
+* `v5.9-run034-ten-transmitter-physical-prep`
+* `v5.10-run034-ten-transmitter-physical-replay`
+* `v5.11-run034-ten-transmitter-synthesis`
+
+Interpretation boundary: this design does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.
