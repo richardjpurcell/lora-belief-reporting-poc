@@ -2790,3 +2790,44 @@ The next recommended milestone is:
 That milestone should synthesize what Run 034 establishes, what it does not establish, and whether the next step should be repeat-ten, diagnostic variation, or cautious movement toward twelve transmitters.
 
 Interpretation boundary: this milestone does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.
+
+## v5.11 Run 034 ten-transmitter synthesis
+
+The v5.11 milestone synthesizes the Run 034 ten-transmitter physical replay result.
+
+Synthesis note:
+
+* `docs/development/run034_ten_transmitter_synthesis.md`
+
+Run 034 succeeded as a ten-transmitter bridge under the bounded bench conditions used here.
+
+Main synthesis points:
+
+* all ten expected transmitters were visible in the receiver-side log;
+* TXI/N121 and TXJ/N136 were successfully added;
+* sparse TXH/N106 remained visible;
+* receiver-side packet proportions followed the scheduled SEND ladder closely;
+* manifest-bound validation passed 271/271 checks;
+* the Run 034 phase-aware startup plan was sufficient for this candidate replay;
+* one-card-at-a-time SD preparation worked as a practical bench workflow.
+
+Run 034 advances the validated physical replay scale point from eight transmitters to ten transmitters.
+
+The result supports cautious progression toward twelve-transmitter preparation, not immediate twelve-transmitter physical replay.
+
+Recommended next milestone:
+
+* `v5.12-run035-twelve-transmitter-cautious-bridge-design`
+
+Recommended twelve-transmitter sequence:
+
+| Milestone | Purpose |
+| --- | --- |
+| `v5.12-run035-twelve-transmitter-cautious-bridge-design` | Design the twelve-transmitter bridge only. |
+| `v5.13-run035-twelve-transmitter-schedule-prep` | Generate and inspect twelve-transmitter schedules and manifest. |
+| `v5.14-run035-twelve-transmitter-phase-plan` | Compute deterministic startup offsets and coincidence checks. |
+| `v5.15-run035-twelve-transmitter-physical-prep` | Prepare firmware and SD-card workflow. |
+| `v5.16-run035-twelve-transmitter-physical-replay` | Attempt the twelve-transmitter physical replay and analyze receiver logs. |
+| `v5.17-run035-twelve-transmitter-synthesis` | Synthesize the twelve-transmitter result and decide next direction. |
+
+Interpretation boundary: Run 034 does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, arbitrary-layout ten-node behavior, or operational wildfire deployment behavior.
