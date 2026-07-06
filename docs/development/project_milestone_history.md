@@ -3056,3 +3056,99 @@ That milestone should compute deterministic startup offsets and exact/near sched
 
 Interpretation boundary: this milestone does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire deployment behavior.
 
+## v5.14 Run 035 twelve-transmitter phase plan
+
+The v5.14 milestone records the Run 035 twelve-transmitter deterministic startup phase plan.
+
+Phase-plan note:
+
+* `docs/development/run035_twelve_transmitter_phase_plan.md`
+
+Phase-plan script:
+
+* `scripts/prepare_run035_twelve_tx_phase_plan.py`
+
+Updated manifest:
+
+* `traces/run035_reporting_reporting_schedule_manifest.json`
+
+Phase-plan outputs:
+
+* `outputs/run035_twelve_tx_phase_plan.csv`
+* `outputs/run035_twelve_tx_phase_plan_summary.json`
+* `outputs/run035_twelve_tx_phase_plan_exact_coincidences.csv`
+* `outputs/run035_twelve_tx_phase_plan_near_coincidences.csv`
+* `outputs/run035_twelve_tx_phase_plan_pairwise_min_deltas.csv`
+
+This milestone carries forward the successful Run 034 A-J deterministic startup offsets and selects offsets for TXK/N151 and TXL/N166.
+
+Assigned startup offsets:
+
+| TX | Node | Startup offset ms | Scheduled SEND rows | Offset source |
+| --- | --- | ---: | ---: | --- |
+| TXA | N01 | 1000 | 64 | carried forward from Run 034 |
+| TXB | N16 | 3250 | 32 | carried forward from Run 034 |
+| TXC | N31 | 4750 | 16 | carried forward from Run 034 |
+| TXD | N46 | 800 | 8 | carried forward from Run 034 |
+| TXE | N61 | 7750 | 32 | carried forward from Run 034 |
+| TXF | N76 | 2500 | 16 | carried forward from Run 034 |
+| TXG | N91 | 9450 | 8 | carried forward from Run 034 |
+| TXH | N106 | 100 | 4 | carried forward from Run 034 |
+| TXI | N121 | 5850 | 16 | carried forward from Run 034 |
+| TXJ | N136 | 10650 | 8 | carried forward from Run 034 |
+| TXK | N151 | 14950 | 32 | selected by Run 035 deterministic offset search |
+| TXL | N166 | 12950 | 4 | selected by Run 035 deterministic offset search |
+
+TXK/TXL selection trace:
+
+| TX | Node | Selected offset ms | Min delta against prior plan | Valid candidates |
+| --- | --- | ---: | ---: | ---: |
+| TXK | N151 | 14950 | 3950 | 227 |
+| TXL | N166 | 12950 | 1950 | 223 |
+
+Phase-plan validation summary:
+
+| Check | Result |
+| --- | ---: |
+| Slot interval | 10000 ms |
+| Near-coincidence window | 150 ms |
+| Transmitter count | 12 |
+| Total scheduled SEND events | 240 |
+| Exact same-ms scheduled SEND coincidences | 0 |
+| Near scheduled SEND coincidences within 150 ms | 0 |
+| Minimum pairwise scheduled SEND separation | 200 ms |
+
+The exact-coincidence and near-coincidence output files contain headers only, because no exact or near scheduled SEND coincidences were found under the configured schedule-time checks.
+
+The smallest pairwise schedule-time separations include:
+
+| TX A | TX B | Min delta ms | Seq A | Seq B |
+| --- | --- | ---: | ---: | ---: |
+| TXA/N01 | TXD/N46 | 200 | 6 | 6 |
+| TXA/N01 | TXJ/N136 | 350 | 7 | 6 |
+| TXD/N46 | TXH/N106 | 700 | 6 | 6 |
+| TXB/N16 | TXF/N76 | 750 | 4 | 4 |
+| TXA/N01 | TXH/N106 | 900 | 6 | 6 |
+| TXC/N31 | TXI/N121 | 1100 | 4 | 4 |
+| TXG/N91 | TXJ/N136 | 1200 | 6 | 6 |
+| TXA/N01 | TXF/N76 | 1500 | 4 | 4 |
+| TXB/N16 | TXC/N31 | 1500 | 4 | 4 |
+| TXA/N01 | TXG/N91 | 1550 | 7 | 6 |
+| TXD/N46 | TXF/N76 | 1700 | 6 | 6 |
+| TXE/N61 | TXG/N91 | 1700 | 6 | 6 |
+| TXE/N61 | TXI/N121 | 1900 | 4 | 4 |
+| TXA/N01 | TXL/N166 | 1950 | 7 | 6 |
+| TXK/N151 | TXL/N166 | 2000 | 6 | 6 |
+
+These values are schedule-time separations. They are not measured RF timings.
+
+The Run 035 manifest now records assigned startup offsets and a `phase_plan` object linking to the preserved phase-plan output artifacts.
+
+Recommended next milestone:
+
+* `v5.15-run035-twelve-transmitter-physical-prep`
+
+That milestone should prepare firmware identities, TXK/TXL sketches, SD-card workflow, card labels, and bench plan using the phase-plan offsets preserved here.
+
+Interpretation boundary: this milestone does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire deployment behavior.
+
