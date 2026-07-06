@@ -43,51 +43,56 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 035 twelve-transmitter schedule prep
+## Latest result: Run 035 twelve-transmitter phase plan
 
-The current milestone is the Run 035 twelve-transmitter schedule-preparation milestone.
+The current milestone is the Run 035 twelve-transmitter phase-plan milestone.
 
-Run 035 v5.13 generated the manifest-bound twelve-transmitter schedule artifacts needed for the next deterministic phase-plan milestone.
+Run 035 v5.14 assigned deterministic startup offsets for the twelve-transmitter scheduled replay prepared in v5.13.
 
-This milestone is schedule preparation only. It does not compute final startup offsets, modify firmware, prepare SD cards, flash devices, run hardware, collect receiver logs, or make physical replay claims.
+This milestone is phase planning only. It does not modify firmware, prepare SD cards, flash devices, run hardware, collect receiver logs, or make physical replay claims.
 
-Schedule-prep note:
+Phase-plan note:
 
-- `docs/development/run035_twelve_transmitter_schedule_prep.md`
+- `docs/development/run035_twelve_transmitter_phase_plan.md`
 
-Schedule-prep script:
+Phase-plan script:
 
-- `scripts/prepare_run035_twelve_tx_schedules.py`
+- `scripts/prepare_run035_twelve_tx_phase_plan.py`
 
-Manifest:
+Phase-plan outputs:
 
-- `traces/run035_reporting_reporting_schedule_manifest.json`
+- `outputs/run035_twelve_tx_phase_plan.csv`
+- `outputs/run035_twelve_tx_phase_plan_summary.json`
+- `outputs/run035_twelve_tx_phase_plan_exact_coincidences.csv`
+- `outputs/run035_twelve_tx_phase_plan_near_coincidences.csv`
+- `outputs/run035_twelve_tx_phase_plan_pairwise_min_deltas.csv`
 
-Run 035 keeps the validated Run 034 A-J set and adds:
+Assigned TXK/TXL offsets:
 
-| TX | Node | Role | Scheduled SEND rows |
-| --- | --- | --- | ---: |
-| TXK | N151 | medium threshold scheduled skipping | 32/64 |
-| TXL | N166 | ultra-strict threshold scheduled skipping | 4/64 |
+| TX | Node | Startup offset ms | Role |
+| --- | --- | ---: | --- |
+| TXK | N151 | 14950 | medium threshold scheduled skipping |
+| TXL | N166 | 12950 | ultra-strict threshold scheduled skipping |
 
-Validation summary:
+Phase-plan validation summary:
 
 | Check | Result |
 | --- | ---: |
-| Manifest transmitter count | 12 |
-| Schedule rows per transmitter | 64 |
-| TXK SEND rows | 32/64 |
-| TXL SEND rows | 4/64 |
-| Startup offsets | deferred |
-| Schedule validation | passed |
+| Transmitter count | 12 |
+| Total scheduled SEND events | 240 |
+| Exact same-ms scheduled SEND coincidences | 0 |
+| Near scheduled SEND coincidences within 150 ms | 0 |
+| Minimum pairwise scheduled SEND separation | 200 ms |
+
+The Run 035 manifest now records assigned startup offsets and links to the phase-plan output artifacts.
 
 The next recommended milestone is:
 
-- `v5.14-run035-twelve-transmitter-phase-plan`
+- `v5.15-run035-twelve-transmitter-physical-prep`
 
-That milestone should compute deterministic startup offsets and exact/near scheduled SEND coincidence checks before any firmware or SD-card physical preparation.
+That milestone should prepare firmware identities, TXK/TXL sketches, SD-card workflow, card labels, and bench plan using the phase-plan offsets preserved here.
 
-Interpretation boundary: Run 035 v5.13 does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
+Interpretation boundary: Run 035 v5.14 does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 

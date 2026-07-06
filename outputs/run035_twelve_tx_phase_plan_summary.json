@@ -1,0 +1,214 @@
+{
+  "run_id": "run035_twelve_transmitter_phase_plan",
+  "milestone": "v5.14-run035-twelve-transmitter-phase-plan",
+  "manifest": "traces/run035_reporting_reporting_schedule_manifest.json",
+  "slot_interval_ms": 10000,
+  "near_coincidence_window_ms": 150,
+  "offset_search": {
+    "search_tx_order": [
+      "TXK",
+      "TXL"
+    ],
+    "offset_search_min_ms": 0,
+    "offset_search_max_ms": 14950,
+    "offset_search_step_ms": 50,
+    "base_startup_offsets_ms": {
+      "TXA": 1000,
+      "TXB": 3250,
+      "TXC": 4750,
+      "TXD": 800,
+      "TXE": 7750,
+      "TXF": 2500,
+      "TXG": 9450,
+      "TXH": 100,
+      "TXI": 5850,
+      "TXJ": 10650
+    },
+    "selection_trace": [
+      {
+        "tx_id": "TXK",
+        "node_id": "N151",
+        "selected_offset_ms": 14950,
+        "min_delta_ms_against_prior_plan": 3950,
+        "valid_candidate_count": 227,
+        "selection_rule": "prefer offsets after the existing maximum; then maximize minimum schedule-time separation; then choose smallest offset"
+      },
+      {
+        "tx_id": "TXL",
+        "node_id": "N166",
+        "selected_offset_ms": 12950,
+        "min_delta_ms_against_prior_plan": 1950,
+        "valid_candidate_count": 223,
+        "selection_rule": "prefer offsets after the existing maximum; then maximize minimum schedule-time separation; then choose smallest offset"
+      }
+    ]
+  },
+  "startup_offsets_ms": {
+    "TXA": 1000,
+    "TXB": 3250,
+    "TXC": 4750,
+    "TXD": 800,
+    "TXE": 7750,
+    "TXF": 2500,
+    "TXG": 9450,
+    "TXH": 100,
+    "TXI": 5850,
+    "TXJ": 10650,
+    "TXK": 14950,
+    "TXL": 12950
+  },
+  "transmitter_count": 12,
+  "total_scheduled_send_events": 240,
+  "exact_same_ms_scheduled_send_coincidences": 0,
+  "near_scheduled_send_coincidences": 0,
+  "minimum_pairwise_scheduled_send_separation_ms": 200,
+  "smallest_pairwise_separations": [
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXD",
+      "node_b": "N46",
+      "min_delta_ms": 200,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 61000,
+      "event_time_ms_b": 60800
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 350,
+      "seq_a_at_min_delta": 7,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 71000,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXD",
+      "node_a": "N46",
+      "tx_b": "TXH",
+      "node_b": "N106",
+      "min_delta_ms": 700,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60800,
+      "event_time_ms_b": 60100
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXF",
+      "node_b": "N76",
+      "min_delta_ms": 750,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 43250,
+      "event_time_ms_b": 42500
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXH",
+      "node_b": "N106",
+      "min_delta_ms": 900,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 61000,
+      "event_time_ms_b": 60100
+    },
+    {
+      "tx_a": "TXC",
+      "node_a": "N31",
+      "tx_b": "TXI",
+      "node_b": "N121",
+      "min_delta_ms": 1100,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 44750,
+      "event_time_ms_b": 45850
+    },
+    {
+      "tx_a": "TXG",
+      "node_a": "N91",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 1200,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 69450,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXF",
+      "node_b": "N76",
+      "min_delta_ms": 1500,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 41000,
+      "event_time_ms_b": 42500
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXC",
+      "node_b": "N31",
+      "min_delta_ms": 1500,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 43250,
+      "event_time_ms_b": 44750
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXG",
+      "node_b": "N91",
+      "min_delta_ms": 1550,
+      "seq_a_at_min_delta": 7,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 71000,
+      "event_time_ms_b": 69450
+    },
+    {
+      "tx_a": "TXD",
+      "node_a": "N46",
+      "tx_b": "TXF",
+      "node_b": "N76",
+      "min_delta_ms": 1700,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60800,
+      "event_time_ms_b": 62500
+    },
+    {
+      "tx_a": "TXE",
+      "node_a": "N61",
+      "tx_b": "TXG",
+      "node_b": "N91",
+      "min_delta_ms": 1700,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 67750,
+      "event_time_ms_b": 69450
+    }
+  ],
+  "outputs": {
+    "phase_plan_csv": "outputs/run035_twelve_tx_phase_plan.csv",
+    "summary_json": "outputs/run035_twelve_tx_phase_plan_summary.json",
+    "exact_coincidences_csv": "outputs/run035_twelve_tx_phase_plan_exact_coincidences.csv",
+    "near_coincidences_csv": "outputs/run035_twelve_tx_phase_plan_near_coincidences.csv",
+    "pairwise_min_deltas_csv": "outputs/run035_twelve_tx_phase_plan_pairwise_min_deltas.csv"
+  },
+  "claims": {
+    "phase_plan_only": true,
+    "physical_prep_performed": false,
+    "physical_replay_performed": false,
+    "exact_transmitted_packet_counts_established": false,
+    "rf_collision_mechanisms_inferred": false,
+    "absence_of_collisions_established": false
+  }
+}
