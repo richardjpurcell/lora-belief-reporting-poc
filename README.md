@@ -43,50 +43,36 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 034 ten-transmitter physical replay
+## Latest result: Run 034 ten-transmitter synthesis
 
-The current milestone is the Run 034 ten-transmitter SD-backed physical replay.
+The current milestone is the Run 034 ten-transmitter synthesis.
 
-Run 034 advances the validated physical replay scale point from eight transmitters to ten transmitters under the bounded bench conditions used here. The replay used the Run 034 schedule-prep, phase-plan, and physical-prep artifacts from `v5.7` through `v5.9`.
+Run 034 succeeded as a ten-transmitter bridge under the bounded bench conditions used here. It advances the validated physical replay scale point from eight transmitters to ten transmitters.
 
-Physical-replay note:
+Synthesis note:
 
-- `docs/development/run034_ten_transmitter_physical_replay.md`
+- `docs/development/run034_ten_transmitter_synthesis.md`
 
-Replay artifacts:
+Main synthesis result:
 
-- `logs/rx_run_034_ten_transmitter_sd_replay_candidate.csv`
-- `logs/parsed_run_034_ten_transmitter_sd_replay_candidate.csv`
-- `logs/parsed_run_034_ten_transmitter_sd_replay_candidate_rejects.csv`
-- `outputs/run034_ten_transmitter_manifest_replay_candidate_summary.json`
-- `outputs/run034_ten_transmitter_manifest_replay_candidate_summary.csv`
-- `outputs/run034_ten_transmitter_manifest_replay_candidate_validation.json`
+- all ten expected transmitters were visible in the receiver-side log;
+- TXI/N121 and TXJ/N136 were successfully added;
+- sparse TXH/N106 remained visible;
+- receiver-side packet proportions followed the scheduled SEND ladder closely;
+- manifest-bound validation passed 271/271 checks;
+- the phase-aware startup plan was sufficient for this candidate replay;
+- one-card-at-a-time SD preparation worked as a practical bench workflow.
 
-Manifest-bound validation:
+Recommendation:
 
-- passed: `True`
-- checks passed: 271/271
-- checks failed: 0
-
-Receiver-side ratio comparisons relative to TXA/N01:
-
-- TXB/TXA: observed 0.4876, expected 0.5000, diff -0.0124
-- TXC/TXA: observed 0.2517, expected 0.2500, diff 0.0017
-- TXD/TXA: observed 0.1213, expected 0.1250, diff -0.0037
-- TXE/TXA: observed 0.4989, expected 0.5000, diff -0.0011
-- TXF/TXA: observed 0.2449, expected 0.2500, diff -0.0051
-- TXG/TXA: observed 0.1213, expected 0.1250, diff -0.0037
-- TXH/TXA: observed 0.0629, expected 0.0625, diff 0.0004
-- TXI/TXA: observed 0.2517, expected 0.2500, diff 0.0017
-- TXJ/TXA: observed 0.1191, expected 0.1250, diff -0.0059
-
-The replay confirms that all ten expected transmitters were present in the receiver-side log, including the two new transmitters TXI/N121 and TXJ/N136, and that the sparse TXH/N106 transmitter remained visible.
+- move toward cautious twelve-transmitter preparation;
+- do not jump directly to twelve-transmitter physical replay.
 
 Recommended next milestone:
 
-- `v5.11-run034-ten-transmitter-synthesis`
+- `v5.12-run035-twelve-transmitter-cautious-bridge-design`
 
-Interpretation boundary: this physical-replay milestone does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
+Interpretation boundary: Run 034 does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 
