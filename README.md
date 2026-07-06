@@ -43,39 +43,51 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 035 twelve-transmitter cautious bridge design
+## Latest result: Run 035 twelve-transmitter schedule prep
 
-The current milestone is the Run 035 twelve-transmitter cautious bridge design.
+The current milestone is the Run 035 twelve-transmitter schedule-preparation milestone.
 
-Run 035 v5.12 is design-only. It records the next cautious bridge from the successful Run 034 ten-transmitter replay toward a twelve-transmitter candidate, but it does not generate schedules, prepare firmware, prepare SD cards, flash devices, or run a physical replay.
+Run 035 v5.13 generated the manifest-bound twelve-transmitter schedule artifacts needed for the next deterministic phase-plan milestone.
 
-Design note:
+This milestone is schedule preparation only. It does not compute final startup offsets, modify firmware, prepare SD cards, flash devices, run hardware, collect receiver logs, or make physical replay claims.
 
-- `docs/development/run035_twelve_transmitter_cautious_bridge_design.md`
+Schedule-prep note:
 
-The design keeps the validated Run 034 A-J set and proposes two candidate additions:
+- `docs/development/run035_twelve_transmitter_schedule_prep.md`
 
-| TX | Node | Proposed role | Scheduled SEND rows |
+Schedule-prep script:
+
+- `scripts/prepare_run035_twelve_tx_schedules.py`
+
+Manifest:
+
+- `traces/run035_reporting_reporting_schedule_manifest.json`
+
+Run 035 keeps the validated Run 034 A-J set and adds:
+
+| TX | Node | Role | Scheduled SEND rows |
 | --- | --- | --- | ---: |
-| TXK | N151 | medium threshold | 32/64 |
-| TXL | N166 | ultra-strict threshold | 4/64 |
+| TXK | N151 | medium threshold scheduled skipping | 32/64 |
+| TXL | N166 | ultra-strict threshold scheduled skipping | 4/64 |
 
-The design preserves the staged method:
+Validation summary:
 
-- bridge design;
-- schedule preparation;
-- phase-plan analysis;
-- physical preparation;
-- physical replay;
-- synthesis.
+| Check | Result |
+| --- | ---: |
+| Manifest transmitter count | 12 |
+| Schedule rows per transmitter | 64 |
+| TXK SEND rows | 32/64 |
+| TXL SEND rows | 4/64 |
+| Startup offsets | deferred |
+| Schedule validation | passed |
 
 The next recommended milestone is:
 
-- `v5.13-run035-twelve-transmitter-schedule-prep`
+- `v5.14-run035-twelve-transmitter-phase-plan`
 
-That milestone should generate and inspect twelve-transmitter schedules and the manifest. It should not yet perform physical replay.
+That milestone should compute deterministic startup offsets and exact/near scheduled SEND coincidence checks before any firmware or SD-card physical preparation.
 
-Interpretation boundary: Run 035 v5.12 does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
+Interpretation boundary: Run 035 v5.13 does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 
