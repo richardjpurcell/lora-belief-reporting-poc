@@ -2922,3 +2922,137 @@ Recommended next milestone:
 
 Interpretation boundary: this design does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire deployment behavior.
 
+## v5.13 Run 035 twelve-transmitter schedule prep
+
+The v5.13 milestone records the Run 035 twelve-transmitter schedule-preparation artifacts.
+
+Schedule-prep note:
+
+* `docs/development/run035_twelve_transmitter_schedule_prep.md`
+
+Schedule-prep script:
+
+* `scripts/prepare_run035_twelve_tx_schedules.py`
+
+Manifest:
+
+* `traces/run035_reporting_reporting_schedule_manifest.json`
+
+This milestone extends the Run 034 ten-transmitter schedule-preparation pattern to a twelve-transmitter candidate.
+
+It keeps the validated Run 034 A-J set and adds:
+
+| TX | Node | Role | Scheduled SEND rows |
+| --- | --- | --- | ---: |
+| TXK | N151 | medium threshold scheduled skipping | 32/64 |
+| TXL | N166 | ultra-strict threshold scheduled skipping | 4/64 |
+
+The full twelve-transmitter ladder is:
+
+| TX | Node | Role | Scheduled SEND rows |
+| --- | --- | --- | ---: |
+| TXA | N01 | fixed-all anchor | 64/64 |
+| TXB | N16 | medium threshold scheduled skipping | 32/64 |
+| TXC | N31 | strict threshold scheduled skipping | 16/64 |
+| TXD | N46 | very-strict threshold scheduled skipping | 8/64 |
+| TXE | N61 | medium threshold scheduled skipping | 32/64 |
+| TXF | N76 | strict threshold scheduled skipping | 16/64 |
+| TXG | N91 | very-strict threshold scheduled skipping | 8/64 |
+| TXH | N106 | ultra-strict threshold scheduled skipping | 4/64 |
+| TXI | N121 | strict threshold scheduled skipping | 16/64 |
+| TXJ | N136 | very-strict threshold scheduled skipping | 8/64 |
+| TXK | N151 | medium threshold scheduled skipping | 32/64 |
+| TXL | N166 | ultra-strict threshold scheduled skipping | 4/64 |
+
+Expected schedule-defined ratios relative to TXA/N01:
+
+| Ratio | Expected |
+| --- | ---: |
+| TXB/TXA | 0.5000 |
+| TXC/TXA | 0.2500 |
+| TXD/TXA | 0.1250 |
+| TXE/TXA | 0.5000 |
+| TXF/TXA | 0.2500 |
+| TXG/TXA | 0.1250 |
+| TXH/TXA | 0.0625 |
+| TXI/TXA | 0.2500 |
+| TXJ/TXA | 0.1250 |
+| TXK/TXA | 0.5000 |
+| TXL/TXA | 0.0625 |
+
+Validation summary:
+
+| TX | Node | SEND rows | SKIP rows | Expected fraction |
+| --- | --- | ---: | ---: | ---: |
+| TXA | N01 | 64 | 0 | 1.0000 |
+| TXB | N16 | 32 | 32 | 0.5000 |
+| TXC | N31 | 16 | 48 | 0.2500 |
+| TXD | N46 | 8 | 56 | 0.1250 |
+| TXE | N61 | 32 | 32 | 0.5000 |
+| TXF | N76 | 16 | 48 | 0.2500 |
+| TXG | N91 | 8 | 56 | 0.1250 |
+| TXH | N106 | 4 | 60 | 0.0625 |
+| TXI | N121 | 16 | 48 | 0.2500 |
+| TXJ | N136 | 8 | 56 | 0.1250 |
+| TXK | N151 | 32 | 32 | 0.5000 |
+| TXL | N166 | 4 | 60 | 0.0625 |
+
+Generated base schedule:
+
+* `traces/run035_twelve_tx_base_schedule.csv`
+
+Generated reporting schedules and compact SEND-only schedules:
+
+* `traces/run035_reporting_txa_fixed_all_schedule.csv`
+* `traces/run035_reporting_txa_fixed_all_compact.csv`
+* `traces/run035_reporting_txb_medium_threshold_schedule.csv`
+* `traces/run035_reporting_txb_medium_threshold_compact.csv`
+* `traces/run035_reporting_txc_strict_threshold_schedule.csv`
+* `traces/run035_reporting_txc_strict_threshold_compact.csv`
+* `traces/run035_reporting_txd_very_strict_threshold_schedule.csv`
+* `traces/run035_reporting_txd_very_strict_threshold_compact.csv`
+* `traces/run035_reporting_txe_medium_threshold_schedule.csv`
+* `traces/run035_reporting_txe_medium_threshold_compact.csv`
+* `traces/run035_reporting_txf_strict_threshold_schedule.csv`
+* `traces/run035_reporting_txf_strict_threshold_compact.csv`
+* `traces/run035_reporting_txg_very_strict_threshold_schedule.csv`
+* `traces/run035_reporting_txg_very_strict_threshold_compact.csv`
+* `traces/run035_reporting_txh_ultra_strict_threshold_schedule.csv`
+* `traces/run035_reporting_txh_ultra_strict_threshold_compact.csv`
+* `traces/run035_reporting_txi_strict_threshold_schedule.csv`
+* `traces/run035_reporting_txi_strict_threshold_compact.csv`
+* `traces/run035_reporting_txj_very_strict_threshold_schedule.csv`
+* `traces/run035_reporting_txj_very_strict_threshold_compact.csv`
+* `traces/run035_reporting_txk_medium_threshold_schedule.csv`
+* `traces/run035_reporting_txk_medium_threshold_compact.csv`
+* `traces/run035_reporting_txl_ultra_strict_threshold_schedule.csv`
+* `traces/run035_reporting_txl_ultra_strict_threshold_compact.csv`
+
+Generated SD schedule sources:
+
+* `traces/run035_sd_txa_schedule.csv`
+* `traces/run035_sd_txb_schedule.csv`
+* `traces/run035_sd_txc_schedule.csv`
+* `traces/run035_sd_txd_schedule.csv`
+* `traces/run035_sd_txe_schedule.csv`
+* `traces/run035_sd_txf_schedule.csv`
+* `traces/run035_sd_txg_schedule.csv`
+* `traces/run035_sd_txh_schedule.csv`
+* `traces/run035_sd_txi_schedule.csv`
+* `traces/run035_sd_txj_schedule.csv`
+* `traces/run035_sd_txk_schedule.csv`
+* `traces/run035_sd_txl_schedule.csv`
+
+The manifest intentionally leaves startup offsets unset:
+
+* `startup_offset_ms: null`
+* `startup_offset_status: deferred to v5.14-run035-twelve-transmitter-phase-plan`
+
+Recommended next milestone:
+
+* `v5.14-run035-twelve-transmitter-phase-plan`
+
+That milestone should compute deterministic startup offsets and exact/near scheduled SEND coincidence checks before any firmware or SD-card physical preparation.
+
+Interpretation boundary: this milestone does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire deployment behavior.
+
