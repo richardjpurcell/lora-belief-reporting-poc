@@ -43,36 +43,39 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 034 ten-transmitter synthesis
+## Latest result: Run 035 twelve-transmitter cautious bridge design
 
-The current milestone is the Run 034 ten-transmitter synthesis.
+The current milestone is the Run 035 twelve-transmitter cautious bridge design.
 
-Run 034 succeeded as a ten-transmitter bridge under the bounded bench conditions used here. It advances the validated physical replay scale point from eight transmitters to ten transmitters.
+Run 035 v5.12 is design-only. It records the next cautious bridge from the successful Run 034 ten-transmitter replay toward a twelve-transmitter candidate, but it does not generate schedules, prepare firmware, prepare SD cards, flash devices, or run a physical replay.
 
-Synthesis note:
+Design note:
 
-- `docs/development/run034_ten_transmitter_synthesis.md`
+- `docs/development/run035_twelve_transmitter_cautious_bridge_design.md`
 
-Main synthesis result:
+The design keeps the validated Run 034 A-J set and proposes two candidate additions:
 
-- all ten expected transmitters were visible in the receiver-side log;
-- TXI/N121 and TXJ/N136 were successfully added;
-- sparse TXH/N106 remained visible;
-- receiver-side packet proportions followed the scheduled SEND ladder closely;
-- manifest-bound validation passed 271/271 checks;
-- the phase-aware startup plan was sufficient for this candidate replay;
-- one-card-at-a-time SD preparation worked as a practical bench workflow.
+| TX | Node | Proposed role | Scheduled SEND rows |
+| --- | --- | --- | ---: |
+| TXK | N151 | medium threshold | 32/64 |
+| TXL | N166 | ultra-strict threshold | 4/64 |
 
-Recommendation:
+The design preserves the staged method:
 
-- move toward cautious twelve-transmitter preparation;
-- do not jump directly to twelve-transmitter physical replay.
+- bridge design;
+- schedule preparation;
+- phase-plan analysis;
+- physical preparation;
+- physical replay;
+- synthesis.
 
-Recommended next milestone:
+The next recommended milestone is:
 
-- `v5.12-run035-twelve-transmitter-cautious-bridge-design`
+- `v5.13-run035-twelve-transmitter-schedule-prep`
 
-Interpretation boundary: Run 034 does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
+That milestone should generate and inspect twelve-transmitter schedules and the manifest. It should not yet perform physical replay.
+
+Interpretation boundary: Run 035 v5.12 does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 
