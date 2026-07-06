@@ -3152,3 +3152,81 @@ That milestone should prepare firmware identities, TXK/TXL sketches, SD-card wor
 
 Interpretation boundary: this milestone does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire deployment behavior.
 
+## v5.15 Run 035 twelve-transmitter physical prep
+
+The v5.15 milestone records Run 035 twelve-transmitter physical preparation.
+
+Physical-prep note:
+
+* `docs/development/run035_twelve_transmitter_physical_prep.md`
+
+Physical-prep script:
+
+* `scripts/prepare_run035_twelve_tx_physical_prep.py`
+
+One-card-at-a-time SD helper:
+
+* `scripts/copy_run035_one_sd_schedule_to_card.sh`
+
+Physical-prep summaries:
+
+* `outputs/run035_twelve_tx_physical_prep_summary.json`
+* `outputs/run035_twelve_tx_physical_prep_summary.csv`
+
+New transmitter firmware sketches:
+
+* `firmware/first_radio_link_TX_K/first_radio_link_TX_K.ino`
+* `firmware/first_radio_link_TX_L/first_radio_link_TX_L.ino`
+
+This milestone prepares repository-side firmware and SD-card workflow artifacts for a twelve-transmitter SD-backed scheduled physical replay.
+
+It does not flash hardware, copy files to mounted SD cards, collect receiver logs, parse logs, validate a physical replay, or make twelve-transmitter physical replay claims.
+
+Firmware `RUN_ID` for this milestone is:
+
+* `R35`
+
+Prepared firmware table:
+
+| TX | Node | Firmware sketch | STARTUP_OFFSET_MS | Expected SEND rows |
+| --- | --- | --- | ---: | ---: |
+| TXA | N01 | `firmware/first_radio_link_TX_A/first_radio_link_TX_A.ino` | 1000 | 64 |
+| TXB | N16 | `firmware/first_radio_link_TX_B/first_radio_link_TX_B.ino` | 3250 | 32 |
+| TXC | N31 | `firmware/first_radio_link_TX_C/first_radio_link_TX_C.ino` | 4750 | 16 |
+| TXD | N46 | `firmware/first_radio_link_TX_D/first_radio_link_TX_D.ino` | 800 | 8 |
+| TXE | N61 | `firmware/first_radio_link_TX_E/first_radio_link_TX_E.ino` | 7750 | 32 |
+| TXF | N76 | `firmware/first_radio_link_TX_F/first_radio_link_TX_F.ino` | 2500 | 16 |
+| TXG | N91 | `firmware/first_radio_link_TX_G/first_radio_link_TX_G.ino` | 9450 | 8 |
+| TXH | N106 | `firmware/first_radio_link_TX_H/first_radio_link_TX_H.ino` | 100 | 4 |
+| TXI | N121 | `firmware/first_radio_link_TX_I/first_radio_link_TX_I.ino` | 5850 | 16 |
+| TXJ | N136 | `firmware/first_radio_link_TX_J/first_radio_link_TX_J.ino` | 10650 | 8 |
+| TXK | N151 | `firmware/first_radio_link_TX_K/first_radio_link_TX_K.ino` | 14950 | 32 |
+| TXL | N166 | `firmware/first_radio_link_TX_L/first_radio_link_TX_L.ino` | 12950 | 4 |
+
+TXK and TXL were added using the underscore firmware naming convention.
+
+New SD-card labels required for the two added transmitters:
+
+* `LORA_TXK`
+* `LORA_TXL`
+
+The one-card-at-a-time helper copies each Run 035 SD schedule to the mounted card as `schedule.csv`.
+
+Expected candidate receiver log for the next milestone:
+
+* `logs/rx_run_035_twelve_transmitter_sd_replay_candidate.csv`
+
+Expected later analysis outputs:
+
+* `outputs/run035_twelve_transmitter_manifest_replay_candidate_summary.json`
+* `outputs/run035_twelve_transmitter_manifest_replay_candidate_summary.csv`
+* `outputs/run035_twelve_transmitter_manifest_replay_candidate_validation.json`
+
+Recommended next milestone:
+
+* `v5.16-run035-twelve-transmitter-physical-replay`
+
+That milestone should collect the receiver log, parse it, analyze it against the manifest, and decide whether the twelve-transmitter bridge succeeded or whether further diagnostic replay is needed.
+
+Interpretation boundary: this milestone does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire deployment behavior.
+

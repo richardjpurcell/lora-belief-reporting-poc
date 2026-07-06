@@ -43,56 +43,60 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 035 twelve-transmitter phase plan
+## Latest result: Run 035 twelve-transmitter physical prep
 
-The current milestone is the Run 035 twelve-transmitter phase-plan milestone.
+The current milestone is the Run 035 twelve-transmitter physical-preparation milestone.
 
-Run 035 v5.14 assigned deterministic startup offsets for the twelve-transmitter scheduled replay prepared in v5.13.
+Run 035 v5.15 prepares repository-side firmware and SD-card workflow artifacts for a twelve-transmitter SD-backed scheduled physical replay.
 
-This milestone is phase planning only. It does not modify firmware, prepare SD cards, flash devices, run hardware, collect receiver logs, or make physical replay claims.
+This milestone is physical preparation only. It does not flash hardware, copy files to mounted SD cards, collect receiver logs, parse logs, validate a physical replay, or make twelve-transmitter physical replay claims.
 
-Phase-plan note:
+Physical-prep note:
 
-- `docs/development/run035_twelve_transmitter_phase_plan.md`
+- `docs/development/run035_twelve_transmitter_physical_prep.md`
 
-Phase-plan script:
+Physical-prep script:
 
-- `scripts/prepare_run035_twelve_tx_phase_plan.py`
+- `scripts/prepare_run035_twelve_tx_physical_prep.py`
 
-Phase-plan outputs:
+One-card-at-a-time SD helper:
 
-- `outputs/run035_twelve_tx_phase_plan.csv`
-- `outputs/run035_twelve_tx_phase_plan_summary.json`
-- `outputs/run035_twelve_tx_phase_plan_exact_coincidences.csv`
-- `outputs/run035_twelve_tx_phase_plan_near_coincidences.csv`
-- `outputs/run035_twelve_tx_phase_plan_pairwise_min_deltas.csv`
+- `scripts/copy_run035_one_sd_schedule_to_card.sh`
 
-Assigned TXK/TXL offsets:
+Physical-prep summaries:
 
-| TX | Node | Startup offset ms | Role |
-| --- | --- | ---: | --- |
-| TXK | N151 | 14950 | medium threshold scheduled skipping |
-| TXL | N166 | 12950 | ultra-strict threshold scheduled skipping |
+- `outputs/run035_twelve_tx_physical_prep_summary.json`
+- `outputs/run035_twelve_tx_physical_prep_summary.csv`
 
-Phase-plan validation summary:
+New transmitter firmware sketches:
 
-| Check | Result |
-| --- | ---: |
-| Transmitter count | 12 |
-| Total scheduled SEND events | 240 |
-| Exact same-ms scheduled SEND coincidences | 0 |
-| Near scheduled SEND coincidences within 150 ms | 0 |
-| Minimum pairwise scheduled SEND separation | 200 ms |
+- `firmware/first_radio_link_TX_K/first_radio_link_TX_K.ino`
+- `firmware/first_radio_link_TX_L/first_radio_link_TX_L.ino`
 
-The Run 035 manifest now records assigned startup offsets and links to the phase-plan output artifacts.
+Firmware validation summary:
+
+| TX | Node | STARTUP_OFFSET_MS | Expected SEND rows |
+| --- | --- | ---: | ---: |
+| TXA | N01 | 1000 | 64 |
+| TXB | N16 | 3250 | 32 |
+| TXC | N31 | 4750 | 16 |
+| TXD | N46 | 800 | 8 |
+| TXE | N61 | 7750 | 32 |
+| TXF | N76 | 2500 | 16 |
+| TXG | N91 | 9450 | 8 |
+| TXH | N106 | 100 | 4 |
+| TXI | N121 | 5850 | 16 |
+| TXJ | N136 | 10650 | 8 |
+| TXK | N151 | 14950 | 32 |
+| TXL | N166 | 12950 | 4 |
 
 The next recommended milestone is:
 
-- `v5.15-run035-twelve-transmitter-physical-prep`
+- `v5.16-run035-twelve-transmitter-physical-replay`
 
-That milestone should prepare firmware identities, TXK/TXL sketches, SD-card workflow, card labels, and bench plan using the phase-plan offsets preserved here.
+That milestone should collect the receiver log, parse it, analyze it against the manifest, and decide whether the twelve-transmitter bridge succeeded or whether further diagnostic replay is needed.
 
-Interpretation boundary: Run 035 v5.14 does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
+Interpretation boundary: Run 035 v5.15 does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 
