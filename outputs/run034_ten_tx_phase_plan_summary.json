@@ -1,0 +1,619 @@
+{
+  "run_id": "run034_ten_transmitter_phase_plan",
+  "milestone": "v5.8-run034-ten-transmitter-phase-plan",
+  "source_manifest": "traces/run034_reporting_reporting_schedule_manifest.json",
+  "slot_interval_ms": 10000,
+  "near_coincidence_window_ms": 150,
+  "transmitter_count": 10,
+  "total_scheduled_send_events": 204,
+  "startup_offsets_ms": {
+    "TXH": 100,
+    "TXD": 800,
+    "TXA": 1000,
+    "TXF": 2500,
+    "TXB": 3250,
+    "TXC": 4750,
+    "TXI": 5850,
+    "TXE": 7750,
+    "TXG": 9450,
+    "TXJ": 10650
+  },
+  "startup_offsets_by_transmitter": [
+    {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "startup_offset_ms": 1000,
+      "expected_send_rows": 64,
+      "schedule_csv": "traces/run034_reporting_txa_fixed_all_schedule.csv",
+      "sd_csv": "traces/run034_sd_txa_schedule.csv"
+    },
+    {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "startup_offset_ms": 3250,
+      "expected_send_rows": 32,
+      "schedule_csv": "traces/run034_reporting_txb_medium_threshold_schedule.csv",
+      "sd_csv": "traces/run034_sd_txb_schedule.csv"
+    },
+    {
+      "tx_id": "TXC",
+      "node_id": "N31",
+      "startup_offset_ms": 4750,
+      "expected_send_rows": 16,
+      "schedule_csv": "traces/run034_reporting_txc_strict_threshold_schedule.csv",
+      "sd_csv": "traces/run034_sd_txc_schedule.csv"
+    },
+    {
+      "tx_id": "TXD",
+      "node_id": "N46",
+      "startup_offset_ms": 800,
+      "expected_send_rows": 8,
+      "schedule_csv": "traces/run034_reporting_txd_very_strict_threshold_schedule.csv",
+      "sd_csv": "traces/run034_sd_txd_schedule.csv"
+    },
+    {
+      "tx_id": "TXE",
+      "node_id": "N61",
+      "startup_offset_ms": 7750,
+      "expected_send_rows": 32,
+      "schedule_csv": "traces/run034_reporting_txe_medium_threshold_schedule.csv",
+      "sd_csv": "traces/run034_sd_txe_schedule.csv"
+    },
+    {
+      "tx_id": "TXF",
+      "node_id": "N76",
+      "startup_offset_ms": 2500,
+      "expected_send_rows": 16,
+      "schedule_csv": "traces/run034_reporting_txf_strict_threshold_schedule.csv",
+      "sd_csv": "traces/run034_sd_txf_schedule.csv"
+    },
+    {
+      "tx_id": "TXG",
+      "node_id": "N91",
+      "startup_offset_ms": 9450,
+      "expected_send_rows": 8,
+      "schedule_csv": "traces/run034_reporting_txg_very_strict_threshold_schedule.csv",
+      "sd_csv": "traces/run034_sd_txg_schedule.csv"
+    },
+    {
+      "tx_id": "TXH",
+      "node_id": "N106",
+      "startup_offset_ms": 100,
+      "expected_send_rows": 4,
+      "schedule_csv": "traces/run034_reporting_txh_ultra_strict_threshold_schedule.csv",
+      "sd_csv": "traces/run034_sd_txh_schedule.csv"
+    },
+    {
+      "tx_id": "TXI",
+      "node_id": "N121",
+      "startup_offset_ms": 5850,
+      "expected_send_rows": 16,
+      "schedule_csv": "traces/run034_reporting_txi_strict_threshold_schedule.csv",
+      "sd_csv": "traces/run034_sd_txi_schedule.csv"
+    },
+    {
+      "tx_id": "TXJ",
+      "node_id": "N136",
+      "startup_offset_ms": 10650,
+      "expected_send_rows": 8,
+      "schedule_csv": "traces/run034_reporting_txj_very_strict_threshold_schedule.csv",
+      "sd_csv": "traces/run034_sd_txj_schedule.csv"
+    }
+  ],
+  "exact_same_ms_coincidence_count": 0,
+  "near_coincidence_count": 0,
+  "min_pairwise_delta_ms": 200,
+  "pairwise_min_deltas": [
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXB",
+      "node_b": "N16",
+      "min_delta_ms": 2250,
+      "seq_a_at_min_delta": 0,
+      "seq_b_at_min_delta": 0,
+      "event_time_ms_a": 1000,
+      "event_time_ms_b": 3250
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXC",
+      "node_b": "N31",
+      "min_delta_ms": 3750,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 41000,
+      "event_time_ms_b": 44750
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXD",
+      "node_b": "N46",
+      "min_delta_ms": 200,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 61000,
+      "event_time_ms_b": 60800
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXE",
+      "node_b": "N61",
+      "min_delta_ms": 3250,
+      "seq_a_at_min_delta": 1,
+      "seq_b_at_min_delta": 0,
+      "event_time_ms_a": 11000,
+      "event_time_ms_b": 7750
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXF",
+      "node_b": "N76",
+      "min_delta_ms": 1500,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 41000,
+      "event_time_ms_b": 42500
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXG",
+      "node_b": "N91",
+      "min_delta_ms": 1550,
+      "seq_a_at_min_delta": 7,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 71000,
+      "event_time_ms_b": 69450
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXH",
+      "node_b": "N106",
+      "min_delta_ms": 900,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 61000,
+      "event_time_ms_b": 60100
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXI",
+      "node_b": "N121",
+      "min_delta_ms": 4850,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 41000,
+      "event_time_ms_b": 45850
+    },
+    {
+      "tx_a": "TXA",
+      "node_a": "N01",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 350,
+      "seq_a_at_min_delta": 7,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 71000,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXC",
+      "node_b": "N31",
+      "min_delta_ms": 1500,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 43250,
+      "event_time_ms_b": 44750
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXD",
+      "node_b": "N46",
+      "min_delta_ms": 2450,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 63250,
+      "event_time_ms_b": 60800
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXE",
+      "node_b": "N61",
+      "min_delta_ms": 4500,
+      "seq_a_at_min_delta": 0,
+      "seq_b_at_min_delta": 0,
+      "event_time_ms_a": 3250,
+      "event_time_ms_b": 7750
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXF",
+      "node_b": "N76",
+      "min_delta_ms": 750,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 43250,
+      "event_time_ms_b": 42500
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXG",
+      "node_b": "N91",
+      "min_delta_ms": 6200,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 63250,
+      "event_time_ms_b": 69450
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXH",
+      "node_b": "N106",
+      "min_delta_ms": 3150,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 63250,
+      "event_time_ms_b": 60100
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXI",
+      "node_b": "N121",
+      "min_delta_ms": 2600,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 43250,
+      "event_time_ms_b": 45850
+    },
+    {
+      "tx_a": "TXB",
+      "node_a": "N16",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 7400,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 63250,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXC",
+      "node_a": "N31",
+      "tx_b": "TXD",
+      "node_b": "N46",
+      "min_delta_ms": 3950,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 64750,
+      "event_time_ms_b": 60800
+    },
+    {
+      "tx_a": "TXC",
+      "node_a": "N31",
+      "tx_b": "TXE",
+      "node_b": "N61",
+      "min_delta_ms": 3000,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 44750,
+      "event_time_ms_b": 47750
+    },
+    {
+      "tx_a": "TXC",
+      "node_a": "N31",
+      "tx_b": "TXF",
+      "node_b": "N76",
+      "min_delta_ms": 2250,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 44750,
+      "event_time_ms_b": 42500
+    },
+    {
+      "tx_a": "TXC",
+      "node_a": "N31",
+      "tx_b": "TXG",
+      "node_b": "N91",
+      "min_delta_ms": 4700,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 64750,
+      "event_time_ms_b": 69450
+    },
+    {
+      "tx_a": "TXC",
+      "node_a": "N31",
+      "tx_b": "TXH",
+      "node_b": "N106",
+      "min_delta_ms": 4650,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 64750,
+      "event_time_ms_b": 60100
+    },
+    {
+      "tx_a": "TXC",
+      "node_a": "N31",
+      "tx_b": "TXI",
+      "node_b": "N121",
+      "min_delta_ms": 1100,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 44750,
+      "event_time_ms_b": 45850
+    },
+    {
+      "tx_a": "TXC",
+      "node_a": "N31",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 5900,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 64750,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXD",
+      "node_a": "N46",
+      "tx_b": "TXE",
+      "node_b": "N61",
+      "min_delta_ms": 6950,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60800,
+      "event_time_ms_b": 67750
+    },
+    {
+      "tx_a": "TXD",
+      "node_a": "N46",
+      "tx_b": "TXF",
+      "node_b": "N76",
+      "min_delta_ms": 1700,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60800,
+      "event_time_ms_b": 62500
+    },
+    {
+      "tx_a": "TXD",
+      "node_a": "N46",
+      "tx_b": "TXG",
+      "node_b": "N91",
+      "min_delta_ms": 8650,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60800,
+      "event_time_ms_b": 69450
+    },
+    {
+      "tx_a": "TXD",
+      "node_a": "N46",
+      "tx_b": "TXH",
+      "node_b": "N106",
+      "min_delta_ms": 700,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60800,
+      "event_time_ms_b": 60100
+    },
+    {
+      "tx_a": "TXD",
+      "node_a": "N46",
+      "tx_b": "TXI",
+      "node_b": "N121",
+      "min_delta_ms": 5050,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60800,
+      "event_time_ms_b": 65850
+    },
+    {
+      "tx_a": "TXD",
+      "node_a": "N46",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 9850,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60800,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXE",
+      "node_a": "N61",
+      "tx_b": "TXF",
+      "node_b": "N76",
+      "min_delta_ms": 5250,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 47750,
+      "event_time_ms_b": 42500
+    },
+    {
+      "tx_a": "TXE",
+      "node_a": "N61",
+      "tx_b": "TXG",
+      "node_b": "N91",
+      "min_delta_ms": 1700,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 67750,
+      "event_time_ms_b": 69450
+    },
+    {
+      "tx_a": "TXE",
+      "node_a": "N61",
+      "tx_b": "TXH",
+      "node_b": "N106",
+      "min_delta_ms": 7650,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 67750,
+      "event_time_ms_b": 60100
+    },
+    {
+      "tx_a": "TXE",
+      "node_a": "N61",
+      "tx_b": "TXI",
+      "node_b": "N121",
+      "min_delta_ms": 1900,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 47750,
+      "event_time_ms_b": 45850
+    },
+    {
+      "tx_a": "TXE",
+      "node_a": "N61",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 2900,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 67750,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXF",
+      "node_a": "N76",
+      "tx_b": "TXG",
+      "node_b": "N91",
+      "min_delta_ms": 6950,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 62500,
+      "event_time_ms_b": 69450
+    },
+    {
+      "tx_a": "TXF",
+      "node_a": "N76",
+      "tx_b": "TXH",
+      "node_b": "N106",
+      "min_delta_ms": 2400,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 62500,
+      "event_time_ms_b": 60100
+    },
+    {
+      "tx_a": "TXF",
+      "node_a": "N76",
+      "tx_b": "TXI",
+      "node_b": "N121",
+      "min_delta_ms": 3350,
+      "seq_a_at_min_delta": 4,
+      "seq_b_at_min_delta": 4,
+      "event_time_ms_a": 42500,
+      "event_time_ms_b": 45850
+    },
+    {
+      "tx_a": "TXF",
+      "node_a": "N76",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 8150,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 62500,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXG",
+      "node_a": "N91",
+      "tx_b": "TXH",
+      "node_b": "N106",
+      "min_delta_ms": 9350,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 69450,
+      "event_time_ms_b": 60100
+    },
+    {
+      "tx_a": "TXG",
+      "node_a": "N91",
+      "tx_b": "TXI",
+      "node_b": "N121",
+      "min_delta_ms": 3600,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 69450,
+      "event_time_ms_b": 65850
+    },
+    {
+      "tx_a": "TXG",
+      "node_a": "N91",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 1200,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 69450,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXH",
+      "node_a": "N106",
+      "tx_b": "TXI",
+      "node_b": "N121",
+      "min_delta_ms": 5750,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60100,
+      "event_time_ms_b": 65850
+    },
+    {
+      "tx_a": "TXH",
+      "node_a": "N106",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 10550,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 60100,
+      "event_time_ms_b": 70650
+    },
+    {
+      "tx_a": "TXI",
+      "node_a": "N121",
+      "tx_b": "TXJ",
+      "node_b": "N136",
+      "min_delta_ms": 4800,
+      "seq_a_at_min_delta": 6,
+      "seq_b_at_min_delta": 6,
+      "event_time_ms_a": 65850,
+      "event_time_ms_b": 70650
+    }
+  ],
+  "status": "pass",
+  "outputs": {
+    "exact_coincidences_csv": "outputs/run034_ten_tx_phase_plan_exact_coincidences.csv",
+    "near_coincidences_csv": "outputs/run034_ten_tx_phase_plan_near_coincidences.csv"
+  },
+  "interpretation_boundary": [
+    "Phase-plan analysis only; no physical replay has been run.",
+    "Startup offsets are deterministic design values for later physical prep.",
+    "Coincidence checks are schedule-time checks, not RF collision observations.",
+    "Does not confirm RF collisions or absence of collisions.",
+    "Does not establish synchronized latency.",
+    "Does not evaluate LoRaWAN behavior.",
+    "Does not establish energy savings or airtime optimization.",
+    "Does not use a live belief-maintenance controller.",
+    "Does not evaluate operational wildfire behavior."
+  ]
+}
