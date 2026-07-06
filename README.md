@@ -43,32 +43,36 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 034 ten-transmitter bridge design
+## Latest result: Run 034 ten-transmitter schedule prep
 
-The current design milestone is the Run 034 ten-transmitter bridge design.
+The current milestone is Run 034 ten-transmitter schedule prep.
 
-Run 034 is a cautious bridge between the validated Run 033 eight-transmitter replay and a future twelve-transmitter target. It is a design-only milestone: it does not generate schedules, modify firmware, flash transmitters, or run a physical replay.
+Run 034 prepares a ten-transmitter scheduled replay bridge between the validated Run 033 eight-transmitter replay and a future twelve-transmitter target. This milestone generates repository-side schedules and a manifest only. It does not modify firmware, copy schedules to SD cards, compute the final phase plan, flash transmitters, collect receiver logs, or make physical replay claims.
 
-The design keeps the validated Run 033 A-H ladder and adds two proposed transmitters:
+Schedule-prep script:
+
+- `scripts/prepare_run034_ten_tx_schedules.py`
+
+Schedule-prep note:
+
+- `docs/development/run034_ten_transmitter_schedule_prep.md`
+
+Run 034 manifest:
+
+- `traces/run034_reporting_reporting_schedule_manifest.json`
+
+The Run 034 ladder keeps the Run 033 A-H transmitter set and adds:
 
 - TXI/N121: strict threshold, 16/64 scheduled SEND rows
 - TXJ/N136: very-strict threshold, 8/64 scheduled SEND rows
 
-Design note:
+The generated schedule set contains ten transmitter schedules, compact SEND-only schedules, and SD-card schedule sources. Startup offsets remain intentionally unset in the manifest and are deferred to the phase-plan milestone.
 
-- `docs/development/run034_ten_transmitter_bridge_design.md`
+Recommended next milestone:
 
-The design applies the v5.5 phase-aware replay method from the beginning. Before any physical preparation, the next milestones should generate Run 034 schedules, assign deterministic startup offsets, compute exact and near scheduled SEND coincidences, and preserve the phase plan.
-
-Recommended next milestones:
-
-- `v5.7-run034-ten-transmitter-schedule-prep`
 - `v5.8-run034-ten-transmitter-phase-plan`
-- `v5.9-run034-ten-transmitter-physical-prep`
-- `v5.10-run034-ten-transmitter-physical-replay`
-- `v5.11-run034-ten-transmitter-synthesis`
 
-Interpretation boundary: this design does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
+Interpretation boundary: this schedule-prep milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 

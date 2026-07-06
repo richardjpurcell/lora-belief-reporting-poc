@@ -2529,3 +2529,60 @@ The proposed milestone sequence is:
 * `v5.11-run034-ten-transmitter-synthesis`
 
 Interpretation boundary: this design does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.
+
+## v5.7 Run 034 ten-transmitter schedule prep
+
+The v5.7 milestone prepares Run 034 ten-transmitter scheduled replay artifacts.
+
+This is a schedule-preparation milestone only. It does not modify firmware, copy schedules to SD cards, compute the final phase plan, flash transmitters, collect receiver logs, or make physical replay claims.
+
+Schedule-prep script:
+
+* `scripts/prepare_run034_ten_tx_schedules.py`
+
+Schedule-prep note:
+
+* `docs/development/run034_ten_transmitter_schedule_prep.md`
+
+Run 034 manifest:
+
+* `traces/run034_reporting_reporting_schedule_manifest.json`
+
+The Run 034 ladder keeps the Run 033 A-H transmitter set and adds:
+
+* TXI/N121: strict threshold, 16/64 scheduled SEND rows
+* TXJ/N136: very-strict threshold, 8/64 scheduled SEND rows
+
+The generated artifacts include:
+
+* `traces/run034_ten_tx_base_schedule.csv`
+* ten full reporting schedules
+* ten compact SEND-only schedules
+* ten SD-card schedule sources
+
+Expected scheduled ratios relative to TXA are:
+
+| Ratio | Expected |
+| --- | ---: |
+| TXB/TXA | 0.5000 |
+| TXC/TXA | 0.2500 |
+| TXD/TXA | 0.1250 |
+| TXE/TXA | 0.5000 |
+| TXF/TXA | 0.2500 |
+| TXG/TXA | 0.1250 |
+| TXH/TXA | 0.0625 |
+| TXI/TXA | 0.2500 |
+| TXJ/TXA | 0.1250 |
+
+Startup offsets remain intentionally unset in the manifest:
+
+* `startup_offset_ms: null`
+* `startup_offset_status: deferred to Run 034 phase-plan milestone`
+
+The next recommended milestone is:
+
+* `v5.8-run034-ten-transmitter-phase-plan`
+
+That milestone should compute and document deterministic startup offsets, exact same-ms scheduled SEND coincidences, and near scheduled SEND coincidences before firmware or SD-card physical preparation.
+
+Interpretation boundary: this milestone does not establish ten-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, twelve-transmitter behavior, or operational wildfire deployment behavior.
