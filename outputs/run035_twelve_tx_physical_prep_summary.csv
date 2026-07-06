@@ -1,0 +1,13 @@
+tx_id,node_id,firmware_sketch,run_id,startup_offset_ms,sd_source,sd_volume,sd_destination,expected_send_rows,expected_rows,new_firmware,new_sd_card
+TXA,N01,firmware/first_radio_link_TX_A/first_radio_link_TX_A.ino,R35,1000,traces/run035_sd_txa_schedule.csv,/Volumes/LORA_TXA,/Volumes/LORA_TXA/schedule.csv,64,64,False,False
+TXB,N16,firmware/first_radio_link_TX_B/first_radio_link_TX_B.ino,R35,3250,traces/run035_sd_txb_schedule.csv,/Volumes/LORA_TXB,/Volumes/LORA_TXB/schedule.csv,32,64,False,False
+TXC,N31,firmware/first_radio_link_TX_C/first_radio_link_TX_C.ino,R35,4750,traces/run035_sd_txc_schedule.csv,/Volumes/LORA_TXC,/Volumes/LORA_TXC/schedule.csv,16,64,False,False
+TXD,N46,firmware/first_radio_link_TX_D/first_radio_link_TX_D.ino,R35,800,traces/run035_sd_txd_schedule.csv,/Volumes/LORA_TXD,/Volumes/LORA_TXD/schedule.csv,8,64,False,False
+TXE,N61,firmware/first_radio_link_TX_E/first_radio_link_TX_E.ino,R35,7750,traces/run035_sd_txe_schedule.csv,/Volumes/LORA_TXE,/Volumes/LORA_TXE/schedule.csv,32,64,False,False
+TXF,N76,firmware/first_radio_link_TX_F/first_radio_link_TX_F.ino,R35,2500,traces/run035_sd_txf_schedule.csv,/Volumes/LORA_TXF,/Volumes/LORA_TXF/schedule.csv,16,64,False,False
+TXG,N91,firmware/first_radio_link_TX_G/first_radio_link_TX_G.ino,R35,9450,traces/run035_sd_txg_schedule.csv,/Volumes/LORA_TXG,/Volumes/LORA_TXG/schedule.csv,8,64,False,False
+TXH,N106,firmware/first_radio_link_TX_H/first_radio_link_TX_H.ino,R35,100,traces/run035_sd_txh_schedule.csv,/Volumes/LORA_TXH,/Volumes/LORA_TXH/schedule.csv,4,64,False,False
+TXI,N121,firmware/first_radio_link_TX_I/first_radio_link_TX_I.ino,R35,5850,traces/run035_sd_txi_schedule.csv,/Volumes/LORA_TXI,/Volumes/LORA_TXI/schedule.csv,16,64,False,False
+TXJ,N136,firmware/first_radio_link_TX_J/first_radio_link_TX_J.ino,R35,10650,traces/run035_sd_txj_schedule.csv,/Volumes/LORA_TXJ,/Volumes/LORA_TXJ/schedule.csv,8,64,False,False
+TXK,N151,firmware/first_radio_link_TX_K/first_radio_link_TX_K.ino,R35,14950,traces/run035_sd_txk_schedule.csv,/Volumes/LORA_TXK,/Volumes/LORA_TXK/schedule.csv,32,64,True,True
+TXL,N166,firmware/first_radio_link_TX_L/first_radio_link_TX_L.ino,R35,12950,traces/run035_sd_txl_schedule.csv,/Volumes/LORA_TXL,/Volumes/LORA_TXL/schedule.csv,4,64,True,True
