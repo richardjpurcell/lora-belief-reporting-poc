@@ -21,7 +21,7 @@
 // North America / Canada ISM band
 #define LORA_BAND 915E6
 
-const char* RUN_ID = "R33";
+const char* RUN_ID = "R34";
 const char* TX_ID = "TXF";
 const char* NODE_ID = "N76";
 
