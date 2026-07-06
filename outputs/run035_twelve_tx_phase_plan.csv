@@ -1,0 +1,13 @@
+tx_id,node_id,role,policy,threshold_family,expected_send_fraction,expected_send_rows,startup_offset_ms,startup_offset_source
+TXA,N01,fixed-all anchor,fixed_all,,1.0,64,1000,carried forward from Run 034
+TXB,N16,medium threshold scheduled skipping,usefulness_threshold,medium,0.5,32,3250,carried forward from Run 034
+TXC,N31,strict threshold scheduled skipping,usefulness_threshold,strict,0.25,16,4750,carried forward from Run 034
+TXD,N46,very-strict threshold scheduled skipping,usefulness_threshold,very_strict,0.125,8,800,carried forward from Run 034
+TXE,N61,medium threshold scheduled skipping,usefulness_threshold,medium,0.5,32,7750,carried forward from Run 034
+TXF,N76,strict threshold scheduled skipping,usefulness_threshold,strict,0.25,16,2500,carried forward from Run 034
+TXG,N91,very-strict threshold scheduled skipping,usefulness_threshold,very_strict,0.125,8,9450,carried forward from Run 034
+TXH,N106,ultra-strict threshold scheduled skipping,usefulness_threshold,ultra_strict,0.0625,4,100,carried forward from Run 034
+TXI,N121,strict threshold scheduled skipping,usefulness_threshold,strict,0.25,16,5850,carried forward from Run 034
+TXJ,N136,very-strict threshold scheduled skipping,usefulness_threshold,very_strict,0.125,8,10650,carried forward from Run 034
+TXK,N151,medium threshold scheduled skipping,usefulness_threshold,medium,0.5,32,14950,selected by Run 035 deterministic offset search
+TXL,N166,ultra-strict threshold scheduled skipping,usefulness_threshold,ultra_strict,0.0625,4,12950,selected by Run 035 deterministic offset search
