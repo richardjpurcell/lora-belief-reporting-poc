@@ -18,6 +18,7 @@ The current validated scale point is the Run 033 eight-transmitter SD-backed phy
 
 Latest completed milestone on this branch:
 
+- `v5.4-run033-eight-transmitter-synthesis`
 - `v5.3-run033-eight-transmitter-physical-replay`
 - `v5.2-run033-eight-transmitter-physical-prep`
 
@@ -40,15 +41,21 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 033 eight-transmitter phase-shifted physical replay
+## Latest result: Run 033 eight-transmitter synthesis
 
-Run 033 extends the validated physical replay ladder from six transmitters to eight transmitters.
+Run 033 extended the validated physical replay ladder from six transmitters to eight transmitters.
 
-The first full eight-transmitter attempts exposed a startup-phase artifact: repeated exact scheduled SEND coincidences could suppress sparse scheduled transmitters in the receiver-side packet log. In particular, TXH was absent in the first two full-group attempts, and TXD was weak or absent under denser group conditions.
+The physical replay milestone showed that an eight-transmitter SD-backed scheduled replay could preserve manifest-defined scheduled SEND ratios in receiver-side packet counts, but only after deterministic startup-phase deconfliction removed repeated exact scheduled SEND coincidences.
 
-A deterministic startup-phase deconfliction was then applied while preserving the same schedules and fixed slot interval. The phase-shifted candidate removed exact same-ms scheduled SEND coincidences among scheduled transmitters.
+The synthesis milestone records the key lesson:
 
-Phase-shifted Run 033 result:
+- Run 033 is a successful eight-transmitter bridge result.
+- It is not a general LoRa scaling claim.
+- Startup phase is now part of the physical replay method.
+- Larger N-transmitter runs should not simply add transmitters without phase-aware startup planning.
+- The next recommended milestone is a phase-aware replay method freeze before attempting a larger bridge.
+
+Run 033 phase-shifted candidate result:
 
 - 1192 valid packets
 - 0 malformed packets
@@ -56,32 +63,19 @@ Phase-shifted Run 033 result:
 - observed receiver-side packet ratios close to the manifest-defined scheduled SEND ratios
 - 221/221 manifest replay validation checks passed
 
-Per-transmitter received packet counts:
+Synthesis note:
 
-| TX | Node | Received packets | Scheduled SEND rows |
-| --- | --- | ---: | ---: |
-| TXA | N01 | 427 | 64/64 |
-| TXB | N16 | 214 | 32/64 |
-| TXC | N31 | 106 | 16/64 |
-| TXD | N46 | 53 | 8/64 |
-| TXE | N61 | 211 | 32/64 |
-| TXF | N76 | 102 | 16/64 |
-| TXG | N91 | 52 | 8/64 |
-| TXH | N106 | 27 | 4/64 |
+- `docs/development/run033_eight_transmitter_synthesis.md`
 
-Expected-vs-observed receiver-side ratios:
+Physical replay note:
 
-| Ratio | Observed | Expected | Difference |
-| --- | ---: | ---: | ---: |
-| TXB/TXA | 0.5012 | 0.5000 | 0.0012 |
-| TXC/TXA | 0.2482 | 0.2500 | -0.0018 |
-| TXD/TXA | 0.1241 | 0.1250 | -0.0009 |
-| TXE/TXA | 0.4941 | 0.5000 | -0.0059 |
-| TXF/TXA | 0.2389 | 0.2500 | -0.0111 |
-| TXG/TXA | 0.1218 | 0.1250 | -0.0032 |
-| TXH/TXA | 0.0632 | 0.0625 | 0.0007 |
+- `docs/development/run033_eight_transmitter_physical_replay.md`
 
-Run 033 supports the eight-transmitter bridge step, with an important caveat: startup phase is now part of the physical replay method. The result does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, or operational wildfire behavior.
+Recommended next milestone:
+
+- `v5.5-phase-aware-replay-method-freeze`
+
+Interpretation boundary: Run 033 does not establish exact transmitted-packet counts, confirmed RF collision mechanisms, synchronized latency, LoRaWAN behavior, energy savings, live-controller behavior, twelve-transmitter behavior, general arbitrary-layout eight-node behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 
