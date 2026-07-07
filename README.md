@@ -14,19 +14,24 @@ It is not a LoRaWAN system, not an operational adaptive reporting policy, not a 
 
 ## Current validated state
 
-The current validated scale point is the Run 033 eight-transmitter SD-backed physical replay with deterministic startup-phase deconfliction.
+The current branch result is the Run 035 twelve-transmitter alternate-offset physical replay candidate.
 
-Latest completed milestone on this branch:
+Run 035 demonstrates receiver-side presence for all twelve transmitters and passes the manifest-bound replay bundle validator. The result is caveated: the successful full twelve-transmitter capture used alternate TXK/TXL firmware startup offsets and therefore does not validate the original prepared TXK/TXL phase-plan offsets.
 
-- `v5.6-run034-ten-transmitter-bridge-design`
-- `v5.5-phase-aware-replay-method-freeze`
-- `v5.4-run033-eight-transmitter-synthesis`
-- `v5.3-run033-eight-transmitter-physical-replay`
-- `v5.2-run033-eight-transmitter-physical-prep`
+Current branch milestone candidate:
 
-Previous stable tag before this branch:
+- `v5.16-run035-twelve-transmitter-physical-replay`
 
-- `v4.7-run032-six-transmitter-physical-prep`
+Latest completed milestone on `main` before this branch:
+
+- `v5.15-run035-twelve-transmitter-physical-prep`
+- `v5.14-run035-twelve-transmitter-phase-plan`
+- `v5.13-run035-twelve-transmitter-schedule-prep`
+- `v5.12-run035-twelve-transmitter-cautious-bridge-design`
+
+Previous stable physical replay milestone:
+
+- `v5.11-run034-ten-transmitter-synthesis`
 
 Run 032 physical transmitter set:
 
@@ -43,87 +48,98 @@ The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
 
-## Latest result: Run 035 twelve-transmitter physical prep
+## Latest result: Run 035 twelve-transmitter alternate-offset physical replay
 
-The current milestone is the Run 035 twelve-transmitter physical-preparation milestone.
+The current milestone candidate is the Run 035 twelve-transmitter physical replay milestone.
 
-Run 035 v5.15 prepares repository-side firmware and SD-card workflow artifacts for a twelve-transmitter SD-backed scheduled physical replay.
+Run 035 produced an alternate-offset twelve-transmitter SD-backed scheduled physical replay candidate. The receiver-side parsed log contains all twelve transmitter identities and the manifest replay bundle validator passed all checks.
 
-This milestone is physical preparation only. It does not flash hardware, copy files to mounted SD cards, collect receiver logs, parse logs, validate a physical replay, or make twelve-transmitter physical replay claims.
+Physical replay note:
 
-Physical-prep note:
+- `docs/development/run035_twelve_transmitter_physical_replay.md`
 
-- `docs/development/run035_twelve_transmitter_physical_prep.md`
+Receiver artifacts:
 
-Physical-prep script:
+- `logs/rx_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv`
+- `logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv`
+- `logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate_rejects.csv`
 
-- `scripts/prepare_run035_twelve_tx_physical_prep.py`
+Manifest-bound analysis artifacts:
 
-One-card-at-a-time SD helper:
+- `outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.json`
+- `outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.csv`
+- `outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_validation.json`
 
-- `scripts/copy_run035_one_sd_schedule_to_card.sh`
+Validation summary:
 
-Physical-prep summaries:
+| Check | Value |
+|---|---:|
+| Manifest-bundle checks passed | 321 / 321 |
+| Manifest-bundle checks failed | 0 |
+| Received valid packets, summed per transmitter | 1635 |
+| Parsed reject rows | 0 |
 
-- `outputs/run035_twelve_tx_physical_prep_summary.json`
-- `outputs/run035_twelve_tx_physical_prep_summary.csv`
+Receiver-side packet counts:
 
-New transmitter firmware sketches:
-
-- `firmware/first_radio_link_TX_K/first_radio_link_TX_K.ino`
-- `firmware/first_radio_link_TX_L/first_radio_link_TX_L.ino`
-
-Firmware validation summary:
-
-| TX | Node | STARTUP_OFFSET_MS | Expected SEND rows |
+| TX | Node | Scheduled SEND rows | Received valid packets |
 | --- | --- | ---: | ---: |
-| TXA | N01 | 1000 | 64 |
-| TXB | N16 | 3250 | 32 |
-| TXC | N31 | 4750 | 16 |
-| TXD | N46 | 800 | 8 |
-| TXE | N61 | 7750 | 32 |
-| TXF | N76 | 2500 | 16 |
-| TXG | N91 | 9450 | 8 |
-| TXH | N106 | 100 | 4 |
-| TXI | N121 | 5850 | 16 |
-| TXJ | N136 | 10650 | 8 |
-| TXK | N151 | 14950 | 32 |
-| TXL | N166 | 12950 | 4 |
+| TXA | N01 | 64 | 448 |
+| TXB | N16 | 32 | 226 |
+| TXC | N31 | 16 | 111 |
+| TXD | N46 | 8 | 56 |
+| TXE | N61 | 32 | 220 |
+| TXF | N76 | 16 | 111 |
+| TXG | N91 | 8 | 55 |
+| TXH | N106 | 4 | 17 |
+| TXI | N121 | 16 | 110 |
+| TXJ | N136 | 8 | 54 |
+| TXK | N151 | 32 | 199 |
+| TXL | N166 | 4 | 28 |
 
-The next recommended milestone is:
+Physical replay caveat:
 
-- `v5.16-run035-twelve-transmitter-physical-replay`
+The original prepared TXK/TXL offsets were:
 
-That milestone should collect the receiver log, parse it, analyze it against the manifest, and decide whether the twelve-transmitter bridge succeeded or whether further diagnostic replay is needed.
+| TX | Original prepared offset |
+| --- | ---: |
+| TXK | 14950 ms |
+| TXL | 12950 ms |
 
-Interpretation boundary: Run 035 v5.15 does not establish twelve-transmitter physical replay success, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
+Those offsets did not produce received TXK/TXL packets in the full twelve-transmitter bench condition. The successful alternate capture used:
+
+| TX | Alternate physical offset |
+| --- | ---: |
+| TXK | 133 ms |
+| TXL | 271 ms |
+
+Interpretation boundary: Run 035 v5.16 should be interpreted as an alternate-offset twelve-transmitter receiver-side presence and bridge candidate. It does not establish validation of the original prepared TXK/TXL phase-plan offsets, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
 
 ## Reproducing the latest analysis
 
-The Run 032 parsed receiver log is:
+The Run 035 alternate parsed receiver log is:
 
-- `logs/parsed_run_032_six_transmitter_sd_replay.csv`
+- `logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv`
 
-The Run 032 manifest is:
+The Run 035 manifest is:
 
-- `traces/run032_reporting_reporting_schedule_manifest.json`
+- `traces/run035_reporting_reporting_schedule_manifest.json`
 
-Regenerate the Run 032 N-transmitter analysis outputs:
+Regenerate the Run 035 alternate-offset N-transmitter analysis outputs:
 
     python scripts/analyze_scheduled_replay_manifest_multi.py \
-      --manifest traces/run032_reporting_reporting_schedule_manifest.json \
-      --parsed logs/parsed_run_032_six_transmitter_sd_replay.csv \
-      --out-json outputs/run032_six_transmitter_manifest_replay_summary.json \
-      --out-csv outputs/run032_six_transmitter_manifest_replay_summary.csv
+      --manifest traces/run035_reporting_reporting_schedule_manifest.json \
+      --parsed logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv \
+      --out-json outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.json \
+      --out-csv outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.csv
 
-Validate the Run 032 replay bundle:
+Validate the Run 035 alternate-offset replay bundle:
 
     python scripts/validate_manifest_replay_bundle_multi.py \
-      --manifest traces/run032_reporting_reporting_schedule_manifest.json \
-      --summary-json outputs/run032_six_transmitter_manifest_replay_summary.json \
-      --summary-csv outputs/run032_six_transmitter_manifest_replay_summary.csv \
-      --parsed logs/parsed_run_032_six_transmitter_sd_replay.csv \
-      --out-json outputs/run032_six_transmitter_manifest_replay_validation.json
+      --manifest traces/run035_reporting_reporting_schedule_manifest.json \
+      --summary-json outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.json \
+      --summary-csv outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.csv \
+      --parsed logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv \
+      --out-json outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_validation.json
 
 Preferred tools for list-valued N-transmitter manifests:
 
