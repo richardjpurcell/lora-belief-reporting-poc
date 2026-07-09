@@ -1,0 +1,48 @@
+{
+  "milestone": "v5.17-run036-dual-receiver-design",
+  "branch": "exp085-run036-dual-receiver-design",
+  "run": "036",
+  "purpose": "Prepare a dual-receiver diagnostic for manifest-bound twelve-transmitter LoRa replay.",
+  "scientific_question": "Given the same structured twelve-transmitter replay, do two independent physical receivers observe the same report structure?",
+  "receiver_roles": {
+    "RXA_LORA32": {
+      "hardware": "original LilyGo LoRa32 receiver",
+      "sketch": "firmware/first_radio_link_RX_A_LORA32/first_radio_link_RX_A_LORA32.ino",
+      "role": "continuity with Run 035"
+    },
+    "RXB_TBEAM": {
+      "hardware": "LilyGo T-Beam receiver",
+      "sketch": "firmware/first_radio_link_RX_B_TBEAM/first_radio_link_RX_B_TBEAM.ino",
+      "role": "independent second receiver path",
+      "status": "pin mapping and operation to be verified during upload/test"
+    }
+  },
+  "legacy_receiver_preserved": "firmware/first_radio_link_RX/first_radio_link_RX.ino",
+  "packet_row_format_changed": false,
+  "packet_row_format": "RX,millis,payload,rssi,snr",
+  "receiver_identity_strategy": "Use separate log filenames and startup/banner receiver IDs; do not add receiver ID to packet rows in v5.17.",
+  "planned_raw_logs": [
+    "logs/rx_run_036_dual_receiver_rxa_lora32.csv",
+    "logs/rx_run_036_dual_receiver_rxb_tbeam.csv"
+  ],
+  "planned_observation_classes": [
+    "RXA only",
+    "RXB only",
+    "both receivers",
+    "neither receiver relative to manifest-expected SEND opportunities"
+  ],
+  "priority_metrics": [
+    "receiver-side union",
+    "receiver-side intersection",
+    "per-receiver transmitter representation",
+    "per-receiver report-class preservation",
+    "RXA/RXB observed-distribution divergence"
+  ],
+  "interpretation_boundaries": [
+    "receiver logs are observations, not ground-truth transmitted-packet counts",
+    "missing packets do not by themselves establish a physical cause",
+    "preservation metrics are descriptive, not causal",
+    "no LoRaWAN, energy, airtime optimization, synchronized latency, wildfire deployment, or arbitrary-layout generalization claims"
+  ],
+  "created": "2026-07-09"
+}
