@@ -68,3 +68,59 @@ Receiver logs are receiver-side observations, not ground-truth transmitted-packe
 RXA-only and RXB-only packet identities do not by themselves prove collision, interference, timing drift, transmitter failure, receiver failure, or any specific physical cause.
 
 The common-window comparison should be preferred for paper-facing RXA/RXB overlap claims if logger start or stop times differ.
+
+## Result Summary
+
+Run 037 repeated the Run 036 dual-receiver setup without changing the manifest, transmitter schedules, transmitter offsets, receiver roles, or packet format.
+
+Raw receiver logs:
+
+    logs/rx_run_037_dual_receiver_repeat_rxa_lora32.csv
+    logs/rx_run_037_dual_receiver_repeat_rxb_tbeam.csv
+
+Parsed receiver logs:
+
+    logs/parsed_run_037_dual_receiver_repeat_rxa_lora32.csv
+    logs/parsed_run_037_dual_receiver_repeat_rxb_tbeam.csv
+
+Manifest-bound validation:
+
+| Receiver | Manifest-bundle checks passed | Manifest-bundle checks failed |
+|---|---:|---:|
+| RXA_LORA32 | 321 / 321 | 0 |
+| RXB_TBEAM | 321 / 321 | 0 |
+
+Full-log packet identity overlap:
+
+| Metric | Value |
+|---|---:|
+| RXA unique packet identities | 1572 |
+| RXB unique packet identities | 1586 |
+| Union packet identities | 1590 |
+| Intersection packet identities | 1568 |
+| RXA-only packet identities | 4 |
+| RXB-only packet identities | 18 |
+
+Common-window packet identity overlap:
+
+| Metric | Value |
+|---|---:|
+| RXA unique packet identities | 1571 |
+| RXB unique packet identities | 1586 |
+| Union packet identities | 1589 |
+| Intersection packet identities | 1568 |
+| RXA-only packet identities | 3 |
+| RXB-only packet identities | 18 |
+
+Run 037 repeats the main Run 036 observation: two independent receivers observing the same fixed twelve-transmitter manifest replay produce high receiver-side packet-identity overlap, but not identity-level equivalence.
+
+In the common observation window, RXA and RXB shared 1568 packet identities, with 3 RXA-only and 18 RXB-only packet identities. This remains receiver-side descriptive evidence only; the result does not by itself identify a physical cause.
+
+The repeated TXK/TXA manifest-ratio deviation remains visible in both receivers:
+
+| Receiver | TXK/TXA expected ratio | TXK/TXA observed ratio | Observed minus expected |
+|---|---:|---:|---:|
+| RXA_LORA32 | 0.5000 | 0.4439 | -0.0561 |
+| RXB_TBEAM | 0.5000 | 0.4365 | -0.0635 |
+
+This supports treating TXK under-preservation as a repeated manifest-relative observation under the current bench replay configuration, not as a conclusion about a specific causal mechanism.
