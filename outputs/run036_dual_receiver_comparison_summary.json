@@ -1,0 +1,121 @@
+{
+  "run": "036",
+  "comparison": "dual_receiver_packet_identity_overlap",
+  "matching_key": [
+    "tx_id",
+    "node_id",
+    "seq"
+  ],
+  "rxa_valid_packets": 1612,
+  "rxb_valid_packets": 1629,
+  "rxa_unique_packet_identities": 1612,
+  "rxb_unique_packet_identities": 1629,
+  "union_packet_identities": 1633,
+  "intersection_packet_identities": 1608,
+  "rxa_only_packet_identities": 4,
+  "rxb_only_packet_identities": 21,
+  "observation_class_counts": {
+    "both": 1608,
+    "rxb_only": 21,
+    "rxa_only": 4
+  },
+  "per_transmitter_summary": [
+    {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "union_packet_identities": 446,
+      "both": 441,
+      "rxa_only": 0,
+      "rxb_only": 5
+    },
+    {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "union_packet_identities": 222,
+      "both": 220,
+      "rxa_only": 0,
+      "rxb_only": 2
+    },
+    {
+      "tx_id": "TXC",
+      "node_id": "N31",
+      "union_packet_identities": 110,
+      "both": 108,
+      "rxa_only": 0,
+      "rxb_only": 2
+    },
+    {
+      "tx_id": "TXD",
+      "node_id": "N46",
+      "union_packet_identities": 55,
+      "both": 55,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXE",
+      "node_id": "N61",
+      "union_packet_identities": 220,
+      "both": 215,
+      "rxa_only": 1,
+      "rxb_only": 4
+    },
+    {
+      "tx_id": "TXF",
+      "node_id": "N76",
+      "union_packet_identities": 110,
+      "both": 110,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXG",
+      "node_id": "N91",
+      "union_packet_identities": 54,
+      "both": 54,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXH",
+      "node_id": "N106",
+      "union_packet_identities": 28,
+      "both": 27,
+      "rxa_only": 0,
+      "rxb_only": 1
+    },
+    {
+      "tx_id": "TXI",
+      "node_id": "N121",
+      "union_packet_identities": 110,
+      "both": 106,
+      "rxa_only": 1,
+      "rxb_only": 3
+    },
+    {
+      "tx_id": "TXJ",
+      "node_id": "N136",
+      "union_packet_identities": 54,
+      "both": 54,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXK",
+      "node_id": "N151",
+      "union_packet_identities": 196,
+      "both": 190,
+      "rxa_only": 2,
+      "rxb_only": 4
+    },
+    {
+      "tx_id": "TXL",
+      "node_id": "N166",
+      "union_packet_identities": 28,
+      "both": 28,
+      "rxa_only": 0,
+      "rxb_only": 0
+    }
+  ],
+  "interpretation_boundary": "Packet identity overlap is receiver-side evidence only. RXA-only and RXB-only packet identities do not by themselves establish a physical cause."
+}
