@@ -153,6 +153,29 @@ The strongest manifest-ratio deviation remains TXK/TXA for both receivers:
 
 This should be interpreted as receiver-side representation relative to the manifest, not as a causal diagnosis of the physical channel.
 
+
+## Common-Window Receiver Comparison
+
+RXB logging continued slightly longer than RXA logging. To reduce start/stop truncation effects, a common-window comparison was added using only parsed packets whose `wall_time_utc` fell within the shared RXA/RXB observation interval.
+
+Common wall-time window:
+
+    start: 2026-07-09T13:16:48.437000+00:00
+    stop:  2026-07-09T13:24:09.511000+00:00
+
+Common-window packet identity result:
+
+    RXA common valid packets: 1612
+    RXB common valid packets: 1613
+    Common union packet identities: 1617
+    Common intersection packet identities: 1608
+    Common RXA-only packet identities: 4
+    Common RXB-only packet identities: 5
+
+Compared with the full-log result, the common-window result reduces RXB-only packet identities from 21 to 5. This indicates that most full-log RXB-only identities were caused by RXB continuing to log after RXA had stopped, rather than by receiver disagreement during the shared observation interval.
+
+The common-window comparison is the safer basis for paper-facing claims about RXA/RXB packet-identity overlap.
+
 ## Preliminary Interpretation
 
 Run 036 provides dual-receiver evidence for the same fixed twelve-transmitter replay.
