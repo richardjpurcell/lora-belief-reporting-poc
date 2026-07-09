@@ -1,0 +1,128 @@
+{
+  "run": "036",
+  "comparison": "dual_receiver_common_wall_time_window_packet_identity_overlap",
+  "matching_key": [
+    "tx_id",
+    "node_id",
+    "seq"
+  ],
+  "window_policy": "Use only parsed packets whose wall_time_utc falls within the shared RXA/RXB observation interval.",
+  "rxa_wall_time_start": "2026-07-09T13:16:48.437000+00:00",
+  "rxa_wall_time_stop": "2026-07-09T13:24:09.511000+00:00",
+  "rxb_wall_time_start": "2026-07-09T13:16:48.437000+00:00",
+  "rxb_wall_time_stop": "2026-07-09T13:24:14.387000+00:00",
+  "common_wall_time_start": "2026-07-09T13:16:48.437000+00:00",
+  "common_wall_time_stop": "2026-07-09T13:24:09.511000+00:00",
+  "rxa_common_valid_packets": 1612,
+  "rxb_common_valid_packets": 1613,
+  "rxa_common_unique_packet_identities": 1612,
+  "rxb_common_unique_packet_identities": 1613,
+  "common_union_packet_identities": 1617,
+  "common_intersection_packet_identities": 1608,
+  "common_rxa_only_packet_identities": 4,
+  "common_rxb_only_packet_identities": 5,
+  "observation_class_counts": {
+    "both": 1608,
+    "rxb_only": 5,
+    "rxa_only": 4
+  },
+  "per_transmitter_summary": [
+    {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "union_packet_identities": 441,
+      "both": 441,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "union_packet_identities": 220,
+      "both": 220,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXC",
+      "node_id": "N31",
+      "union_packet_identities": 109,
+      "both": 108,
+      "rxa_only": 0,
+      "rxb_only": 1
+    },
+    {
+      "tx_id": "TXD",
+      "node_id": "N46",
+      "union_packet_identities": 55,
+      "both": 55,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXE",
+      "node_id": "N61",
+      "union_packet_identities": 217,
+      "both": 215,
+      "rxa_only": 1,
+      "rxb_only": 1
+    },
+    {
+      "tx_id": "TXF",
+      "node_id": "N76",
+      "union_packet_identities": 110,
+      "both": 110,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXG",
+      "node_id": "N91",
+      "union_packet_identities": 54,
+      "both": 54,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXH",
+      "node_id": "N106",
+      "union_packet_identities": 28,
+      "both": 27,
+      "rxa_only": 0,
+      "rxb_only": 1
+    },
+    {
+      "tx_id": "TXI",
+      "node_id": "N121",
+      "union_packet_identities": 108,
+      "both": 106,
+      "rxa_only": 1,
+      "rxb_only": 1
+    },
+    {
+      "tx_id": "TXJ",
+      "node_id": "N136",
+      "union_packet_identities": 54,
+      "both": 54,
+      "rxa_only": 0,
+      "rxb_only": 0
+    },
+    {
+      "tx_id": "TXK",
+      "node_id": "N151",
+      "union_packet_identities": 193,
+      "both": 190,
+      "rxa_only": 2,
+      "rxb_only": 1
+    },
+    {
+      "tx_id": "TXL",
+      "node_id": "N166",
+      "union_packet_identities": 28,
+      "both": 28,
+      "rxa_only": 0,
+      "rxb_only": 0
+    }
+  ],
+  "interpretation_boundary": "Common-window packet identity overlap is receiver-side evidence only. The common wall-time window reduces start/stop truncation effects but does not establish physical causality."
+}
