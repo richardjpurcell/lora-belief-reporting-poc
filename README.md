@@ -24,6 +24,11 @@ Latest completed milestone:
 
 Latest completed milestones on `main` before this branch:
 
+- `v5.22-run038-dual-receiver-placement-variation`
+- `v5.21-run037-dual-receiver-repeat`
+- `v5.20-run036-common-window-analysis`
+- `v5.19-run036-dual-receiver-physical-replay`
+- `v5.19.1-run036-readme-update`
 - `v5.18-run036-dual-receiver-physical-prep`
 - `v5.17-run036-dual-receiver-design`
 - `v5.16-run035-twelve-transmitter-physical-replay`
@@ -50,6 +55,42 @@ Run 032 physical transmitter set:
 The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
+
+
+## Latest result: Run 036--038 dual-receiver synthesis
+
+The current milestone candidate is the Run 036--038 dual-receiver synthesis milestone.
+
+Synthesis note:
+
+- `docs/development/run036_038_dual_receiver_synthesis.md`
+
+The synthesis consolidates the dual-receiver physical replay results from:
+
+- Run 036: initial dual-receiver physical replay.
+- Run 036 common-window analysis: correction for unequal logger stop times.
+- Run 037: unchanged dual-receiver repeat.
+- Run 038: modest indoor placement variation.
+
+Common-window packet identity comparison:
+
+| Run | RXA unique identities | RXB unique identities | Union identities | Both receivers | RXA-only | RXB-only |
+|---|---:|---:|---:|---:|---:|---:|
+| Run 036 common-window | 1612 | 1613 | 1617 | 1608 | 4 | 5 |
+| Run 037 common-window | 1571 | 1586 | 1589 | 1568 | 3 | 18 |
+| Run 038 placement | 1522 | 1531 | 1536 | 1517 | 5 | 14 |
+
+All receiver-specific manifest replay bundles passed validation:
+
+| Run | RXA validation | RXB validation |
+|---|---:|---:|
+| Run 036 | 321 / 321 | 321 / 321 |
+| Run 037 | 321 / 321 | 321 / 321 |
+| Run 038 | 321 / 321 | 321 / 321 |
+
+Across Runs 036--038, the two receivers produced high packet-identity overlap, but not identity-level equivalence. The result supports treating receiver-side report preservation as an observed, manifest-relative property rather than assuming that a planned reporting structure is identically preserved at every receiver.
+
+Interpretation boundary: these are receiver-side observations from a small-scale manifest-bound LoRa replay testbed. They are not a causal diagnosis of collisions, interference, wall attenuation, antenna behavior, timing drift, transmitter failure, receiver failure, or any specific physical mechanism.
 
 
 ## Latest result: Run 036 dual-receiver physical replay
