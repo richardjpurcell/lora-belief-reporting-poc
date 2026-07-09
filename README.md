@@ -14,16 +14,19 @@ It is not a LoRaWAN system, not an operational adaptive reporting policy, not a 
 
 ## Current validated state
 
-The current branch result is the Run 035 twelve-transmitter alternate-offset physical replay candidate.
+The current branch result is the Run 036 dual-receiver physical replay candidate.
 
-Run 035 demonstrates receiver-side presence for all twelve transmitters and passes the manifest-bound replay bundle validator. The result is caveated: the successful full twelve-transmitter capture used alternate TXK/TXL firmware startup offsets and therefore does not validate the original prepared TXK/TXL phase-plan offsets.
+Run 036 compares two independent receiver-side observations of the same fixed twelve-transmitter manifest replay. Both receiver-specific manifest replay bundles passed validation. The result shows high receiver-side agreement, but not identity-level equivalence: RXA and RXB observed nearly the same manifest-relative packet support, with a small number of RXA-only and RXB-only packet identities.
 
-Current branch milestone candidate:
+Latest completed milestone:
 
+- `v5.19-run036-dual-receiver-physical-replay`
+
+Latest completed milestones on `main` before this branch:
+
+- `v5.18-run036-dual-receiver-physical-prep`
+- `v5.17-run036-dual-receiver-design`
 - `v5.16-run035-twelve-transmitter-physical-replay`
-
-Latest completed milestone on `main` before this branch:
-
 - `v5.15-run035-twelve-transmitter-physical-prep`
 - `v5.14-run035-twelve-transmitter-phase-plan`
 - `v5.13-run035-twelve-transmitter-schedule-prep`
@@ -47,6 +50,85 @@ Run 032 physical transmitter set:
 The physical phase order used for the Run 032 bridge candidate was:
 
 TXD -> TXA -> TXF -> TXB -> TXC -> TXE
+
+
+## Latest result: Run 036 dual-receiver physical replay
+
+The current latest completed milestone is the Run 036 dual-receiver physical replay milestone.
+
+Run 036 used the same fixed twelve-transmitter replay structure and compared two independent receiver-side logs:
+
+- RXA: LilyGo LoRa32 receiver.
+- RXB: LilyGo T-Beam receiver.
+
+Physical replay note:
+
+- `docs/development/run036_dual_receiver_physical_replay.md`
+
+Raw receiver artifacts:
+
+- `logs/rx_run_036_dual_receiver_rxa_lora32.csv`
+- `logs/rx_run_036_dual_receiver_rxb_tbeam.csv`
+
+Parsed receiver artifacts:
+
+- `logs/parsed_run_036_dual_receiver_rxa_lora32.csv`
+- `logs/parsed_run_036_dual_receiver_rxa_lora32_rejects.csv`
+- `logs/parsed_run_036_dual_receiver_rxb_tbeam.csv`
+- `logs/parsed_run_036_dual_receiver_rxb_tbeam_rejects.csv`
+
+Dual-receiver comparison artifacts:
+
+- `outputs/run036_dual_receiver_comparison_summary.csv`
+- `outputs/run036_dual_receiver_comparison_summary.json`
+
+Receiver-specific manifest-bound analysis artifacts:
+
+- `outputs/run036_dual_receiver_rxa_manifest_replay_summary.csv`
+- `outputs/run036_dual_receiver_rxa_manifest_replay_summary.json`
+- `outputs/run036_dual_receiver_rxa_manifest_replay_validation.json`
+- `outputs/run036_dual_receiver_rxb_manifest_replay_summary.csv`
+- `outputs/run036_dual_receiver_rxb_manifest_replay_summary.json`
+- `outputs/run036_dual_receiver_rxb_manifest_replay_validation.json`
+
+Validation summary:
+
+| Receiver | Manifest-bundle checks passed | Manifest-bundle checks failed | Valid packets | Parsed reject rows |
+|---|---:|---:|---:|---:|
+| RXA_LORA32 | 321 / 321 | 0 | 1612 | 1 |
+| RXB_TBEAM | 321 / 321 | 0 | 1629 | 0 |
+
+Dual-receiver packet identity overlap:
+
+| Metric | Value |
+|---|---:|
+| Matching key | `tx_id + node_id + seq` |
+| RXA unique packet identities | 1612 |
+| RXB unique packet identities | 1629 |
+| Union packet identities | 1633 |
+| Intersection packet identities | 1608 |
+| RXA-only packet identities | 4 |
+| RXB-only packet identities | 21 |
+
+Per-transmitter packet identity overlap:
+
+| TX | Node | Union | Both | RXA-only | RXB-only |
+|---|---|---:|---:|---:|---:|
+| TXA | N01 | 446 | 441 | 0 | 5 |
+| TXB | N16 | 222 | 220 | 0 | 2 |
+| TXC | N31 | 110 | 108 | 0 | 2 |
+| TXD | N46 | 55 | 55 | 0 | 0 |
+| TXE | N61 | 220 | 215 | 1 | 4 |
+| TXF | N76 | 110 | 110 | 0 | 0 |
+| TXG | N91 | 54 | 54 | 0 | 0 |
+| TXH | N106 | 28 | 27 | 0 | 1 |
+| TXI | N121 | 110 | 106 | 1 | 3 |
+| TXJ | N136 | 54 | 54 | 0 | 0 |
+| TXK | N151 | 196 | 190 | 2 | 4 |
+| TXL | N166 | 28 | 28 | 0 | 0 |
+
+Interpretation boundary: Run 036 shows high receiver-side agreement but not identity-level equivalence between two independent receivers observing the same fixed twelve-transmitter manifest replay. RXA-only and RXB-only packet identities are receiver-side evidence differences. They do not by themselves establish collision, interference, timing drift, transmitter failure, receiver failure, or any specific physical cause.
+
 
 ## Latest result: Run 035 twelve-transmitter alternate-offset physical replay
 
