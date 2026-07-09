@@ -83,6 +83,30 @@ Run 036 should prioritize:
 
 Possible later report-class groupings include transmitter identity, priority, freshness window, policy label, usefulness metadata, and manifest-defined report class.
 
+
+## Planned Analysis Scaffold
+
+Run 036 comparison should use manifest-relative packet identity as the primary matching key.
+
+The planned identity fields are:
+
+    transmitter identity
+    node identity
+    sequence number
+
+Receiver timestamp should not be used as the primary matching key because RXA and RXB are not assumed to have synchronized clocks.
+
+The planned analysis sequence is:
+
+1. Parse RXA raw log using the existing receiver parser.
+2. Parse RXB raw log using the existing receiver parser.
+3. Join each parsed receiver log back to the fixed Run 036 manifest.
+4. Build packet-identity sets for RXA and RXB.
+5. Compute RXA-only, RXB-only, intersection, union, and neither-observed SEND opportunities.
+6. Compare transmitter-level and report-class distributions for RXA, RXB, union, and intersection.
+
+This scaffold remains design-only in v5.17. It does not add physical Run 036 evidence and does not claim that the T-Beam receiver has been validated.
+
 ## Interpretation Boundaries
 
 Receiver logs are receiver-side observations, not ground-truth transmitted-packet records.

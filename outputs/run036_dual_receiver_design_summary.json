@@ -44,5 +44,20 @@
     "preservation metrics are descriptive, not causal",
     "no LoRaWAN, energy, airtime optimization, synchronized latency, wildfire deployment, or arbitrary-layout generalization claims"
   ],
-  "created": "2026-07-09"
+  "created": "2026-07-09",
+  "planned_matching_key": [
+    "transmitter identity",
+    "node identity",
+    "sequence number"
+  ],
+  "timestamp_matching_policy": "Receiver timestamp is not a primary matching key because RXA/RXB clocks are not assumed synchronized.",
+  "planned_analysis_sequence": [
+    "parse RXA raw log with existing receiver parser",
+    "parse RXB raw log with existing receiver parser",
+    "join each parsed receiver log to the fixed manifest",
+    "build RXA/RXB packet-identity sets",
+    "compute RXA-only, RXB-only, both, union, intersection, and neither-observed SEND opportunities",
+    "compare transmitter-level and report-class distributions by receiver"
+  ],
+  "v5_17_scope": "Design-only milestone; no physical Run 036 replay evidence and no T-Beam validation claim."
 }
