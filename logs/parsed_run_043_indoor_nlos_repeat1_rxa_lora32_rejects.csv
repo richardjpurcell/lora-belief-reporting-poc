@@ -1,0 +1,2 @@
+wall_time_utc,serial_port,raw_line,parse_error
+2026-07-11T14:55:36.247+00:00,/dev/cu.usbserial-576B0005451,"RX,4045835,��U�2Ï���)�y��C������&`�\1�Ӿ���	3�(Wl;�PUe������Oxq�G$s������[�0'q�_�)j�/�Ȫ9Q#�6���,-103,-12.50","expected 15 fields, got 5"
