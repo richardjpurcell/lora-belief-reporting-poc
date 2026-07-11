@@ -119,3 +119,95 @@ Receiver-specific packet identities do not by themselves establish collision, in
 RXB and RXC are both T-Beam-class receivers, but they should not be treated as calibrated identical instruments.
 
 The paper-facing interpretation remains manifest-relative and descriptive.
+
+## Results Summary
+
+Run 043 completed the first indoor residential no-line-of-sight repeat in the final three-receiver design.
+
+Condition description:
+
+    Indoor residential no-line-of-sight, approximately 30 ft separation, no direct line of sight.
+
+Raw receiver log line counts:
+
+| Receiver | Raw log lines | Approx. data rows |
+|---|---:|---:|
+| RXA_LORA32 | 1669 | 1668 |
+| RXB_TBEAM | 1648 | 1647 |
+| RXC_TBEAM | 1655 | 1654 |
+
+The three logs ended on the same final packet identity:
+
+    TXC/N31 seq 113
+
+Final observed wall-clock timestamp:
+
+    2026-07-11T14:59:34.336+00:00
+
+### Three-Receiver Packet-Identity Comparison
+
+Full-log and common-window comparison results were identical because the parsed receiver logs shared the same observation window.
+
+| Metric | Value |
+|---|---:|
+| RXA unique packet identities | 1667 |
+| RXB unique packet identities | 1647 |
+| RXC unique packet identities | 1654 |
+| Union packet identities | 1680 |
+| Observed by all three receivers | 1628 |
+| Observed by exactly two receivers | 32 |
+| Observed by exactly one receiver | 20 |
+
+Receiver-specific-only packet identities:
+
+| Receiver | Receiver-specific-only identities |
+|---|---:|
+| RXA_LORA32 | 18 |
+| RXB_TBEAM | 0 |
+| RXC_TBEAM | 2 |
+
+Exactly-two pair counts:
+
+| Receiver pair | Packet identities |
+|---|---:|
+| RXA_LORA32 + RXB_TBEAM | 8 |
+| RXA_LORA32 + RXC_TBEAM | 13 |
+| RXB_TBEAM + RXC_TBEAM | 11 |
+
+The strongest per-transmitter receiver-set difference was TXH/N106:
+
+| Transmitter | Union identities | All three | Exactly two | Exactly one |
+|---|---:|---:|---:|---:|
+| TXH/N106 | 28 | 0 | 9 | 19 |
+
+### Manifest Validation
+
+All three receiver-specific manifest replay bundles passed validation.
+
+| Receiver | Checks passed | Checks failed | Passed |
+|---|---:|---:|---|
+| RXA_LORA32 | 321 / 321 | 0 | true |
+| RXB_TBEAM | 321 / 321 | 0 | true |
+| RXC_TBEAM | 321 / 321 | 0 | true |
+
+### Manifest-Ratio Check
+
+The expected manifest TXK/TXA ratio is 0.5.
+
+Observed TXK/TXA ratios:
+
+| Receiver | Observed TXK/TXA | Observed - expected |
+|---|---:|---:|
+| RXA_LORA32 | 0.4392935982339956 | -0.0607064017660044 |
+| RXB_TBEAM | 0.4407894736842105 | -0.0592105263157895 |
+| RXC_TBEAM | 0.43736263736263736 | -0.06263736263736264 |
+
+### Interpretation
+
+Run 043 is the first final-design indoor residential no-line-of-sight repeat. The receiver-side logs remain manifest-bound and validation-clean, but receiver-set packet identity preservation differs from the close indoor bench repeats.
+
+Unlike the close bench repeats, Run 043 includes receiver-specific-only packet identities. Most of these were RXA-only, with a smaller number RXC-only and none RXB-only. This should be treated as receiver-side evidence of condition-dependent preservation structure, not as a physical explanation.
+
+TXH/N106 shows the strongest receiver-set difference in this run: none of its packet identities were observed by all three receivers, while 19 were observed by exactly one receiver. This is a descriptive result only; it does not by itself identify the cause of the receiver-specific evidence.
+
+The TXK/TXA ratio remains below the manifest expectation on all three receivers. This continues the recurring manifest-ratio distortion pattern seen in the close indoor condition.
