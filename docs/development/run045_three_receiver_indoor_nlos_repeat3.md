@@ -119,3 +119,83 @@ Receiver-specific packet identities do not by themselves establish collision, in
 RXB and RXC are both T-Beam-class receivers, but they should not be treated as calibrated identical instruments.
 
 The paper-facing interpretation remains manifest-relative and descriptive.
+
+## Results Summary
+
+Run 045 completed the third indoor residential no-line-of-sight repeat in the final three-receiver design.
+
+Condition description:
+
+    Indoor residential no-line-of-sight, approximately 30 ft separation, no direct line of sight.
+
+Raw receiver log line counts:
+
+| Receiver | Raw log lines | Approx. data rows |
+|---|---:|---:|
+| RXA_LORA32 | 1673 | 1672 |
+| RXB_TBEAM | 1638 | 1637 |
+| RXC_TBEAM | 1676 | 1675 |
+
+The three logs ended on the same final packet identity:
+
+    TXA/N01 seq 458
+
+Final observed wall-clock timestamp:
+
+    2026-07-11T15:27:38.250+00:00
+
+### Three-Receiver Packet-Identity Comparison
+
+Full-log and common-window comparison results were identical because the parsed receiver logs shared the same observation window.
+
+| Metric | Value |
+|---|---:|
+| RXA unique packet identities | 1672 |
+| RXB unique packet identities | 1636 |
+| RXC unique packet identities | 1675 |
+| Union packet identities | 1682 |
+| Observed by all three receivers | 1620 |
+| Observed by exactly two receivers | 61 |
+| Observed by exactly one receiver | 1 |
+
+Receiver-specific-only packet identities:
+
+| Receiver | Receiver-specific-only identities |
+|---|---:|
+| RXA_LORA32 | 0 |
+| RXB_TBEAM | 0 |
+| RXC_TBEAM | 1 |
+
+Exactly-two pair counts:
+
+| Receiver pair | Packet identities |
+|---|---:|
+| RXA_LORA32 + RXB_TBEAM | 7 |
+| RXA_LORA32 + RXC_TBEAM | 45 |
+| RXB_TBEAM + RXC_TBEAM | 9 |
+
+The strongest per-transmitter receiver-set difference was again TXH/N106:
+
+| Transmitter | Union identities | All three | Exactly two | Exactly one |
+|---|---:|---:|---:|---:|
+| TXH/N106 | 29 | 0 | 28 | 1 |
+
+### Manifest Validation
+
+All three receiver-specific manifest replay bundles passed validation.
+
+| Receiver | Checks passed | Checks failed | Passed |
+|---|---:|---:|---|
+| RXA_LORA32 | 321 / 321 | 0 | true |
+| RXB_TBEAM | 321 / 321 | 0 | true |
+| RXC_TBEAM | 321 / 321 | 0 | true |
+
+### Interpretation
+
+Run 045 is the third final-design indoor residential no-line-of-sight repeat. It remains manifest-bound and validation-clean while again showing receiver-set packet identity differences.
+
+Exactly-one packet identities are still present in this repeat, but at a much lower count than Runs 043 and 044. The single receiver-specific-only identity was RXC-only.
+
+TXH/N106 again shows the strongest receiver-set difference: none of its packet identities were observed by all three receivers. Across Runs 043, 044, and 045, this gives a repeated indoor NLOS pattern: TXH/N106 appears in the receiver-side evidence, but not as all-three preserved packet identities.
+
+This remains a descriptive receiver-side result. It should not be interpreted as identifying a physical cause without additional measurement.
