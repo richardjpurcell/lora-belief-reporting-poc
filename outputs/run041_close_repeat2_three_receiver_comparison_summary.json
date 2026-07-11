@@ -1,0 +1,139 @@
+{
+  "run": "041",
+  "condition": "close_indoor_bench",
+  "repeat": 2,
+  "comparison": "three_receiver_packet_identity_overlap",
+  "matching_key": [
+    "tx_id",
+    "node_id",
+    "seq"
+  ],
+  "window_policy": "Full parsed logs.",
+  "valid_packets_in_comparison": {
+    "RXA_LORA32": 1606,
+    "RXB_TBEAM": 1622,
+    "RXC_TBEAM": 1617
+  },
+  "unique_packet_identities": {
+    "RXA_LORA32": 1606,
+    "RXB_TBEAM": 1622,
+    "RXC_TBEAM": 1617
+  },
+  "union_packet_identities": 1628,
+  "all_three_packet_identities": 1589,
+  "exactly_two_packet_identities": 39,
+  "exactly_one_packet_identities": 0,
+  "receiver_specific_only_packet_identities": {
+    "RXA_LORA32": 0,
+    "RXB_TBEAM": 0,
+    "RXC_TBEAM": 0
+  },
+  "exactly_two_pair_counts": {
+    "RXA_LORA32+RXB_TBEAM": 11,
+    "RXA_LORA32+RXC_TBEAM": 6,
+    "RXB_TBEAM+RXC_TBEAM": 22
+  },
+  "observation_class_counts": {
+    "all_three": 1589,
+    "exactly_two": 39
+  },
+  "per_transmitter_summary": [
+    {
+      "tx_id": "TXA",
+      "node_id": "N01",
+      "union_packet_identities": 444,
+      "all_three": 442,
+      "exactly_two": 2,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXB",
+      "node_id": "N16",
+      "union_packet_identities": 221,
+      "all_three": 218,
+      "exactly_two": 3,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXC",
+      "node_id": "N31",
+      "union_packet_identities": 110,
+      "all_three": 108,
+      "exactly_two": 2,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXD",
+      "node_id": "N46",
+      "union_packet_identities": 55,
+      "all_three": 55,
+      "exactly_two": 0,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXE",
+      "node_id": "N61",
+      "union_packet_identities": 219,
+      "all_three": 215,
+      "exactly_two": 4,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXF",
+      "node_id": "N76",
+      "union_packet_identities": 110,
+      "all_three": 105,
+      "exactly_two": 5,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXG",
+      "node_id": "N91",
+      "union_packet_identities": 54,
+      "all_three": 53,
+      "exactly_two": 1,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXH",
+      "node_id": "N106",
+      "union_packet_identities": 28,
+      "all_three": 18,
+      "exactly_two": 10,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXI",
+      "node_id": "N121",
+      "union_packet_identities": 110,
+      "all_three": 108,
+      "exactly_two": 2,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXJ",
+      "node_id": "N136",
+      "union_packet_identities": 54,
+      "all_three": 53,
+      "exactly_two": 1,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXK",
+      "node_id": "N151",
+      "union_packet_identities": 195,
+      "all_three": 190,
+      "exactly_two": 5,
+      "exactly_one": 0
+    },
+    {
+      "tx_id": "TXL",
+      "node_id": "N166",
+      "union_packet_identities": 28,
+      "all_three": 24,
+      "exactly_two": 4,
+      "exactly_one": 0
+    }
+  ],
+  "interpretation_boundary": "Three-receiver packet identity overlap is receiver-side evidence only. Receiver-specific packet identities do not by themselves establish a physical cause."
+}
