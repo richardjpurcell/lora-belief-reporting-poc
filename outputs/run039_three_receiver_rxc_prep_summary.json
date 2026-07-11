@@ -1,0 +1,33 @@
+{
+  "milestone": "v5.25-three-receiver-rxc-prep",
+  "purpose": "Prepare RXC as the third receiver for final three-receiver manifest-bound replay experiments.",
+  "receiver_set": [
+    {
+      "receiver_id": "RXA_LORA32",
+      "board_role": "LilyGo LoRa32 receiver",
+      "sketch": "firmware/first_radio_link_RX_A_LORA32/first_radio_link_RX_A_LORA32.ino"
+    },
+    {
+      "receiver_id": "RXB_TBEAM",
+      "board_role": "LilyGo T-Beam receiver",
+      "sketch": "firmware/first_radio_link_RX_B_TBEAM/first_radio_link_RX_B_TBEAM.ino"
+    },
+    {
+      "receiver_id": "RXC_TBEAM",
+      "board_role": "LilyGo T-Beam receiver",
+      "sketch": "firmware/first_radio_link_RX_C_TBEAM/first_radio_link_RX_C_TBEAM.ino"
+    }
+  ],
+  "expected_rxc_banner": "=== RXC_TBEAM: LilyGO T-Beam receiver ===",
+  "packet_row_format": "RX,millis,payload,rssi,snr",
+  "compatibility": [
+    "Receiver logger remains compatible because packet rows are unchanged.",
+    "Parser remains compatible because payload format is unchanged.",
+    "RXC identity is represented by the sketch banner and raw log filename, not by changing the packet row."
+  ],
+  "interpretation_boundary": [
+    "RXC adds a third receiver-side observation stream.",
+    "RXB and RXC are not calibrated identical instruments.",
+    "Receiver-specific packet identities are descriptive receiver-side evidence only."
+  ]
+}
