@@ -119,3 +119,93 @@ Receiver-specific packet identities do not by themselves establish collision, in
 RXB and RXC are both T-Beam-class receivers, but they should not be treated as calibrated identical instruments.
 
 The paper-facing interpretation remains manifest-relative and descriptive.
+
+## Results Summary
+
+Run 041 completed the second close indoor bench repeat in the final three-receiver design.
+
+Raw receiver log line counts:
+
+| Receiver | Raw log lines | Approx. data rows |
+|---|---:|---:|
+| RXA_LORA32 | 1608 | 1607 |
+| RXB_TBEAM | 1623 | 1622 |
+| RXC_TBEAM | 1618 | 1617 |
+
+The three logs ended on the same final packet identity:
+
+    TXK/N151 seq 222
+
+Final observed wall-clock timestamp:
+
+    2026-07-11T14:24:14.099+00:00
+
+### Parse Results
+
+| Receiver | Valid packets | Malformed packets |
+|---|---:|---:|
+| RXA_LORA32 | 1606 | 1 |
+| RXB_TBEAM | 1622 | 0 |
+| RXC_TBEAM | 1617 | 0 |
+
+RXA had one malformed row. RXB and RXC had no malformed packet rows.
+
+### Manifest Validation
+
+All three receiver-specific manifest replay bundles passed validation.
+
+| Receiver | Checks passed | Checks failed | Passed |
+|---|---:|---:|---|
+| RXA_LORA32 | 321 / 321 | 0 | true |
+| RXB_TBEAM | 321 / 321 | 0 | true |
+| RXC_TBEAM | 321 / 321 | 0 | true |
+
+### Manifest-Ratio Check
+
+The expected manifest TXK/TXA ratio is 0.5.
+
+Observed TXK/TXA ratios:
+
+| Receiver | Observed TXK/TXA | Observed - expected |
+|---|---:|---:|
+| RXA_LORA32 | 0.4356659142212190 | -0.0643340857787810 |
+| RXB_TBEAM | 0.43243243243243246 | -0.06756756756756754 |
+| RXC_TBEAM | 0.4401805869074492 | -0.0598194130925508 |
+
+### Interpretation
+
+Run 041 repeats the main Run 040 pattern: the receiver-side logs remain manifest-bound and validation-clean, but the observed receiver evidence is not identical across receivers.
+
+The TXK/TXA ratio remains below the manifest expectation on all three receivers. This reinforces the usefulness of TXK/TXA as a compact manifest-ratio diagnostic while keeping the interpretation descriptive rather than causal.
+
+The single RXA malformed row should be reported as a parser-level observation, not as a physical explanation.
+
+### Three-Receiver Packet-Identity Comparison
+
+Full-log and common-window comparison results were identical because the parsed receiver logs shared the same observation window.
+
+| Metric | Value |
+|---|---:|
+| RXA unique packet identities | 1606 |
+| RXB unique packet identities | 1622 |
+| RXC unique packet identities | 1617 |
+| Union packet identities | 1628 |
+| Observed by all three receivers | 1589 |
+| Observed by exactly two receivers | 39 |
+| Observed by exactly one receiver | 0 |
+
+Receiver-specific-only packet identities:
+
+| Receiver | Receiver-specific-only identities |
+|---|---:|
+| RXA_LORA32 | 0 |
+| RXB_TBEAM | 0 |
+| RXC_TBEAM | 0 |
+
+Exactly-two pair counts:
+
+| Receiver pair | Packet identities |
+|---|---:|
+| RXA_LORA32 + RXB_TBEAM | 11 |
+| RXA_LORA32 + RXC_TBEAM | 6 |
+| RXB_TBEAM + RXC_TBEAM | 22 |
