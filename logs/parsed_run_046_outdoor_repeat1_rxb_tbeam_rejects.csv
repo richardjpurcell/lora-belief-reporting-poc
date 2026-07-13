@@ -1,0 +1,3 @@
+wall_time_utc,serial_port,raw_line,parse_error
+2026-07-13T13:27:22.071+00:00,/dev/cu.usbserial-58870137921,"RX,413243,WT�nHau�R�\���1��<�I-��j�.Y��_�iWC^��s��,-111,-10.50","expected 15 fields, got 5"
+2026-07-13T13:28:35.936+00:00,/dev/cu.usbserial-58870137921,"RX,487108,9�/��.s�^�/44-�m�#�#�)~����O-<A$�N�}CB(�l.TAD,-112,-11.75","expected 15 fields, got 5"
