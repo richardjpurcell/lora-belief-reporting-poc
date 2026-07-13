@@ -1,275 +1,213 @@
 # LoRa Belief-Reporting Proof of Concept
 
-This repository contains a small-scale ESP32/LilyGO LoRa proof of concept for studying delivery-versus-usefulness reporting under constrained point-to-point LoRa airtime.
+This repository contains a small-scale ESP32/LilyGO LoRa proof of concept for studying **receiver-side report preservation** under constrained point-to-point LoRa replay.
 
-Synthetic sensing packets carry communication metadata and belief/usefulness metadata. A physical LoRa receiver supplies real receiver-side delivery outcomes, including packet counts, RSSI, SNR, receiver inter-arrival timing, and sequence-gap behaviour.
+Synthetic sensing packets carry communication metadata and belief/usefulness metadata. Physical LoRa receivers provide receiver-side evidence: packet identities, packet counts, RSSI, SNR, receiver inter-arrival timing, sequence gaps, and manifest-relative preservation or distortion of the planned replay structure.
 
 The central research motivation is:
 
 > information delivery is not the same as information usefulness.
 
-This is a laboratory proof of concept for logging, parsing, and analyzing physical delivery outcomes together with synthetic usefulness metadata.
+The current focus of the repository is a **manifest-bound physical LoRa replay testbed**. A replay manifest specifies the intended transmitter identities, reporting schedules, SEND/SKIP structure, and synthetic metadata. Receiver logs are then parsed and compared against that manifest.
 
-It is not a LoRaWAN system, not an operational adaptive reporting policy, not a live belief-maintenance controller, and not an operational wildfire system.
+This is a laboratory proof of concept. It is not a LoRaWAN system, not an operational adaptive reporting policy, not a live belief-maintenance controller, and not an operational wildfire system.
 
 ## Current validated state
 
-The current branch result is the Run 036 dual-receiver physical replay candidate.
+Current latest milestone on `main`:
 
-Run 036 compares two independent receiver-side observations of the same fixed twelve-transmitter manifest replay. Both receiver-specific manifest replay bundles passed validation. The result shows high receiver-side agreement, but not identity-level equivalence: RXA and RXB observed nearly the same manifest-relative packet support, with a small number of RXA-only and RXB-only packet identities.
+- `v5.34-three-receiver-final-condition-synthesis`
 
-Latest completed milestone:
+This milestone synthesizes the final three-receiver physical replay experiment across three physical conditions:
 
-- `v5.19-run036-dual-receiver-physical-replay`
+| Condition | Runs | Description |
+|---|---|---|
+| A | 040--042 | Close indoor bench |
+| B | 043--045 | Indoor residential no-line-of-sight, approximately 30 ft |
+| C | 046--048 | Outdoor residential/treed path, approximately 300--500 m, possible line of sight |
 
-Latest completed milestones on `main` before this branch:
+The synthesis note is:
 
-- `v5.22-run038-dual-receiver-placement-variation`
-- `v5.21-run037-dual-receiver-repeat`
-- `v5.20-run036-common-window-analysis`
-- `v5.19-run036-dual-receiver-physical-replay`
-- `v5.19.1-run036-readme-update`
-- `v5.18-run036-dual-receiver-physical-prep`
-- `v5.17-run036-dual-receiver-design`
-- `v5.16-run035-twelve-transmitter-physical-replay`
-- `v5.15-run035-twelve-transmitter-physical-prep`
-- `v5.14-run035-twelve-transmitter-phase-plan`
-- `v5.13-run035-twelve-transmitter-schedule-prep`
-- `v5.12-run035-twelve-transmitter-cautious-bridge-design`
+- `docs/development/run040_048_three_receiver_final_condition_synthesis.md`
 
-Previous stable physical replay milestone:
+All receiver-specific manifest replay bundles passed validation across the final-condition runs. The results show that the manifest-bound reporting structure remains visible in receiver-side evidence, but is not identically preserved across receivers or physical conditions.
 
-- `v5.11-run034-ten-transmitter-synthesis`
+## Physical setup images
 
-Run 032 physical transmitter set:
+The following images document the physical replay setup and receiver/transmitter context for the final three-receiver work.
 
-| Transmitter | Node | Role | Scheduled SEND rows | Scheduled SKIP rows | Startup offset ms |
-|---|---:|---|---:|---:|---:|
-| TXA | N01 | fixed-all anchor | 64 | 0 | 500 |
-| TXB | N16 | medium threshold scheduled skipping | 32 | 32 | 2750 |
-| TXC | N31 | strict threshold scheduled skipping | 16 | 48 | 4250 |
-| TXD | N46 | very-strict threshold scheduled skipping | 8 | 56 | 0 |
-| TXE | N61 | medium threshold scheduled skipping | 32 | 32 | 7250 |
-| TXF | N76 | strict threshold scheduled skipping | 16 | 48 | 2000 |
+<img src="figures/readme/IMG_0921.jpeg" alt="Physical LoRa replay setup image 1" width="650">
 
-The physical phase order used for the Run 032 bridge candidate was:
+<img src="figures/readme/IMG_0922.jpeg" alt="Physical LoRa replay setup image 2" width="650">
 
-TXD -> TXA -> TXF -> TXB -> TXC -> TXE
+<img src="figures/readme/IMG_0924.jpeg" alt="Physical LoRa replay setup image 3" width="650">
 
+<img src="figures/readme/IMG_0926.jpeg" alt="Physical LoRa replay setup image 4" width="650">
 
-## Latest result: Run 036--038 dual-receiver synthesis
+## Final three-receiver result
 
-The current milestone candidate is the Run 036--038 dual-receiver synthesis milestone.
+The final experiment compares three independent receiver-side observations of the same fixed twelve-transmitter manifest replay.
 
-Synthesis note:
+Receivers:
 
-- `docs/development/run036_038_dual_receiver_synthesis.md`
+| Receiver | Hardware |
+|---|---|
+| RXA | LilyGO LoRa32 |
+| RXB | LilyGO T-Beam |
+| RXC | LilyGO T-Beam |
 
-The synthesis consolidates the dual-receiver physical replay results from:
+Matching key:
 
-- Run 036: initial dual-receiver physical replay.
-- Run 036 common-window analysis: correction for unequal logger stop times.
-- Run 037: unchanged dual-receiver repeat.
-- Run 038: modest indoor placement variation.
+    tx_id, node_id, seq
 
-Common-window packet identity comparison:
+The comparison is packet-identity based. It asks whether a manifest-relative packet identity was observed by all receivers, exactly two receivers, or exactly one receiver.
 
-| Run | RXA unique identities | RXB unique identities | Union identities | Both receivers | RXA-only | RXB-only |
-|---|---:|---:|---:|---:|---:|---:|
-| Run 036 common-window | 1612 | 1613 | 1617 | 1608 | 4 | 5 |
-| Run 037 common-window | 1571 | 1586 | 1589 | 1568 | 3 | 18 |
-| Run 038 placement | 1522 | 1531 | 1536 | 1517 | 5 | 14 |
+### Common-window three-receiver summary
 
-All receiver-specific manifest replay bundles passed validation:
+| Condition | Run | RXA valid | RXB valid | RXC valid | Union | All three | Exactly two | Exactly one |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| A close indoor bench | 040 | 1744 | 1765 | 1763 | 1773 | 1728 | 43 | 2 |
+| A close indoor bench | 041 | 1606 | 1622 | 1617 | 1628 | 1589 | 39 | 0 |
+| A close indoor bench | 042 | 1650 | 1673 | 1675 | 1680 | 1638 | 42 | 0 |
+| B indoor residential NLOS | 043 | 1667 | 1647 | 1654 | 1680 | 1628 | 32 | 20 |
+| B indoor residential NLOS | 044 | 1667 | 1624 | 1655 | 1670 | 1617 | 42 | 11 |
+| B indoor residential NLOS | 045 | 1672 | 1636 | 1675 | 1682 | 1620 | 61 | 1 |
+| C outdoor residential/treed | 046 | 1403 | 1047 | 1722 | 1726 | 977 | 492 | 257 |
+| C outdoor residential/treed | 047 | 1373 | 1118 | 1629 | 1645 | 1038 | 399 | 208 |
+| C outdoor residential/treed | 048 | 1310 | 997 | 1487 | 1502 | 907 | 478 | 117 |
 
-| Run | RXA validation | RXB validation |
-|---|---:|---:|
-| Run 036 | 321 / 321 | 321 / 321 |
-| Run 037 | 321 / 321 | 321 / 321 |
-| Run 038 | 321 / 321 | 321 / 321 |
+### Receiver-specific-only packet identities
 
-Across Runs 036--038, the two receivers produced high packet-identity overlap, but not identity-level equivalence. The result supports treating receiver-side report preservation as an observed, manifest-relative property rather than assuming that a planned reporting structure is identically preserved at every receiver.
+| Condition | Run | RXA-only | RXB-only | RXC-only |
+|---|---|---:|---:|---:|
+| A close indoor bench | 040 | 0 | 0 | 2 |
+| A close indoor bench | 041 | 0 | 0 | 0 |
+| A close indoor bench | 042 | 0 | 0 | 0 |
+| B indoor residential NLOS | 043 | 18 | 0 | 2 |
+| B indoor residential NLOS | 044 | 11 | 0 | 0 |
+| B indoor residential NLOS | 045 | 0 | 0 | 1 |
+| C outdoor residential/treed | 046 | 2 | 1 | 254 |
+| C outdoor residential/treed | 047 | 5 | 6 | 197 |
+| C outdoor residential/treed | 048 | 2 | 6 | 109 |
 
-Interpretation boundary: these are receiver-side observations from a small-scale manifest-bound LoRa replay testbed. They are not a causal diagnosis of collisions, interference, wall attenuation, antenna behavior, timing drift, transmitter failure, receiver failure, or any specific physical mechanism.
+## Interpretation
 
+The final three-receiver experiment shows increasing receiver-side divergence across the three physical conditions.
 
-## Latest result: Run 036 dual-receiver physical replay
+| Condition | Runs | Exactly-one range | Main receiver-specific pattern |
+|---|---|---:|---|
+| A close indoor bench | 040--042 | 0--2 | Almost no receiver-specific-only packet identities |
+| B indoor residential NLOS | 043--045 | 1--20 | Small receiver-specific-only counts; TXH/N106 repeatedly has zero all-three identities |
+| C outdoor residential/treed | 046--048 | 117--257 | Large exactly-one counts dominated by RXC-only identities; RXB records fewer packets |
 
-The current latest completed milestone is the Run 036 dual-receiver physical replay milestone.
+The main result is not that a particular physical mechanism has been identified. The result is that receiver-side report preservation is an observed, manifest-relative property. A replay manifest can specify the intended reporting structure, but the receiver-side logs show how that structure is preserved, distorted, or unevenly visible under physical replay conditions.
 
-Run 036 used the same fixed twelve-transmitter replay structure and compared two independent receiver-side logs:
+## Manifest-bound replay
 
-- RXA: LilyGo LoRa32 receiver.
-- RXB: LilyGo T-Beam receiver.
+In this repository, **manifest-bound** means that replay execution, receiver logs, parsed evidence, analysis outputs, summaries, validation, and interpretation boundaries are tied to an explicit replay manifest.
 
-Physical replay note:
-
-- `docs/development/run036_dual_receiver_physical_replay.md`
-
-Raw receiver artifacts:
-
-- `logs/rx_run_036_dual_receiver_rxa_lora32.csv`
-- `logs/rx_run_036_dual_receiver_rxb_tbeam.csv`
-
-Parsed receiver artifacts:
-
-- `logs/parsed_run_036_dual_receiver_rxa_lora32.csv`
-- `logs/parsed_run_036_dual_receiver_rxa_lora32_rejects.csv`
-- `logs/parsed_run_036_dual_receiver_rxb_tbeam.csv`
-- `logs/parsed_run_036_dual_receiver_rxb_tbeam_rejects.csv`
-
-Dual-receiver comparison artifacts:
-
-- `outputs/run036_dual_receiver_comparison_summary.csv`
-- `outputs/run036_dual_receiver_comparison_summary.json`
-
-Receiver-specific manifest-bound analysis artifacts:
-
-- `outputs/run036_dual_receiver_rxa_manifest_replay_summary.csv`
-- `outputs/run036_dual_receiver_rxa_manifest_replay_summary.json`
-- `outputs/run036_dual_receiver_rxa_manifest_replay_validation.json`
-- `outputs/run036_dual_receiver_rxb_manifest_replay_summary.csv`
-- `outputs/run036_dual_receiver_rxb_manifest_replay_summary.json`
-- `outputs/run036_dual_receiver_rxb_manifest_replay_validation.json`
-
-Validation summary:
-
-| Receiver | Manifest-bundle checks passed | Manifest-bundle checks failed | Valid packets | Parsed reject rows |
-|---|---:|---:|---:|---:|
-| RXA_LORA32 | 321 / 321 | 0 | 1612 | 1 |
-| RXB_TBEAM | 321 / 321 | 0 | 1629 | 0 |
-
-Dual-receiver packet identity overlap:
-
-| Metric | Value |
-|---|---:|
-| Matching key | `tx_id + node_id + seq` |
-| RXA unique packet identities | 1612 |
-| RXB unique packet identities | 1629 |
-| Union packet identities | 1633 |
-| Intersection packet identities | 1608 |
-| RXA-only packet identities | 4 |
-| RXB-only packet identities | 21 |
-
-Per-transmitter packet identity overlap:
-
-| TX | Node | Union | Both | RXA-only | RXB-only |
-|---|---|---:|---:|---:|---:|
-| TXA | N01 | 446 | 441 | 0 | 5 |
-| TXB | N16 | 222 | 220 | 0 | 2 |
-| TXC | N31 | 110 | 108 | 0 | 2 |
-| TXD | N46 | 55 | 55 | 0 | 0 |
-| TXE | N61 | 220 | 215 | 1 | 4 |
-| TXF | N76 | 110 | 110 | 0 | 0 |
-| TXG | N91 | 54 | 54 | 0 | 0 |
-| TXH | N106 | 28 | 27 | 0 | 1 |
-| TXI | N121 | 110 | 106 | 1 | 3 |
-| TXJ | N136 | 54 | 54 | 0 | 0 |
-| TXK | N151 | 196 | 190 | 2 | 4 |
-| TXL | N166 | 28 | 28 | 0 | 0 |
-
-Interpretation boundary: Run 036 shows high receiver-side agreement but not identity-level equivalence between two independent receivers observing the same fixed twelve-transmitter manifest replay. RXA-only and RXB-only packet identities are receiver-side evidence differences. They do not by themselves establish collision, interference, timing drift, transmitter failure, receiver failure, or any specific physical cause.
-
-
-## Latest result: Run 035 twelve-transmitter alternate-offset physical replay
-
-The current milestone candidate is the Run 035 twelve-transmitter physical replay milestone.
-
-Run 035 produced an alternate-offset twelve-transmitter SD-backed scheduled physical replay candidate. The receiver-side parsed log contains all twelve transmitter identities and the manifest replay bundle validator passed all checks.
-
-Physical replay note:
-
-- `docs/development/run035_twelve_transmitter_physical_replay.md`
-
-Receiver artifacts:
-
-- `logs/rx_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv`
-- `logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv`
-- `logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate_rejects.csv`
-
-Manifest-bound analysis artifacts:
-
-- `outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.json`
-- `outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.csv`
-- `outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_validation.json`
-
-Validation summary:
-
-| Check | Value |
-|---|---:|
-| Manifest-bundle checks passed | 321 / 321 |
-| Manifest-bundle checks failed | 0 |
-| Received valid packets, summed per transmitter | 1635 |
-| Parsed reject rows | 0 |
-
-Receiver-side packet counts:
-
-| TX | Node | Scheduled SEND rows | Received valid packets |
-| --- | --- | ---: | ---: |
-| TXA | N01 | 64 | 448 |
-| TXB | N16 | 32 | 226 |
-| TXC | N31 | 16 | 111 |
-| TXD | N46 | 8 | 56 |
-| TXE | N61 | 32 | 220 |
-| TXF | N76 | 16 | 111 |
-| TXG | N91 | 8 | 55 |
-| TXH | N106 | 4 | 17 |
-| TXI | N121 | 16 | 110 |
-| TXJ | N136 | 8 | 54 |
-| TXK | N151 | 32 | 199 |
-| TXL | N166 | 4 | 28 |
-
-Physical replay caveat:
-
-The original prepared TXK/TXL offsets were:
-
-| TX | Original prepared offset |
-| --- | ---: |
-| TXK | 14950 ms |
-| TXL | 12950 ms |
-
-Those offsets did not produce received TXK/TXL packets in the full twelve-transmitter bench condition. The successful alternate capture used:
-
-| TX | Alternate physical offset |
-| --- | ---: |
-| TXK | 133 ms |
-| TXL | 271 ms |
-
-Interpretation boundary: Run 035 v5.16 should be interpreted as an alternate-offset twelve-transmitter receiver-side presence and bridge candidate. It does not establish validation of the original prepared TXK/TXL phase-plan offsets, exact transmitted-packet counts, confirmed RF collision mechanisms, absence of collisions, synchronized latency, LoRaWAN behavior, energy savings, airtime optimization, live-controller behavior, arbitrary-layout twelve-node behavior, or operational wildfire behavior.
-
-## Reproducing the latest analysis
-
-The Run 035 alternate parsed receiver log is:
-
-- `logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv`
-
-The Run 035 manifest is:
+The current twelve-transmitter manifest is:
 
 - `traces/run035_reporting_reporting_schedule_manifest.json`
 
-Regenerate the Run 035 alternate-offset N-transmitter analysis outputs:
+The SD-facing schedule schema is:
 
-    python scripts/analyze_scheduled_replay_manifest_multi.py \
-      --manifest traces/run035_reporting_reporting_schedule_manifest.json \
-      --parsed logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv \
-      --out-json outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.json \
-      --out-csv outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.csv
+    seq,region,event,priority,usefulness,stale_after,policy,send
 
-Validate the Run 035 alternate-offset replay bundle:
+where `send=1` means transmit and `send=0` means remain silent for that schedule slot.
 
-    python scripts/validate_manifest_replay_bundle_multi.py \
-      --manifest traces/run035_reporting_reporting_schedule_manifest.json \
-      --summary-json outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.json \
-      --summary-csv outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_summary.csv \
-      --parsed logs/parsed_run_035_twelve_transmitter_sd_replay_candidate_alternate.csv \
-      --out-json outputs/run035_twelve_transmitter_manifest_replay_candidate_alternate_validation.json
+The current replay path is:
 
-Preferred tools for list-valued N-transmitter manifests:
+1. generate analysis-facing SEND/SKIP schedule CSVs;
+2. generate all-slot SD schedule CSVs;
+3. copy `/schedule.csv` to each transmitter microSD card;
+4. transmitter firmware loads schedule rows at startup;
+5. `SEND` rows transmit LoRa packets;
+6. `SKIP` rows remain silent;
+7. receiver logs are captured;
+8. receiver logs are parsed;
+9. manifest-bound analysis compares scheduled and observed receiver-side proportions;
+10. bundle validation checks manifest, schedules, parsed logs, summaries, and interpretation-boundary metadata.
+
+SEND-only compact CSVs are not SD replay schedules because they omit skipped slots.
+
+## Key artifacts
+
+Final three-receiver synthesis:
+
+- `docs/development/run040_048_three_receiver_final_condition_synthesis.md`
+
+Condition summaries:
+
+- `docs/development/run043_045_three_receiver_indoor_nlos_summary.md`
+- `docs/development/run046_048_three_receiver_outdoor_summary.md`
+
+Representative earlier synthesis:
+
+- `docs/development/run036_038_dual_receiver_synthesis.md`
+
+Current manifest:
+
+- `traces/run035_reporting_reporting_schedule_manifest.json`
+
+Final-condition raw receiver logs:
+
+- `logs/rx_run_040_close_repeat1_rxa_lora32.csv`
+- `logs/rx_run_040_close_repeat1_rxb_tbeam.csv`
+- `logs/rx_run_040_close_repeat1_rxc_tbeam.csv`
+- `logs/rx_run_041_close_repeat2_rxa_lora32.csv`
+- `logs/rx_run_041_close_repeat2_rxb_tbeam.csv`
+- `logs/rx_run_041_close_repeat2_rxc_tbeam.csv`
+- `logs/rx_run_042_close_repeat3_rxa_lora32.csv`
+- `logs/rx_run_042_close_repeat3_rxb_tbeam.csv`
+- `logs/rx_run_042_close_repeat3_rxc_tbeam.csv`
+- `logs/rx_run_043_indoor_nlos_repeat1_rxa_lora32.csv`
+- `logs/rx_run_043_indoor_nlos_repeat1_rxb_tbeam.csv`
+- `logs/rx_run_043_indoor_nlos_repeat1_rxc_tbeam.csv`
+- `logs/rx_run_044_indoor_nlos_repeat2_rxa_lora32.csv`
+- `logs/rx_run_044_indoor_nlos_repeat2_rxb_tbeam.csv`
+- `logs/rx_run_044_indoor_nlos_repeat2_rxc_tbeam.csv`
+- `logs/rx_run_045_indoor_nlos_repeat3_rxa_lora32.csv`
+- `logs/rx_run_045_indoor_nlos_repeat3_rxb_tbeam.csv`
+- `logs/rx_run_045_indoor_nlos_repeat3_rxc_tbeam.csv`
+- `logs/rx_run_046_outdoor_repeat1_rxa_lora32.csv`
+- `logs/rx_run_046_outdoor_repeat1_rxb_tbeam.csv`
+- `logs/rx_run_046_outdoor_repeat1_rxc_tbeam.csv`
+- `logs/rx_run_047_outdoor_repeat2_rxa_lora32.csv`
+- `logs/rx_run_047_outdoor_repeat2_rxb_tbeam.csv`
+- `logs/rx_run_047_outdoor_repeat2_rxc_tbeam.csv`
+- `logs/rx_run_048_outdoor_repeat3_rxa_lora32.csv`
+- `logs/rx_run_048_outdoor_repeat3_rxb_tbeam.csv`
+- `logs/rx_run_048_outdoor_repeat3_rxc_tbeam.csv`
+
+## Reproducing the current analysis
+
+The preferred tools for N-transmitter manifest analysis are:
 
 - `scripts/analyze_scheduled_replay_manifest_multi.py`
 - `scripts/validate_manifest_replay_bundle_multi.py`
 
-Older two-transmitter tools remain available for earlier historical artifacts.
+Example for one receiver-side bundle:
+
+    python scripts/analyze_scheduled_replay_manifest_multi.py \
+      --manifest traces/run035_reporting_reporting_schedule_manifest.json \
+      --parsed logs/parsed_run_048_outdoor_repeat3_rxc_tbeam.csv \
+      --out-json outputs/run048_outdoor_repeat3_rxc_manifest_replay_summary.json \
+      --out-csv outputs/run048_outdoor_repeat3_rxc_manifest_replay_summary.csv
+
+    python scripts/validate_manifest_replay_bundle_multi.py \
+      --manifest traces/run035_reporting_reporting_schedule_manifest.json \
+      --summary-json outputs/run048_outdoor_repeat3_rxc_manifest_replay_summary.json \
+      --summary-csv outputs/run048_outdoor_repeat3_rxc_manifest_replay_summary.csv \
+      --parsed logs/parsed_run_048_outdoor_repeat3_rxc_tbeam.csv \
+      --out-json outputs/run048_outdoor_repeat3_rxc_manifest_replay_validation.json
+
+Example three-receiver comparison outputs:
+
+- `outputs/run048_outdoor_repeat3_three_receiver_comparison_summary.csv`
+- `outputs/run048_outdoor_repeat3_three_receiver_comparison_summary.json`
+- `outputs/run048_outdoor_repeat3_three_receiver_common_window_comparison_summary.csv`
+- `outputs/run048_outdoor_repeat3_three_receiver_common_window_comparison_summary.json`
 
 ## Repository structure
 
@@ -281,34 +219,12 @@ Older two-transmitter tools remain available for earlier historical artifacts.
 | `outputs/` | Analysis summaries and validation outputs |
 | `scripts/` | Python logging, parsing, schedule, analysis, and validation scripts |
 | `traces/` | Demand traces, reporting schedules, SD schedules, and manifests |
-| `figures/` | Figures for notes or papers |
+| `figures/` | Figures for notes, README images, and papers |
 | `notes/` | Scratch notes and early pitch material |
-
-## Current replay path
-
-The current SD-backed scheduled replay path is:
-
-1. full analysis-facing SEND/SKIP schedule CSV;
-2. all-slot SD schedule CSV;
-3. `/schedule.csv` on each transmitter microSD card;
-4. firmware loads schedule rows at startup;
-5. `SEND` rows transmit LoRa packets;
-6. `SKIP` rows remain silent;
-7. receiver log is parsed;
-8. manifest-bound N-transmitter analysis compares scheduled and observed receiver-side proportions;
-9. bundle validator checks manifest, schedules, parsed logs, summaries, and interpretation-boundary metadata.
-
-The SD-facing schedule schema is:
-
-`seq,region,event,priority,usefulness,stale_after,policy,send`
-
-where `send=1` means transmit and `send=0` means remain silent for that schedule slot.
-
-SEND-only compact CSVs are not SD replay schedules because they omit skipped slots.
 
 ## Scope boundaries
 
-The project currently supports bounded receiver-side replay analysis.
+The project supports bounded receiver-side replay analysis.
 
 The analysis may report:
 
@@ -318,7 +234,8 @@ The analysis may report:
 - RSSI and SNR summaries;
 - receiver inter-arrival timing;
 - synthetic delivered usefulness and priority summaries;
-- receiver-side packet proportions relative to scheduled SEND ratios.
+- receiver-side packet proportions relative to scheduled SEND ratios;
+- packet-identity overlap across receivers.
 
 The analysis does not infer:
 
@@ -328,12 +245,12 @@ The analysis does not infer:
 - LoRaWAN behavior;
 - airtime or energy optimization;
 - live-controller behavior;
-- 12-transmitter behaviour from smaller runs;
-- operational wildfire or deployment behaviour.
+- operational wildfire or deployment behaviour;
+- physical cause of receiver-specific packet identities.
 
 Missing sequence numbers should not be overinterpreted as collisions. A missing sequence means that a packet was not received or not logged within the observed sequence range. Possible causes include LoRa loss, packet overlap, receiver timing, power or USB issues, or logger-side effects.
 
-The usefulness and priority fields are synthetic metadata. They are not yet generated by a live belief-maintenance controller.
+The usefulness and priority fields are synthetic metadata. They are not generated by a live belief-maintenance controller.
 
 The setup uses point-to-point LoRa at 915 MHz. It is not a LoRaWAN system.
 
